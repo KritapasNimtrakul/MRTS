@@ -38,14 +38,14 @@ Game.addNewPlayer = function(id,x,y){
     //Game.playerMap[id] = game.add.sprite(x,y,'sprite');
 };
 
-Game.movePlayer = function(id,x,y){
+/*Game.movePlayer = function(id,x,y){
     var player = Game.playerMap[id];
     var distance = Phaser.Math.distance(player.x,player.y,x,y);
     var tween = game.add.tween(player);
     var duration = distance*10;
     tween.to({x:x,y:y}, duration);
     tween.start();
-};
+};*/
 
 Game.removePlayer = function(id){
     Game.playerMap[id].destroy();
@@ -56,7 +56,7 @@ Game.update = function(){
     
 }
 
-Game.dropHandler = function() {
+/*Game.dropHandler = function() {
     if(removeElement.length > 100){
         for(var i=0;i<removeElement.length;i++){
         //  Remove the item from the Group.
@@ -66,4 +66,4 @@ Game.dropHandler = function() {
     }
 
 
-}
+}*/
