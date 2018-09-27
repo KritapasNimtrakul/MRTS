@@ -5,11 +5,11 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jerenaux/basic-mmo-phaser.git"
+    "url": ""
   },
   "keywords": [
     "Phaser",
@@ -21,11 +21,15 @@
   "author": "Micro_RTS",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Jerenaux/basic-mmo-phaser/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/Jerenaux/basic-mmo-phaser#readme",
+  "homepage": "h",
   "dependencies": {
     "express": "^4.15.2",
     "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0"
   }
 }
