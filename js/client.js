@@ -7,30 +7,36 @@ Client.sendTest = function(){
     Client.socket.emit('test');
 };
 
+Client.spawnLane1 = function(){
+    console.log("spawn lane 1");
+    Client.socket.emit('spawn',{y:60});
+};
+
+Client.spawnLane2 = function(){
+    console.log("spawn lane 2");
+    Client.socket.emit('spawn',{y:310});
+};
+
+Client.spawnLane3 = function(){
+    console.log("spawn lane 3");
+    Client.socket.emit('spawn',{y:560});
+};
+
 Client.askNewPlayer = function(){
-    Client.socket.emit('newplayer');
+    Client.socket.emit('joinRoom');
 };
 
 Client.sendClick = function(x,y){
+    console.log("x: "+ x  +" y "+ y);
   Client.socket.emit('click',{x:x,y:y});
 };
 
 Client.socket.on('newplayer',function(data){
-    Game.addNewPlayer(data.id,data.x,data.y);
+    console.dir(data);
+    Game.addNewPlayer(data.id);
 });
-
-Client.socket.on('allplayers',function(data){
-    for(var i = 0; i < data.length; i++){
-        Game.addNewPlayer(data[i].id,data[i].x,data[i].y);
-    }
-
-    Client.socket.on('move',function(data){
-        Game.movePlayer(data.id,data.x,data.y);
-    });
-
-    Client.socket.on('remove',function(id){
-        Game.removePlayer(id);
-    });
+Client.socket.on('spawnUnit',function(data){
+    console.dir(data + "spwn1");
+    Game.addNewUnit(data.playerNum,data.x,data.y);
 });
-
 

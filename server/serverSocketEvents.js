@@ -8,14 +8,55 @@ function setupSockets(ioInstance) {
     
     // Called when user connects to server
     io.on('connection',function(socket){
-        
         // Whenever a player connects, they join room1
         socket.on('joinRoom',function(){
+            console.log("hello");
             var newPlayer = {
                 id: socket.id
             };
             
-            players.push(newPlayer);            
+            console.dir(newPlayer);
+            players.push(newPlayer);   
+            
+            console.log(players.length);
+            if(players.length < 2){
+                
+            }else{
+                io.emit('newplayer', newPlayer);
+            }
+            
+
+            
+        });
+        
+        socket.on('spawn',function(data){
+            console.log("222");
+            var newUnit = {
+                playerNum: 100,
+                x:0,
+                y: data.y
+            };
+            
+            if(players.length < 2){
+                
+            }else{
+                for(var i =0;i<players.length;i++){
+                    if(socket.id == players[i].id){
+                        newUnit.playerNum = i;
+                        if(i == 0){
+                            newUnit.x = 300;
+                        }
+                        else{
+                            newUnit.x = 1150;
+                        }
+                        io.emit('spawnUnit', newUnit);
+                    }
+                }
+
+            }
+            
+
+            
         });
         
         // Called when players disconnect
