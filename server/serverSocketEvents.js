@@ -47,7 +47,7 @@ function setupSockets(ioInstance) {
                             newUnit.x = 300;
                         }
                         else{
-                            newUnit.x = 1150;
+                            newUnit.x = 350;
                         }
                         io.emit('spawnUnit', newUnit);
                     }

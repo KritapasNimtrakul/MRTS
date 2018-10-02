@@ -1,13 +1,21 @@
 var Game = {};
-var testKey,enemyUnit,base,enemybase,unit,lane,spawnLane1Key,spawnLane2Key;
+var testKey,enemyUnit,enemybase,unit,lane,spawnLane1Key,spawnLane2Key, baseI,baseS,enemyBase;
 var removeElement, allyGroup, enemyGroup, laneGroup, baseGroup;
+
+var combatMovement ={
+    move:0,
+    attack:1,
+    
+}
 
 Game.init = function(){
     game.stage.disableVisibilityChange = true;
 };
 
 Game.preload = function() {
-    game.load.image('base','assets/sprites/base.png');
+    game.load.image('base1','assets/sprites/inven.png');
+    game.load.image('base2','assets/sprites/special.png');
+    game.load.image('enemybase','assets/sprites/base.png');
     game.load.image('enemy','assets/sprites/enemy.png');
     game.load.image('ally','assets/sprites/ally.png');
     game.load.image('lane','assets/sprites/lane.png');
@@ -28,13 +36,20 @@ Game.create = function(){
     laneGroup = game.add.group();
     baseGroup = game.add.group();
     
-    base = baseGroup.create(0, 0, 'base');
+    baseI = baseGroup.create(0, 0, 'base1');    
+    baseS = baseGroup.create(0, 0, 'base2');
 
     
     testKey.onDown.add(Client.sendTest, this);
     spawnLane1Key.onDown.add(Client.spawnLane1, this);
     spawnLane2Key.onDown.add(Client.spawnLane2, this);
     spawnLane3Key.onDown.add(Client.spawnLane3, this);
+    
+    baseI.inputEnabled = true;
+    baseI.events.onInputDown.add(listener, this);
+    baseS.inputEnabled = true;
+    baseS.events.onInputDown.add(listener, this);
+    
     Client.askNewPlayer();
 };
 
@@ -42,8 +57,12 @@ Game.getCoordinates = function(layer,pointer){
     Client.sendClick(pointer.worldX,pointer.worldY);
 };
 
+function listener () {
+    
+}
+
 Game.addNewPlayer = function(id){
-    enemybase = baseGroup.create(window.innerWidth-300, 0, 'base');
+    enemybase = baseGroup.create(window.innerWidth-300, 0, 'enemybase');
     lane = laneGroup.create(10, 20, 'lane');
     lane.scale.setTo(1, 0.8);
     this.world.bringToTop(allyGroup);
@@ -60,7 +79,7 @@ Game.addNewUnit = function(playerNum,x,y){
         unit.scale.setTo(0.25, 0.25);
     }
     else{
-        enemyUnit = enemyGroup.create(x, y, 'enemy');
+        enemyUnit = enemyGroup.create(window.innerWidth-x, y, 'enemy');
         enemyUnit.scale.setTo(0.25, 0.25);
     }
 
@@ -83,7 +102,7 @@ Game.removePlayer = function(id){
 Game.update = function(){
     for(var i= 0;i<allyGroup.length;i++){
         //console.log(allyGroup.children[i]);
-        if(allyGroup.children[i].key == 'base'){
+        if(allyGroup.children[i].key == 'base1' ||allyGroup.children[i].key == 'base2' ){
             
         }else if(allyGroup.children[i].key == 'ally'){
             allyGroup.children[i].x += 4;
@@ -91,7 +110,7 @@ Game.update = function(){
     }
     for(var i= 0;i<enemyGroup.length;i++){
         //console.log(allyGroup.children[i]);
-        if(enemyGroup.children[i].key == 'base'){
+        if(enemyGroup.children[i].key == 'enemybase'){
             
         }else if(enemyGroup.children[i].key == 'enemy'){
             enemyGroup.children[i].x -= 4;
