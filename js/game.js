@@ -107,11 +107,11 @@ Game.addNewPlayer = function(id){
 
 Game.addNewUnit = function(playerNum,x,y){
     if(playerNum == 0){
-        unit = allyGroup.create(x, y, currentSprite);
+        unit = allyGroup.create(x, y, 'butter.png');
         unit.scale.setTo(0.25, 0.25);
     }
     else{
-        enemyUnit = enemyGroup.create(window.innerWidth-x, y, currentSprite);
+        enemyUnit = enemyGroup.create(window.innerWidth-x, y, 'butter.png');
         enemyUnit.scale.setTo(0.25, 0.25);
     }
 
