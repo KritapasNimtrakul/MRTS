@@ -30,7 +30,6 @@ function setupSockets(ioInstance) {
         });
         
         socket.on('spawn',function(data){
-            console.log("222");
             var newUnit = {
                 playerNum: 100,
                 x:0,
@@ -52,6 +51,23 @@ function setupSockets(ioInstance) {
                         io.emit('spawnUnit', newUnit);
                     }
                 }
+
+            }
+            
+
+            
+        });
+        
+        socket.on('setEnemy',function(data){
+            var unitSprite = {
+                name: data.name
+            };
+            
+            if(players.length < 2){
+                
+            }else{
+                console.log(unitSprite);
+                socket.to('room1').emit('ename',unitSprite);
 
             }
             

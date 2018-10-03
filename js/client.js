@@ -16,6 +16,10 @@ Client.spawnLane2 = function(){
     console.log("spawn lane 2");
     Client.socket.emit('spawn',{y:310});
 };
+Client.setEnemySprite = function(spriteName){
+    console.log("XYZ");
+    Client.socket.emit('setEnemy',{name:spriteName});
+};
 
 Client.spawnLane3 = function(){
     console.log("spawn lane 3");
@@ -39,4 +43,9 @@ Client.socket.on('spawnUnit',function(data){
     console.dir(data + "spwn1");
     Game.addNewUnit(data.playerNum,data.x,data.y);
 });
+Client.socket.on('ename',function(data){
+    console.dir(data);
+    Game.ChangeUnit(data.name);
+});
+
 

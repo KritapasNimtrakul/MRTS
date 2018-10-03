@@ -1,5 +1,5 @@
 var Game = {};
-var testKey,enemyUnit,enemybase,unit,lane,spawnLane1Key,spawnLane2Key, baseI,baseS,enemyBase;
+var testKey,enemyUnit,enemybase,unit,lane,spawnLane1Key,spawnLane2Key, base,enemyBase, overlay,canvas,buttonSpawn,currentSprite,enemySprite;
 var removeElement, allyGroup, enemyGroup, laneGroup, baseGroup;
 
 var combatMovement ={
@@ -13,12 +13,18 @@ Game.init = function(){
 };
 
 Game.preload = function() {
-    game.load.image('base1','assets/sprites/inven.png');
-    game.load.image('base2','assets/sprites/special.png');
+    game.load.image('base','assets/sprites/base.png');
     game.load.image('enemybase','assets/sprites/base.png');
-    game.load.image('enemy','assets/sprites/enemy.png');
-    game.load.image('ally','assets/sprites/ally.png');
     game.load.image('lane','assets/sprites/lane.png');
+    
+    game.load.image('butter.png','assets/sprites/butter.png');
+    game.load.image('cold.png','assets/sprites/cold.png');
+    game.load.image('flour.png','assets/sprites/flour.png');
+    game.load.image('hot.png','assets/sprites/hot.png');
+    game.load.image('Milk.png','assets/sprites/Milk.png');
+    game.load.image('oil.png','assets/sprites/oil.png');
+    game.load.image('Sugar.png','assets/sprites/Sugar.png');
+    game.load.image('water.png','assets/sprites/water.png');
     
     game.stage.disableVisibilityChange = true;
 };
@@ -36,8 +42,10 @@ Game.create = function(){
     laneGroup = game.add.group();
     baseGroup = game.add.group();
     
-    baseI = baseGroup.create(0, 0, 'base1');    
-    baseS = baseGroup.create(0, 0, 'base2');
+    base = baseGroup.create(0, 0, 'base');
+    
+    currentSprite = "butter.png";
+    enemySprite = "butter.png";
 
     
     testKey.onDown.add(Client.sendTest, this);
@@ -45,10 +53,34 @@ Game.create = function(){
     spawnLane2Key.onDown.add(Client.spawnLane2, this);
     spawnLane3Key.onDown.add(Client.spawnLane3, this);
     
-    baseI.inputEnabled = true;
-    baseI.events.onInputDown.add(listener, this);
-    baseS.inputEnabled = true;
-    baseS.events.onInputDown.add(listener, this);
+    base.inputEnabled = true;
+    base.events.onInputDown.add(listener, this);
+    
+    overlay = document.querySelector('.b1');
+    overlay.addEventListener('click',function(e){
+        document.querySelector('.b1-overlay').style.display = "none";
+        document.querySelector('.inventory-overlay').style.display = "block";
+    });
+    
+    canvas = document.querySelector('canvas');
+    canvas.addEventListener('click',function(e){
+        document.querySelector('.b1-overlay').style.display = "block";
+        document.querySelector('.inventory-overlay').style.display = "none";
+    });
+    
+    buttonSpawn = document.querySelectorAll('.slot');
+    for(var i=0;i<buttonSpawn.length;i++){
+        buttonSpawn[i].addEventListener('click',function(e){
+        console.dir(this.value);
+        currentSprite = this.value;
+        Client.setEnemySprite(currentSprite);
+        console.log(currentSprite);
+    });
+    }
+
+    
+    
+    
     
     Client.askNewPlayer();
 };
@@ -75,15 +107,19 @@ Game.addNewPlayer = function(id){
 
 Game.addNewUnit = function(playerNum,x,y){
     if(playerNum == 0){
-        unit = allyGroup.create(x, y, 'ally');
+        unit = allyGroup.create(x, y, currentSprite);
         unit.scale.setTo(0.25, 0.25);
     }
     else{
-        enemyUnit = enemyGroup.create(window.innerWidth-x, y, 'enemy');
+        enemyUnit = enemyGroup.create(window.innerWidth-x, y, currentSprite);
         enemyUnit.scale.setTo(0.25, 0.25);
     }
 
 };
+
+Game.ChangeUnit = function(spriteName){
+    enemySprite = spriteName;
+}
 
 /*Game.movePlayer = function(id,x,y){
     var player = Game.playerMap[id];
@@ -102,18 +138,18 @@ Game.removePlayer = function(id){
 Game.update = function(){
     for(var i= 0;i<allyGroup.length;i++){
         //console.log(allyGroup.children[i]);
-        if(allyGroup.children[i].key == 'base1' ||allyGroup.children[i].key == 'base2' ){
+        if(allyGroup.children[i].key == 'base'){
             
-        }else if(allyGroup.children[i].key == 'ally'){
-            allyGroup.children[i].x += 4;
+        }else{
+            allyGroup.children[i].x += 1;
         }
     }
     for(var i= 0;i<enemyGroup.length;i++){
         //console.log(allyGroup.children[i]);
         if(enemyGroup.children[i].key == 'enemybase'){
             
-        }else if(enemyGroup.children[i].key == 'enemy'){
-            enemyGroup.children[i].x -= 4;
+        }else{
+            enemyGroup.children[i].x -= 1;
         }
     }
 }

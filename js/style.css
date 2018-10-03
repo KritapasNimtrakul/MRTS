@@ -1,0 +1,29 @@
+.js-overlay, .overlay {
+  position: absolute;
+  z-index: 1000;
+  margin-left: 12px;
+  margin-top: 36px;
+}
+.b1 {
+    display:block;
+    width: 275px;
+   height: 343px;
+    font-size: 150px;
+}
+
+.slot {
+    position: relative;
+    margin-top: 20px;
+    margin-left: 12px;
+    margin-right: 40px;
+    margin-bottom: 50px;
+    width: 100px;
+    height: 100px;
+}
+
+.img1{
+    height: 80px;
+}
+.inventory-overlay{
+    display: none;
+}
