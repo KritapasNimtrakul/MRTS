@@ -60,15 +60,26 @@ function setupSockets(ioInstance) {
         
         socket.on('setEnemy',function(data){
             var unitSprite = {
+                playerNum: 100,
                 name: data.name
             };
             
             if(players.length < 2){
                 
             }else{
-                console.log(unitSprite);
-                socket.to('room1').emit('ename',unitSprite);
+                
+                for(var i =0;i<players.length;i++){
+                    if(socket.id == players[i].id){
+                        unitSprite.playerNum = i;
 
+                        io.emit('ename',unitSprite);
+                    }
+                }
+                
+                
+               // console.log(unitSprite);
+                //socket.to('room1').emit('ename',unitSprite);
+                //io.emit('ename',unitSprite);
             }
             
 

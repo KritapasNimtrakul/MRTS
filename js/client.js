@@ -45,7 +45,10 @@ Client.socket.on('spawnUnit',function(data){
 });
 Client.socket.on('ename',function(data){
     console.dir(data);
-    Game.ChangeUnit(data.name);
+    Game.ChangeUnit(data.name,data.playerNum);
 });
 
+Client.socket.on('error', function (err) {
+    console.log(err);
+});
 

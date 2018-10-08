@@ -1,6 +1,7 @@
 var Game = {};
-var testKey,enemyUnit,enemybase,unit,lane,spawnLane1Key,spawnLane2Key, base,enemyBase, overlay,canvas,buttonSpawn,currentSprite,enemySprite;
+var testKey,enemyUnit,enemybase,unit,lane,spawnLane1Key,spawnLane2Key, base,enemyBase, overlay,canvas,buttonSpawn;
 var removeElement, allyGroup, enemyGroup, laneGroup, baseGroup;
+var playerSprite;
 
 var combatMovement ={
     move:0,
@@ -10,6 +11,7 @@ var combatMovement ={
 
 Game.init = function(){
     game.stage.disableVisibilityChange = true;
+    playerSprite = ["butter.png","cold.png"];
 };
 
 Game.preload = function() {
@@ -43,9 +45,6 @@ Game.create = function(){
     baseGroup = game.add.group();
     
     base = baseGroup.create(0, 0, 'base');
-    
-    currentSprite = "butter.png";
-    enemySprite = "butter.png";
 
     
     testKey.onDown.add(Client.sendTest, this);
@@ -72,9 +71,8 @@ Game.create = function(){
     for(var i=0;i<buttonSpawn.length;i++){
         buttonSpawn[i].addEventListener('click',function(e){
         console.dir(this.value);
-        currentSprite = this.value;
-        Client.setEnemySprite(currentSprite);
-        console.log(currentSprite);
+        //playerSprite[0] = this.value;
+        Client.setEnemySprite(this.value);
     });
     }
 
@@ -107,19 +105,20 @@ Game.addNewPlayer = function(id){
 
 Game.addNewUnit = function(playerNum,x,y){
     if(playerNum == 0){
-        unit = allyGroup.create(x, y, 'butter.png');
+        unit = allyGroup.create(x, y, playerSprite[0]);
         unit.scale.setTo(0.25, 0.25);
     }
     else{
-        enemyUnit = enemyGroup.create(window.innerWidth-x, y, 'butter.png');
+        enemyUnit = enemyGroup.create(window.innerWidth-x, y, playerSprite[1]);
         enemyUnit.scale.setTo(0.25, 0.25);
     }
 
 };
 
-Game.ChangeUnit = function(spriteName){
-    enemySprite = spriteName;
-}
+Game.ChangeUnit = function(spriteName,playerNum){
+    console.dir(playerSprite);
+    playerSprite[playerNum] = spriteName;
+};
 
 /*Game.movePlayer = function(id,x,y){
     var player = Game.playerMap[id];
