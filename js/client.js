@@ -9,12 +9,12 @@ Client.sendTest = function(){
 
 Client.spawnLane1 = function(){
     console.log("spawn lane 1");
-    Client.socket.emit('spawn',{y:60});
+    Client.socket.emit('spawn',{y:100});
 };
 
 Client.spawnLane2 = function(){
     console.log("spawn lane 2");
-    Client.socket.emit('spawn',{y:310});
+    Client.socket.emit('spawn',{y:350});
 };
 Client.setEnemySprite = function(spriteName){
     console.log("XYZ");
@@ -23,7 +23,7 @@ Client.setEnemySprite = function(spriteName){
 
 Client.spawnLane3 = function(){
     console.log("spawn lane 3");
-    Client.socket.emit('spawn',{y:560});
+    Client.socket.emit('spawn',{y:600});
 };
 
 Client.askNewPlayer = function(){

@@ -43,10 +43,10 @@ function setupSockets(ioInstance) {
                     if(socket.id == players[i].id){
                         newUnit.playerNum = i;
                         if(i == 0){
-                            newUnit.x = 300;
+                            newUnit.x = 450;
                         }
                         else{
-                            newUnit.x = 350;
+                            newUnit.x = 500;
                         }
                         io.emit('spawnUnit', newUnit);
                     }

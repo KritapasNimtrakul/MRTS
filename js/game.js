@@ -32,6 +32,10 @@ Game.preload = function() {
 };
 
 Game.create = function(){
+  
+    game.physics.startSystem(Phaser.Physics.P2JS);
+    game.physics.p2.gravity.y = 0;
+  
     Game.playerMap = {};
     testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
     spawnLane1Key = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
@@ -44,7 +48,7 @@ Game.create = function(){
     laneGroup = game.add.group();
     baseGroup = game.add.group();
     
-    base = baseGroup.create(0, 0, 'base');
+    base = baseGroup.create(187, 375, 'base');
 
     
     testKey.onDown.add(Client.sendTest, this);
@@ -54,6 +58,9 @@ Game.create = function(){
     
     base.inputEnabled = true;
     base.events.onInputDown.add(listener, this);
+  
+    game.physics.p2.enable(base);
+    base.body.static = true;
     
     overlay = document.querySelector('.b1');
     overlay.addEventListener('click',function(e){
@@ -98,19 +105,27 @@ Game.addNewPlayer = function(id){
     this.world.bringToTop(allyGroup);
     this.world.bringToTop(enemyGroup);
     this.world.bringToTop(baseGroup);
-    
-    
-
+    game.physics.add(enemyBase);
+    enemyBase.body.static = true;    
 };
 
 Game.addNewUnit = function(playerNum,x,y){
     if(playerNum == 0){
         unit = allyGroup.create(x, y, playerSprite[0]);
         unit.scale.setTo(0.25, 0.25);
+        game.physics.p2.enable(unit);
+        unit.body.data.gravityScale = 0.0;
+        unit.body.data.fixedY = true;  
+        unit.body.velocity.x = 100;
+        
     }
     else{
         enemyUnit = enemyGroup.create(window.innerWidth-x, y, playerSprite[1]);
         enemyUnit.scale.setTo(0.25, 0.25);
+        game.physics.p2.enable(enemyUnit);
+        enemyUnit.body.data.gravityScale = 0.0;
+        enemyUnit.body.data.fixedY = true;  
+        enemyUnit.body.velocity.x = -100;
     }
 
 };
@@ -119,15 +134,6 @@ Game.ChangeUnit = function(spriteName,playerNum){
     console.dir(playerSprite);
     playerSprite[playerNum] = spriteName;
 };
-
-/*Game.movePlayer = function(id,x,y){
-    var player = Game.playerMap[id];
-    var distance = Phaser.Math.distance(player.x,player.y,x,y);
-    var tween = game.add.tween(player);
-    var duration = distance*10;
-    tween.to({x:x,y:y}, duration);
-    tween.start();
-};*/
 
 Game.removePlayer = function(id){
     Game.playerMap[id].destroy();
