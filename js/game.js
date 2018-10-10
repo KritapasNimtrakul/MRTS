@@ -46,6 +46,9 @@ Game.preload = function() {
 Game.create = function(){
   
     game.physics.startSystem(Phaser.Physics.P2JS);
+  
+    game.physics.p2.setImpactEvents(true);
+  
     game.physics.p2.gravity.y = 0;
   
     Game.playerMap = {};
@@ -155,15 +158,18 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit.enableBody = true;
         player1unit.physicsBodyType = Phaser.Physics.P2JS;
         player1unit.body.data.gravityScale = 0.0;
+        player1unit.body.data.damping = 0.0;
         player1unit.body.data.fixedY = true;
         player1unit.body.data.fixedX = true;
         player1unit.body.fixedRotation = true;
-        player1unit.body.velocity.x = 10*player1unit.combat.speed;
+        player1unit.body.velocity.x = 100*player1unit.combat.speed;
         player1unit.body.velocity.y = 0;
         player1unit.body.setCollisionGroup(player1CollisionGroup);
-        player1unit.body.collides([player1CollisionGroup, player2CollisionGroup]);
+      
+      
+
+        player1unit.body.collides([player1CollisionGroup]);
         player1unit.body.collides(player2CollisionGroup, hitUnit, this);
-        console.dir(player1unit);
         
     }
     else{
@@ -189,19 +195,21 @@ Game.addNewUnit = function(playerNum,x,y){
         player2unit.enableBody = true;
         player2unit.physicsBodyType = Phaser.Physics.P2JS;
         player2unit.body.data.gravityScale = 0.0;
+        player2unit.body.data.damping = 0.0;
         player2unit.body.data.fixedY = true;  
         player2unit.body.data.fixedX = true; 
         player2unit.body.fixedRotation = true;
-        player2unit.body.velocity.x = -10*player2unit.combat.speed;
+        player2unit.body.velocity.x = -100*player2unit.combat.speed;
         player2unit.body.setCollisionGroup(player2CollisionGroup);
-        player2unit.body.collides([player1CollisionGroup, player2CollisionGroup]);
+        
+        player2unit.body.collides([player2CollisionGroup]);
         player2unit.body.collides(player1CollisionGroup, hitUnit, this);
-        console.dir(player2unit);
+        
 
     }
 
-            console.dir(player1CollisionGroup);
-            console.dir(player2CollisionGroup);
+            
+            
 };
 
 Game.ChangeUnit = function(spriteName,playerNum){
@@ -231,22 +239,25 @@ Game.update = function(){
 
 function hitUnit(body1, body2) {
     console.log("hit");
-    
-    body1.combat.decision = combatMovement.attack;
-    if(body1.combat.decision == combatMovement.attack){
-        body1.body.velocity.x = 0;
-        game.time.events.loop(1000*body1.combat.waitTime, this.damageCalculation(body1,body2), this);
+    console.dir(body1);
+    console.dir(body2);
+    console.dir(body1.sprite.combat.decision);
+
+    body1.sprite.combat.decision = combatMovement.attack;
+    if(body1.sprite.combat.decision == combatMovement.attack){
+        body1.velocity.x = 0;
+        game.time.events.loop(1000*body1.sprite.combat.waitTime, damageCalculation(body1,body2), this);
     }
 
 
 }
 
 function damageCalculation(body1,body2) {
-    body2.combat.health -= body1.combat.attackDmg;
-    console.log("curr enemy health: " + body2.combat.health);
-    if(body2.combat.health <= 0){
+    body2.sprite.combat.health -= body1.sprite.combat.attackDmg;
+    console.log("curr enemy health: " + body2.sprite.combat.health);
+    if(body2.sprite.combat.health <= 0){
         body2.kill();
-        body1.combat.decision = combatMovement.move;
-        body1.body.velocity.x = 10*body1.combat.speed;
+        body1.sprite.combat.decision = combatMovement.move;
+        body1.velocity.x = 10*body1.sprite.combat.speed;
     }
 }
