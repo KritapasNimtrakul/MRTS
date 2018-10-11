@@ -4,8 +4,6 @@ var removeElement, player1Group, player2Group, laneGroup, baseGroup;
 var playerSprite;
 let player1unit,player2unit;
 var player1CollisionGroup,player2CollisionGroup;
-var changeTimer;
-
 var combatMovement ={
     move:0,
     attack:1,
@@ -14,7 +12,7 @@ var combatMovement ={
 var combat = {
     waitTime:0.5,
     attackDmg:1,
-    health:1,
+    health:20,
     range:1,
     speed:1,
     cost: ['b'],
@@ -44,6 +42,7 @@ Game.preload = function() {
 };
 
 Game.create = function(){
+
   
     game.physics.startSystem(Phaser.Physics.P2JS);
   
@@ -140,7 +139,7 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit = player1Group.create(x, y, playerSprite[0]);
         switch(playerSprite[0]){
             case "butter.png": 
-                player1unit.combat = {...combat, health:2,speed:6 };
+                player1unit.combat = {...combat, health:6,speed:6 };
                 break;
             case "flour.png": 
                 player1unit.combat = {...combat, attack:3,speed:2 };
@@ -160,9 +159,9 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit.body.data.gravityScale = 0.0;
         player1unit.body.data.damping = 0.0;
         player1unit.body.data.fixedY = true;
-        player1unit.body.data.fixedX = true;
+        player1unit.body.data.fixedX = false;
         player1unit.body.fixedRotation = true;
-        player1unit.body.velocity.x = 100*player1unit.combat.speed;
+        player1unit.body.velocity.x = 10*player1unit.combat.speed;
         player1unit.body.velocity.y = 0;
         player1unit.body.setCollisionGroup(player1CollisionGroup);
       
@@ -189,6 +188,7 @@ Game.addNewUnit = function(playerNum,x,y){
                 break;
             
         }
+        player2unit.combat.speed *= -1;
         console.dir(player2unit);
         player2unit.scale.setTo(0.25, 0.25);
         game.physics.p2.enable(player2unit);
@@ -197,9 +197,9 @@ Game.addNewUnit = function(playerNum,x,y){
         player2unit.body.data.gravityScale = 0.0;
         player2unit.body.data.damping = 0.0;
         player2unit.body.data.fixedY = true;  
-        player2unit.body.data.fixedX = true; 
+        player2unit.body.data.fixedX = false; 
         player2unit.body.fixedRotation = true;
-        player2unit.body.velocity.x = -100*player2unit.combat.speed;
+        player2unit.body.velocity.x = 10*player2unit.combat.speed;
         player2unit.body.setCollisionGroup(player2CollisionGroup);
         
         player2unit.body.collides([player2CollisionGroup]);
@@ -245,19 +245,38 @@ function hitUnit(body1, body2) {
 
     body1.sprite.combat.decision = combatMovement.attack;
     if(body1.sprite.combat.decision == combatMovement.attack){
-        body1.velocity.x = 0;
-        game.time.events.loop(1000*body1.sprite.combat.waitTime, damageCalculation(body1,body2), this);
+        body1.data.velocity = [0,0];
+        //body1.velocity.destination = [0,0];
+        body1.static = true;
+            //  Set a TimerEvent to occur after 2 seconds
+        //timer.loop(1000*body1.sprite.combat.waitTime, damageCalculation(body1,body2), this);
+        game.time.events.add(1000*body1.sprite.combat.waitTime, damageCalculation,this,body1,body2);
     }
 
 
 }
 
 function damageCalculation(body1,body2) {
-    body2.sprite.combat.health -= body1.sprite.combat.attackDmg;
+    
     console.log("curr enemy health: " + body2.sprite.combat.health);
-    if(body2.sprite.combat.health <= 0){
-        body2.kill();
+    console.dir("fk you");
+    console.dir(body2);
+    console.dir(body1);
+    if(body2.sprite.combat.health <= 0 || !body2){
+        //body2.position = [100000,0];
+        body2.sprite.pendingDestroy = true;
+        body2.removeNextStep = true;
         body1.sprite.combat.decision = combatMovement.move;
-        body1.velocity.x = 10*body1.sprite.combat.speed;
+        body1.static = false;
+        body1.data.inertia = 0;
+        body1.data.velocity = [-10*body1.sprite.combat.speed,0];
+        
+        console.dir(body1.sprite.combat.speed);
+        return;
     }
+    body2.sprite.combat.health -= body1.sprite.combat.attackDmg;
+    if(body1.sprite.combat.health > 0){
+        game.time.events.add(1000*body1.sprite.combat.waitTime, damageCalculation,this,body1,body2);
+    }
+    
 }
