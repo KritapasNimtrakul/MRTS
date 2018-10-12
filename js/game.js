@@ -8,6 +8,16 @@ var combatMovement ={
     move:0,
     attack:1,
 }
+var resource = {
+    a:0,
+    b:0,
+    c:0,
+    d:0,
+    e:0,
+    f:0,
+    g:0,
+    h:0,
+}
 
 var combat = {
     waitTime:0.5,
@@ -68,12 +78,14 @@ Game.create = function(){
     range:1,
     speed:1,
     };
+    player1base.resource = {...resource};
     player2base = baseGroup.create(window.innerWidth-187, 375, 'player2base');
     player2base.combat = {...combat, health:10,speed:0,    waitTime:100,
     attackDmg:0,
     range:1,
     speed:1,
     };
+    player2base.resource = {...resource};
     testKey.onDown.add(Client.sendTest, this);
     spawnLane1Key.onDown.add(Client.spawnLane1, this);
     spawnLane2Key.onDown.add(Client.spawnLane2, this);
@@ -173,10 +185,7 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit.body.velocity.x = 10*player1unit.combat.speed;
         player1unit.body.velocity.y = 0;
         player1unit.body.setCollisionGroup(player1CollisionGroup);
-      
-      
 
-        player1unit.body.collides([player1CollisionGroup]);
         player1unit.body.collides(player2CollisionGroup, hitUnit, this);
         
     }
@@ -210,8 +219,7 @@ Game.addNewUnit = function(playerNum,x,y){
         player2unit.body.fixedRotation = true;
         player2unit.body.velocity.x = 10*player2unit.combat.speed;
         player2unit.body.setCollisionGroup(player2CollisionGroup);
-        
-        player2unit.body.collides([player2CollisionGroup]);
+
         player2unit.body.collides(player1CollisionGroup, hitUnit, this);
         
 
@@ -250,10 +258,13 @@ function hitUnit(body1, body2) {
     console.log("hit");
     console.dir(body1);
     console.dir(body2);
-    console.dir(body1.sprite.combat.decision);
+    for(var i = 0;i<player2group.length;i++){
+        console.log("SAFASF");
+        console.dir(player2group);
+    }
 
     body1.sprite.combat.decision = combatMovement.attack;
-    if(body1.sprite.combat.decision == combatMovement.attack){
+    if(body1.sprite.combat.decision == combatMovement.attack ){
         body1.data.velocity = [0,0];
         //body1.velocity.destination = [0,0];
         body1.static = true;
@@ -272,7 +283,6 @@ function damageCalculation(body1,body2) {
     console.dir(body2);
     console.dir(body1);
     if(body2.sprite.combat.health <= 0 || !body2){
-        //body2.position = [100000,0];
         body2.sprite.pendingDestroy = true;
         body2.removeNextStep = true;
         body1.sprite.combat.decision = combatMovement.move;
