@@ -63,8 +63,17 @@ Game.create = function(){
     baseGroup = game.add.group();
     
     player1base = baseGroup.create(187, 375, 'player1base');
+    player1base.combat = {...combat, health:10,speed:0,    waitTime:100,
+    attackDmg:0,
+    range:1,
+    speed:1,
+    };
     player2base = baseGroup.create(window.innerWidth-187, 375, 'player2base');
-    
+    player2base.combat = {...combat, health:10,speed:0,    waitTime:100,
+    attackDmg:0,
+    range:1,
+    speed:1,
+    };
     testKey.onDown.add(Client.sendTest, this);
     spawnLane1Key.onDown.add(Client.spawnLane1, this);
     spawnLane2Key.onDown.add(Client.spawnLane2, this);
@@ -259,7 +268,7 @@ function hitUnit(body1, body2) {
 function damageCalculation(body1,body2) {
     
     console.log("curr enemy health: " + body2.sprite.combat.health);
-    console.dir("fk you");
+    console.dir(":)");
     console.dir(body2);
     console.dir(body1);
     if(body2.sprite.combat.health <= 0 || !body2){
