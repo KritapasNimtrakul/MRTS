@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "nodemon": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0"
+    "babel-register": "^6.26.0",
+    "nodemon": "^1.18.4"
   }
 }

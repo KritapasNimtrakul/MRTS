@@ -11,22 +11,22 @@ var combatMovement ={
     attack:1,
 }
 var cost = {
-    butter:"1,b",
-    flour:"1,f",
-    sugar:"1,s",
-    oil:"1,o",
-    milk:"1,m",
-    water:"1,w",
-    heat:"1,h",
-    cold:"1,c",
-    cracker:"1,f,1,o",
-    bread:"1,f,1,w,1,o,1,h",
-    lavaCake:"1,h,1,b,1,s",
-    cupCake:"1,f,1,m,1,s,1,b",
-    monstrosity:"1,b,1,f,1,s,1,o,1,m,1,w,1,h,1,c",
-    iceWater:"1,w,1,c",
-    milkTea:"1,w,1,h,1,m",
-    butterMilk:"1,m,1,b,1,c",
+    butter:"1,butter",
+    flour:"1,flour",
+    sugar:"1,sugar",
+    oil:"1,oil",
+    milk:"1,milk",
+    water:"1,water",
+    heat:"1,heat",
+    cold:"1,cold",
+    cracker:"1,flour,1,oil",
+    bread:"1,flour,1,water,1,oil,1,heat",
+    lavaCake:"1,heat,1,butter,1,sugar",
+    cupCake:"1,flour,1,milk,1,sugar,1,butter",
+    monstrosity:"1,butter,1,flour,1,sugar,1,oil,1,milk,1,water,1,heat,1,cold",
+    iceWater:"1,water,1,cold",
+    milkTea:"1,water,1,heat,1,milk",
+    butterMilk:"1,milk,1,butter,1,cold",
 }
 
 var resource = {
@@ -184,71 +184,51 @@ Game.addNewPlayer = function(id){
         timer = game.time.create(false);
 
     //  Set a TimerEvent to occur after 2 seconds
-    timer.loop(2000, updateResource, this);
+    timer.loop(10000, updateResource, this);
     
     timer.start();
 
 };
 
 Game.addNewUnit = function(playerNum,x,y){
-    if(playerNum == 0){
+    
+    var costStr = cost[playerSprite[0].slice(0, -4)];
+    var tempStorage = costStr.split(",");
+    var resourceValues = {...resource};
+    //console.log(player1base.resource[key[0]]);
 
-        var xx = cost[playerSprite[0].slice(0, -4)];
-        var yy = xx.split(",");
-        
-        
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        var resourceTypes = [];
-        var resourceValues = {...resource};
-        
-        for(var i =0;i<yy.length;i++){
-            if (i % 2 == 0) {
-                resourceTypes.push(yy[i]);
-            } else {
-                resourceValues.push(yy[i]);
-            }
+    for(var i =0;i<tempStorage.length;i++){
+        if (i % 2 == 1) {
+            resourceValues[tempStorage[i]] = tempStorage[i-1];
+
+            //resourceTypes.push(tempStorage[i]);
         }
+    }
+    
+    if(playerNum == 0){
         
-        for(var i =0; i<resourceTypes.length;i++){
-            switch(resourceTypes){
-                case "b":
-                    
-                    break;
-                case "f":
-                    break;
-                case "s":
-                    break;
-                case "o":
-                    break;
-                case "m":
-                    break;
-                case "w":
-                    break;
-                case "h":
-                    break;
-                case "c":
-                    break;
-            }
+        
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+
+        for(var i =0;i<key.length;i++){
+            if(player1base.resource[key[i]] > resourceValues[key[i]] ){
+                
+            }else{
+                console.log("NO DISCOUNT, THIS IS NOT A CHARITY");
+                return;
         }
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        /////////////////////////// FK THIS //////////////////////////////////////
-        
-        
-        //if(player1base.resource[playerSprite[0]..slice(0, -4)]);
+        if(i== key.length-1 && player1base.resource[key[i]] >= resourceValues[key[i]]){
+            for(var j =0;j<key.length;j++){
+                player1base.resource[key[j]] -= resourceValues[key[j]];
+            }
+            
         player1unit = player1Group.create(x, y, playerSprite[0]);
         switch(playerSprite[0]){
             case "butter.png": 
@@ -279,9 +259,38 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit.body.setCollisionGroup(player1CollisionGroup);
 
         player1unit.body.collides(player2CollisionGroup, hitUnit, this);
+            }
+        }
+
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        
+        
+        //if(player1base.resource[playerSprite[0]..slice(0, -4)]);
+
         
     }
     else{
+        
+        for(var i =0;i<key.length;i++){
+            if(player2base.resource[key[i]] > resourceValues[key[i]] ){
+                
+            }else{
+                console.log("NO DISCOUNT, THIS IS NOT A CHARITY");
+                return;
+        }
+        if(i== key.length-1 && player2base.resource[key[i]] >= resourceValues[key[i]]){
+            for(var j =0;j<key.length;j++){
+                player2base.resource[key[j]] -= resourceValues[key[j]];
+            }
+        
         player2unit = player2group.create(window.innerWidth-x, y, playerSprite[1]);
         switch(playerSprite[1]){
             case "butter.png": 
@@ -316,10 +325,10 @@ Game.addNewUnit = function(playerNum,x,y){
         
 
     }
-
+        }
             
             
-};
+}};
 
 Game.ChangeUnit = function(spriteName,playerNum){
     console.dir(playerSprite);
