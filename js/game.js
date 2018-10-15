@@ -184,7 +184,7 @@ Game.addNewPlayer = function(id){
         timer = game.time.create(false);
 
     //  Set a TimerEvent to occur after 2 seconds
-    timer.loop(10000, updateResource, this);
+    timer.loop(1000, updateResource, this);
     
     timer.start();
 
@@ -383,7 +383,7 @@ function damageCalculation(body1,body2) {
     console.dir(":)");
     console.dir(body2);
     console.dir(body1);
-    if(body2.sprite.combat.health <= 0 || !body2){
+    if(body2.sprite.combat.health <= 0 || body1.sprite.combat.health <= 0 || body1.sprite != null || body.sprite != null){
         body2.sprite.pendingDestroy = true;
         body2.removeNextStep = true;
         body1.sprite.combat.decision = combatMovement.move;
