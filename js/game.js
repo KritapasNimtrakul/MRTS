@@ -1,22 +1,43 @@
 var Game = {};
 var testKey,player2base,lane,spawnLane1Key,spawnLane2Key, player1base, overlay,canvas,buttonSpawn;
-var removeElement, player1Group, player2Group, laneGroup, baseGroup;
+var removeElement, player1Group, player2Group, laneGroup;
 var playerSprite;
 let player1unit,player2unit;
 var player1CollisionGroup,player2CollisionGroup;
+var timer;
+var key;
 var combatMovement ={
     move:0,
     attack:1,
 }
+var cost = {
+    butter:"1,b",
+    flour:"1,f",
+    sugar:"1,s",
+    oil:"1,o",
+    milk:"1,m",
+    water:"1,w",
+    heat:"1,h",
+    cold:"1,c",
+    cracker:"1,f,1,o",
+    bread:"1,f,1,w,1,o,1,h",
+    lavaCake:"1,h,1,b,1,s",
+    cupCake:"1,f,1,m,1,s,1,b",
+    monstrosity:"1,b,1,f,1,s,1,o,1,m,1,w,1,h,1,c",
+    iceWater:"1,w,1,c",
+    milkTea:"1,w,1,h,1,m",
+    butterMilk:"1,m,1,b,1,c",
+}
+
 var resource = {
-    a:0,
-    b:0,
-    c:0,
-    d:0,
-    e:0,
-    f:0,
-    g:0,
-    h:0,
+    butter:0,
+    flour:0,
+    sugar:0,
+    oil:0,
+    milk:0,
+    water:0,
+    heat:0,
+    cold:0,
 }
 
 var combat = {
@@ -52,7 +73,8 @@ Game.preload = function() {
 };
 
 Game.create = function(){
-
+    
+    key = Object.keys(resource);
   
     game.physics.startSystem(Phaser.Physics.P2JS);
   
@@ -70,16 +92,15 @@ Game.create = function(){
     player1Group = game.add.group();
     player2group = game.add.group();
     laneGroup = game.add.group();
-    baseGroup = game.add.group();
     
-    player1base = baseGroup.create(187, 375, 'player1base');
+    player1base = player1Group.create(187, 375, 'player1base');
     player1base.combat = {...combat, health:10,speed:0,    waitTime:100,
     attackDmg:0,
     range:1,
     speed:1,
     };
     player1base.resource = {...resource};
-    player2base = baseGroup.create(window.innerWidth-187, 375, 'player2base');
+    player2base = player2group.create(window.innerWidth-187, 375, 'player2base');
     player2base.combat = {...combat, health:10,speed:0,    waitTime:100,
     attackDmg:0,
     range:1,
@@ -145,18 +166,89 @@ function listener () {
     
 }
 
+function updateResource() {
+
+    for(var i =0;i<key.length;i++){
+        player1base.resource[key[i]] += 2;
+        player2base.resource[key[i]] += 2;
+    }
+}
+
 Game.addNewPlayer = function(id){
 
     lane = laneGroup.create(10, 20, 'lane');
     lane.scale.setTo(0.7, 0.8);
     this.world.bringToTop(player1Group);
     this.world.bringToTop(player2group);
-    this.world.bringToTop(baseGroup);
+    
+        timer = game.time.create(false);
+
+    //  Set a TimerEvent to occur after 2 seconds
+    timer.loop(2000, updateResource, this);
+    
+    timer.start();
 
 };
 
 Game.addNewUnit = function(playerNum,x,y){
     if(playerNum == 0){
+
+        var xx = cost[playerSprite[0].slice(0, -4)];
+        var yy = xx.split(",");
+        
+        
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        var resourceTypes = [];
+        var resourceValues = {...resource};
+        
+        for(var i =0;i<yy.length;i++){
+            if (i % 2 == 0) {
+                resourceTypes.push(yy[i]);
+            } else {
+                resourceValues.push(yy[i]);
+            }
+        }
+        
+        for(var i =0; i<resourceTypes.length;i++){
+            switch(resourceTypes){
+                case "b":
+                    
+                    break;
+                case "f":
+                    break;
+                case "s":
+                    break;
+                case "o":
+                    break;
+                case "m":
+                    break;
+                case "w":
+                    break;
+                case "h":
+                    break;
+                case "c":
+                    break;
+            }
+        }
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        /////////////////////////// FK THIS //////////////////////////////////////
+        
+        
+        //if(player1base.resource[playerSprite[0]..slice(0, -4)]);
         player1unit = player1Group.create(x, y, playerSprite[0]);
         switch(playerSprite[0]){
             case "butter.png": 
@@ -278,7 +370,7 @@ function hitUnit(body1, body2) {
 
 function damageCalculation(body1,body2) {
     
-    console.log("curr enemy health: " + body2.sprite.combat.health);
+
     console.dir(":)");
     console.dir(body2);
     console.dir(body1);
@@ -294,6 +386,7 @@ function damageCalculation(body1,body2) {
         return;
     }
     body2.sprite.combat.health -= body1.sprite.combat.attackDmg;
+    console.log("curr enemy health: " + body2.sprite.combat.health);
     if(body1.sprite.combat.health > 0){
         game.time.events.add(1000*body1.sprite.combat.waitTime, damageCalculation,this,body1,body2);
     }
