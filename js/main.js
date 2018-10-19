@@ -158,7 +158,7 @@ var list3 = ["cracker.png","bread.png","lavaCake.png","cupCake.png"];
 var list4 = ["monstrosity.png","iceWater.png","milkTea.png","butterMilk.png"];
 var list5 = [stats.butter, stats.flour, stats.milk, stats.sugar];
 var list6 = [stats.cold, stats.hot, stats.oil, stats.water];
-var list7 = [stats.cracker, stats.bread, stats.lavaCake, stats.cupcake];
+var list7 = [stats.cracker, stats.bread, stats.lavaCake, stats.cupCake];
 var list8 = [stats.monstrosity, stats.iceWater, stats.milkTea, stats.butterMilk];
 
 var ui = document.createElement('div');
