@@ -65,7 +65,7 @@ Game.preload = function() {
     game.load.image('cold.png','assets/sprites/cold.png');
     game.load.image('flour.png','assets/sprites/flour.png');
     game.load.image('heat.png','assets/sprites/heat.png');
-    game.load.image('milk.png','assets/sprites/Milk.png');
+    game.load.image('milk.png','assets/sprites/milk.png');
     game.load.image('oil.png','assets/sprites/oil.png');
     game.load.image('sugar.png','assets/sprites/sugar.png');
     game.load.image('water.png','assets/sprites/water.png');
