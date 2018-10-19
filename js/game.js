@@ -64,10 +64,19 @@ Game.preload = function() {
     game.load.image('cold.png','assets/sprites/cold.png');
     game.load.image('flour.png','assets/sprites/flour.png');
     game.load.image('hot.png','assets/sprites/hot.png');
-    game.load.image('Milk.png','assets/sprites/Milk.png');
+    game.load.image('milk.png','assets/sprites/Milk.png');
     game.load.image('oil.png','assets/sprites/oil.png');
-    game.load.image('Sugar.png','assets/sprites/Sugar.png');
+    game.load.image('sugar.png','assets/sprites/sugar.png');
     game.load.image('water.png','assets/sprites/water.png');
+    
+    game.load.image('cracker.png','assets/sprites/cracker.png');
+    game.load.image('bread.png','assets/sprites/bread.png');
+    game.load.image('lavacake.png','assets/sprites/lavacake.png');
+    game.load.image('cupcake.png','assets/sprites/cupcake.png');
+    game.load.image('monstrosity.png','assets/sprites/monstrosity.png');
+    game.load.image('iceWater.png','assets/sprites/iceWater.png');
+    game.load.image('milkTea.png','assets/sprites/milkTea.png');
+    game.load.image('buttermilk.png','assets/sprites/buttermilk.png');
     
     game.stage.disableVisibilityChange = true;
 };
@@ -94,18 +103,10 @@ Game.create = function(){
     laneGroup = game.add.group();
     
     player1base = player1Group.create(187, 375, 'player1base');
-    player1base.combat = {...combat, health:10,speed:0,    waitTime:100,
-    attackDmg:0,
-    range:1,
-    speed:1,
-    };
+    player1base.combat = {...stats.base, decision:0  };
     player1base.resource = {...resource};
     player2base = player2group.create(window.innerWidth-187, 375, 'player2base');
-    player2base.combat = {...combat, health:10,speed:0,    waitTime:100,
-    attackDmg:0,
-    range:1,
-    speed:1,
-    };
+    player2base.combat = {...stats.base, decision:0  };
     player2base.resource = {...resource};
     testKey.onDown.add(Client.sendTest, this);
     spawnLane1Key.onDown.add(Client.spawnLane1, this);
@@ -134,12 +135,21 @@ Game.create = function(){
     overlay.addEventListener('click',function(e){
         document.querySelector('.b1-overlay').style.display = "none";
         document.querySelector('.inventory-overlay').style.display = "block";
+        document.querySelector('.special-overlay').style.display = "none";
+    });
+    
+    overlay2 = document.querySelector('.b2');
+    overlay2.addEventListener('click',function(e){
+        document.querySelector('.b1-overlay').style.display = "none";
+        document.querySelector('.inventory-overlay').style.display = "none";
+        document.querySelector('.special-overlay').style.display = "block";
     });
     
     canvas = document.querySelector('canvas');
     canvas.addEventListener('click',function(e){
         document.querySelector('.b1-overlay').style.display = "block";
         document.querySelector('.inventory-overlay').style.display = "none";
+        document.querySelector('.special-overlay').style.display = "none";
     });
     
     buttonSpawn = document.querySelectorAll('.slot');
@@ -150,11 +160,6 @@ Game.create = function(){
         Client.setEnemySprite(this.value);
     });
     }
-
-    
-    
-    
-    
     Client.askNewPlayer();
 };
 
@@ -221,14 +226,59 @@ Game.addNewUnit = function(playerNum,x,y){
             
         player1unit = player1Group.create(x, y, playerSprite[0]);
         switch(playerSprite[0]){
+                
+                
+                
+                
+                
+                
             case "butter.png": 
-                player1unit.combat = {...combat, health:6,speed:6 };
+                player1unit.combat = {...stats.butter, decision:0  };
                 break;
             case "flour.png": 
-                player1unit.combat = {...combat, attack:3,speed:2 };
+                player1unit.combat = {...stats.flour, decision:0  };
                 break;
-            case "Sugar.png": 
-                player1unit.combat = {...combat, attack:2,speed:8 };
+            case "sugar.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "oil.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "milk.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "water.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "heat.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "cold.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "cracker.png": 
+                player1unit.combat = {...stats.butter, decision:0  };
+                break;
+            case "lavaCake.png": 
+                player1unit.combat = {...stats.flour, decision:0  };
+                break;
+            case "cupCake.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "monstrosity.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "iceWater.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "milkTea.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "butterMilk.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "bread.png": 
+                player1unit.combat = {...stats.sugar, decision:0  };
                 break;
             default:
                 player1unit.combat = {...combat};

@@ -126,5 +126,12 @@ var stats = {
     "speed": 3,
     "range": 6,
     "wait": 0.5,
+  },
+  base : {
+      "att": 0,
+    "health": 100,
+    "speed": 0,
+    "range": 0,
+    "wait": 100000,
   }
 }
