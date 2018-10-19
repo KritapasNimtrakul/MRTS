@@ -51,8 +51,9 @@ var combat = {
 }
 
 Game.init = function(){
-    game.stage.disableVisibilityChange = true;
+    //game.stage.disableVisibilityChange = true;
     playerSprite = ["butter.png","cold.png"];
+  
 };
 
 Game.preload = function() {
@@ -63,7 +64,7 @@ Game.preload = function() {
     game.load.image('butter.png','assets/sprites/butter.png');
     game.load.image('cold.png','assets/sprites/cold.png');
     game.load.image('flour.png','assets/sprites/flour.png');
-    game.load.image('hot.png','assets/sprites/hot.png');
+    game.load.image('heat.png','assets/sprites/heat.png');
     game.load.image('milk.png','assets/sprites/Milk.png');
     game.load.image('oil.png','assets/sprites/oil.png');
     game.load.image('sugar.png','assets/sprites/sugar.png');
@@ -71,18 +72,18 @@ Game.preload = function() {
     
     game.load.image('cracker.png','assets/sprites/cracker.png');
     game.load.image('bread.png','assets/sprites/bread.png');
-    game.load.image('lavacake.png','assets/sprites/lavacake.png');
-    game.load.image('cupcake.png','assets/sprites/cupcake.png');
+    game.load.image('lavaCake.png','assets/sprites/lavaCake.png');
+    game.load.image('cupCake.png','assets/sprites/cupCake.png');
     game.load.image('monstrosity.png','assets/sprites/monstrosity.png');
     game.load.image('iceWater.png','assets/sprites/iceWater.png');
     game.load.image('milkTea.png','assets/sprites/milkTea.png');
-    game.load.image('buttermilk.png','assets/sprites/buttermilk.png');
+    game.load.image('butterMilk.png','assets/sprites/butterMilk.png');
     
     game.stage.disableVisibilityChange = true;
 };
 
 Game.create = function(){
-    
+  
     key = Object.keys(resource);
   
     game.physics.startSystem(Phaser.Physics.P2JS);
@@ -117,7 +118,7 @@ Game.create = function(){
     player1base.events.onInputDown.add(listener, this);
   
     game.physics.p2.enable( [ player1base, player2base ]);
-    console.dir(player1base.body);
+    
     player1base.body.static = true;
     player2base.body.static = true;
     
@@ -155,7 +156,7 @@ Game.create = function(){
     buttonSpawn = document.querySelectorAll('.slot');
     for(var i=0;i<buttonSpawn.length;i++){
         buttonSpawn[i].addEventListener('click',function(e){
-        console.dir(this.value);
+        
         //playerSprite[0] = this.value;
         Client.setEnemySprite(this.value);
     });
@@ -197,7 +198,7 @@ Game.addNewPlayer = function(id){
 
 Game.addNewUnit = function(playerNum,x,y){
     
-    var costStr = cost[playerSprite[0].slice(0, -4)];
+    var costStr = cost[playerSprite[playerNum].slice(0, -4)];
     var tempStorage = costStr.split(",");
     var resourceValues = {...resource};
     //console.log(player1base.resource[key[0]]);
@@ -226,12 +227,6 @@ Game.addNewUnit = function(playerNum,x,y){
             
         player1unit = player1Group.create(x, y, playerSprite[0]);
         switch(playerSprite[0]){
-                
-                
-                
-                
-                
-                
             case "butter.png": 
                 player1unit.combat = {...stats.butter, decision:0  };
                 break;
@@ -242,46 +237,46 @@ Game.addNewUnit = function(playerNum,x,y){
                 player1unit.combat = {...stats.sugar, decision:0  };
                 break;
             case "oil.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.oil, decision:0  };
                 break;
             case "milk.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.milk, decision:0  };
                 break;
             case "water.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.water, decision:0  };
                 break;
             case "heat.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.heat, decision:0  };
                 break;
             case "cold.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.cold, decision:0  };
                 break;
             case "cracker.png": 
-                player1unit.combat = {...stats.butter, decision:0  };
+                player1unit.combat = {...stats.cracker, decision:0  };
                 break;
             case "lavaCake.png": 
-                player1unit.combat = {...stats.flour, decision:0  };
+                player1unit.combat = {...stats.lavaCake, decision:0  };
                 break;
             case "cupCake.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.cupCake, decision:0  };
                 break;
             case "monstrosity.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.monstrosity, decision:0  };
                 break;
             case "iceWater.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.iceWater, decision:0  };
                 break;
             case "milkTea.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.milkTea, decision:0  };
                 break;
             case "butterMilk.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.butterMilk, decision:0  };
                 break;
             case "bread.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.bread, decision:0  };
                 break;
             default:
-                player1unit.combat = {...combat};
+                player2unit.combat = {...combat};
                 break;
         }
         
@@ -320,21 +315,58 @@ Game.addNewUnit = function(playerNum,x,y){
         player2unit = player2group.create(window.innerWidth-x, y, playerSprite[1]);
         switch(playerSprite[1]){
             case "butter.png": 
-                player2unit.combat = {...combat, health:2,speed:6 };
+                player2unit.combat = {...stats.butter, decision:0  };
                 break;
             case "flour.png": 
-                player2unit.combat = {...combat, attack:3,speed:2 };
+                player2unit.combat = {...stats.flour, decision:0  };
                 break;
-            case "Sugar.png": 
-                player2unit.combat = {...combat, attack:2,speed:8 };
+            case "sugar.png": 
+                player2unit.combat = {...stats.sugar, decision:0  };
+                break;
+            case "oil.png": 
+                player2unit.combat = {...stats.oil, decision:0  };
+                break;
+            case "milk.png": 
+                player2unit.combat = {...stats.milk, decision:0  };
+                break;
+            case "water.png": 
+                player2unit.combat = {...stats.water, decision:0  };
+                break;
+            case "heat.png": 
+                player2unit.combat = {...stats.heat, decision:0  };
+                break;
+            case "cold.png": 
+                player2unit.combat = {...stats.cold, decision:0  };
+                break;
+            case "cracker.png": 
+                player2unit.combat = {...stats.cracker, decision:0  };
+                break;
+            case "lavaCake.png": 
+                player2unit.combat = {...stats.lavaCake, decision:0  };
+                break;
+            case "cupCake.png": 
+                player2unit.combat = {...stats.cupCake, decision:0  };
+                break;
+            case "monstrosity.png": 
+                player2unit.combat = {...stats.monstrosity, decision:0  };
+                break;
+            case "iceWater.png": 
+                player2unit.combat = {...stats.iceWater, decision:0  };
+                break;
+            case "milkTea.png": 
+                player2unit.combat = {...stats.milkTea, decision:0  };
+                break;
+            case "butterMilk.png": 
+                player2unit.combat = {...stats.butterMilk, decision:0  };
+                break;
+            case "bread.png": 
+                player2unit.combat = {...stats.bread, decision:0  };
                 break;
             default:
                 player2unit.combat = {...combat};
                 break;
-            
         }
         player2unit.combat.speed *= -1;
-        console.dir(player2unit);
         player2unit.scale.setTo(0.25, 0.25);
         game.physics.p2.enable(player2unit);
         player2unit.enableBody = true;

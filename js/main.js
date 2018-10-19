@@ -10,11 +10,157 @@ var config = {
     }
 };
 */
-var list1 = ["butter.png","flour.png","Milk.png","Sugar.png"];
-var list2 = ["cold.png","hot.png","oil.png","water.png"];
-var list3 = ["cracker","bread","lavacake","cupcake"];
-var list4 = ["Monstrosity","IceWater","MilkTea","buttermilk"];
+var stats = {
+  
+  butter: {
+    "att": 1,
+    "health": 2,
+    "speed": 6,
+    "range": 1,
+    "wait": 0.5,
+  },
+  
+  flour: {
+    "att": 3,
+    "health": 1,
+    "speed": 2,
+    "range": 1,
+    "wait": 0.5,
+  },
+  
+  sugar: {
+    "att": 2,
+    "health": 1,
+    "speed": 8,
+    "range": 1,
+    "wait": 0.5,
+  },
+  
+  oil: {
+    "att": 2,
+    "health": 1,
+    "speed": 3,
+    "range": 4,
+    "wait": 0.5,
+  },
+  
+  milk: {
+    "att": 3,
+    "health": 1,
+    "speed": 3,
+    "range": 3,
+    "wait": 0.5,
+  },
+  
+  water: {
+    "att": 1,
+    "health": 1,
+    "speed": 3,
+    "range": 6,
+    "wait": 0.5,
+  },
+  
+  heat: {
+    "att": 2,
+    "health": 1,
+    "speed": 2,
+    "range": 4,
+    "wait": 0.5,  
+  },
+  
+  cold: {
+    "att": 1,
+    "health": 1,
+    "speed": 3,
+    "range": 4,
+    "wait": 0.5,  
+  },
+  
+  cracker: {
+    "att": 2,
+    "health": 4,
+    "speed": 4,
+    "range": 1,
+    "wait": 0.5,
+  },
+  
+  bread: {
+    "att": 4,
+    "health": 5,
+    "speed": 5,
+    "range": 1,
+    "wait": 0.5,
+  },
+  
+  lavaCake: {
+    "att": 6,
+    "health": 8,
+    "speed": 7,
+    "range": 1,
+    "wait": 0.5,  
+  },
+  
+  cupcake: {
+    "att": 4,
+    "health": 4,
+    "speed": 3,
+    "range": 1,
+    "wait": 0.5,  
+  },
+  
+  monstrosity: {
+    "att": 10,
+    "health": 6,
+    "speed": 4,
+    "range": 1,
+    "wait": 0.5,
+  },
+  
+  iceWater: {
+    "att": 2,
+    "health": 2,
+    "speed": 3,
+    "range": 8,
+    "wait": 0.5,
+  },
+  
+  milkTea: {
+    "att": 2,
+    "health": 3,
+    "speed": 3,
+    "range": 6,
+    "wait": 0.5,
+  },
+  
+  butterMilk: {
+    "att": 2,
+    "health": 1,
+    "speed": 3,
+    "range": 6,
+    "wait": 0.5,
+  },
+  base : {
+      "att": 0,
+    "health": 100,
+    "speed": 0,
+    "range": 0,
+    "wait": 100000,
+  }
+};
+
 var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, document.getElementById('game'));
+game.state.add('Game',Game);
+game.state.start('Game');
+
+var list1 = ["butter.png","flour.png","milk.png","sugar.png"];
+var list2 = ["cold.png","heat.png","oil.png","water.png"];
+var list3 = ["cracker.png","bread.png","lavaCake.png","cupCake.png"];
+var list4 = ["monstrosity.png","iceWater.png","milkTea.png","butterMilk.png"];
+var list5 = [stats.butter, stats.flour, stats.milk, stats.sugar];
+var list6 = [stats.cold, stats.hot, stats.oil, stats.water];
+var list7 = [stats.cracker, stats.bread, stats.lavaCake, stats.cupcake];
+var list8 = [stats.monstrosity, stats.iceWater, stats.milkTea, stats.butterMilk];
+
 var ui = document.createElement('div');
 ui.classList.add("js-overlay");
 ui.classList.add("overlay");
@@ -109,15 +255,5 @@ SpecialOverlay.appendChild(SpecialSlot);
 
 ui.appendChild(SpecialOverlay);
 
-
-
-
-
-
-
-
-
-
 document.getElementById('game').appendChild(ui);
-game.state.add('Game',Game);
-game.state.start('Game');
+

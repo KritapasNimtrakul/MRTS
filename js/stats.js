@@ -1,4 +1,4 @@
-var stats = {
+/*var stats = {
   
   butter: {
     "att": 1,
@@ -134,4 +134,4 @@ var stats = {
     "range": 0,
     "wait": 100000,
   }
-}
+}*/
