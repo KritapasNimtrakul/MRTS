@@ -156,8 +156,10 @@ Game.create = function(){
         document.querySelector('.special-overlay').style.display = "none";
     });
     
+    
     buttonSpawn = document.querySelectorAll('.slot');
     for(var i=0;i<buttonSpawn.length;i++){
+        
         buttonSpawn[i].addEventListener('click',function(e){
         
         //playerSprite[0] = this.value;
@@ -181,9 +183,15 @@ function updateResource() {
         player1base.resource[key[i]] += 1;
         player2base.resource[key[i]] += 1;
     }
+    for(var i=0;i<buttonSpawn.length;i++){
+            buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
+    }
+    
+
 }
 
 Game.addNewPlayer = function(id){
+    console.log(id);
 
     lane = laneGroup.create(10, 20, 'lane');
     lane.scale.setTo(0.7, 0.8);

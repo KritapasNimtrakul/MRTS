@@ -198,6 +198,12 @@ var img1 = document.createElement('img');
 img1.classList.add("img1");
 img1.src = "../assets/sprites/"+list1[i];
 slot1.appendChild(img1);
+    
+var resouceDP1 = document.createElement('div');
+resouceDP1.classList.add("resouceDP");
+var t1 = document.createTextNode("0");
+resouceDP1.appendChild(t1);
+slot1.appendChild(resouceDP1);
 
 var slot2 = document.createElement('button');
 slot2.classList.add("slot");
@@ -207,6 +213,14 @@ var img2 = document.createElement('img');
 img2.classList.add("img1");
 img2.src = "../assets/sprites/"+list2[i];
 slot2.appendChild(img2);
+    
+var resouceDP2 = document.createElement('div');
+resouceDP2.classList.add("resouceDP");
+var t1 = document.createTextNode("0");
+resouceDP2.appendChild(t1);
+slot2.appendChild(resouceDP2);
+
+
 
 InventorySlot.appendChild(slot1);
 InventorySlot.appendChild(slot2);
@@ -236,6 +250,13 @@ var img1 = document.createElement('img');
 img1.classList.add("img1");
 img1.src = "../assets/sprites/"+list3[i];
 slot1.appendChild(img1);
+    
+var resouceDP1 = document.createElement('div');
+resouceDP1.classList.add("resouceDP");
+var t1 = document.createTextNode("0");
+resouceDP1.appendChild(t1);
+slot1.appendChild(resouceDP1);
+
 
 var slot2 = document.createElement('button');
 slot2.classList.add("slot");
@@ -245,6 +266,13 @@ var img2 = document.createElement('img');
 img2.classList.add("img1");
 img2.src = "../assets/sprites/"+list4[i];
 slot2.appendChild(img2);
+    
+var resouceDP2 = document.createElement('div');
+resouceDP2.classList.add("resouceDP");
+var t1 = document.createTextNode("0");
+resouceDP2.appendChild(t1);
+slot2.appendChild(resouceDP2);
+
 
 SpecialSlot.appendChild(slot1);
 SpecialSlot.appendChild(slot2);
