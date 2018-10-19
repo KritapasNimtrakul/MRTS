@@ -398,6 +398,7 @@ Game.addNewUnit = function(playerNum,x,y){
         player2unit.scale.setTo(0.25, 0.25);
         game.physics.p2.enable(player2unit);
         player2unit.enableBody = true;
+        player2unit.scale.x = -0.25;
         player2unit.physicsBodyType = Phaser.Physics.P2JS;
         player2unit.body.data.gravityScale = 0.0;
         player2unit.body.data.damping = 0.0;
