@@ -100,7 +100,7 @@ var stats = {
     "wait": 0.5,  
   },
   
-  cupcake: {
+  cupCake: {
     "att": 4,
     "health": 4,
     "speed": 3,
