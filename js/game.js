@@ -41,6 +41,7 @@ var resource = {
     water:0,
     heat:0,
     cold:0,
+    glass:2,
 }
 
 var combat = {
@@ -106,10 +107,10 @@ Game.create = function(){
     player2group = game.add.group();
     laneGroup = game.add.group();
     
-    player1base = player1Group.create(187, 375, 'player1base');
+    player1base = player1Group.create(window.innerWidth*0.1, window.innerHeight*0.5, 'player1base');
     player1base.combat = {...stats.base, decision:0  };
     player1base.resource = {...resource};
-    player2base = player2group.create(window.innerWidth-187, 375, 'player2base');
+    player2base = player2group.create(window.innerWidth*0.9, window.innerHeight*0.5, 'player2base');
     player2base.combat = {...stats.base, decision:0  };
     player2base.resource = {...resource};
     testKey.onDown.add(Client.sendTest, this);
@@ -204,7 +205,12 @@ Game.addNewPlayer = function(id){
     console.log(id);
 
     lane = laneGroup.create(10, 20, 'lane');
-    lane.scale.setTo(0.7, 0.8);
+    //var x = 2960/window.innerWidth;
+    //var y = 1440/window.innerHeight;
+    //console.dir(lane);
+    //lane.scale.setTo()
+    lane.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
+    //lane.scale.setTo(window.innerWidth/2960, window.innerHeight/1440);
     this.world.bringToTop(player1Group);
     this.world.bringToTop(player2group);
     

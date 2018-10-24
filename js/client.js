@@ -12,21 +12,21 @@ Client.standby = function(){
 
 Client.spawnLane1 = function(){
     console.log("spawn lane 1");
-    Client.socket.emit('spawn',{y:100});
+    Client.socket.emit('spawn',{y:window.innerHeight*0.2});
 };
 
 Client.spawnLane2 = function(){
     console.log("spawn lane 2");
-    Client.socket.emit('spawn',{y:350});
-};
-Client.setEnemySprite = function(spriteName){
-    console.log("XYZ");
-    Client.socket.emit('setEnemy',{name:spriteName});
+    Client.socket.emit('spawn',{y:window.innerHeight*0.5});
 };
 
 Client.spawnLane3 = function(){
     console.log("spawn lane 3");
-    Client.socket.emit('spawn',{y:600});
+    Client.socket.emit('spawn',{y:window.innerHeight*0.8});
+};
+Client.setEnemySprite = function(spriteName){
+    console.log("XYZ");
+    Client.socket.emit('setEnemy',{name:spriteName});
 };
 
 Client.askNewPlayer = function(){

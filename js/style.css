@@ -1,8 +1,8 @@
 .js-overlay, .overlay {
   position: absolute;
   z-index: 1000;
-  margin-left: 12px;
-  margin-top: 36px;
+  margin-left: 0.9%;
+  margin-top: 7.1%;
 }
 .b1, .b2 {
     display:block;
