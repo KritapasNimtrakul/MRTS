@@ -150,6 +150,8 @@ var stats = {
 
 var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, document.getElementById('game'));
 game.state.add('Game',Game);
+game.state.add('Lobby',Lobby);
+game.state.add('Over',Over);
 game.state.start('Game');
 
 var list1 = ["butter.png","flour.png","milk.png","sugar.png"];

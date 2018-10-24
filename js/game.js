@@ -1,4 +1,7 @@
 var Game = {};
+var Lobby = {};
+var Over = {};
+
 var testKey,player2base,lane,spawnLane1Key,spawnLane2Key, player1base, overlay,canvas,buttonSpawn;
 var removeElement, player1Group, player2Group, laneGroup;
 var playerSprite;
@@ -166,6 +169,9 @@ Game.create = function(){
         Client.setEnemySprite(this.value);
     });
     }
+    
+    //timer.loop(1000, updateTextResource, this, player1base);
+    
     Client.askNewPlayer();
 };
 
@@ -183,6 +189,10 @@ function updateResource() {
         player1base.resource[key[i]] += 1;
         player2base.resource[key[i]] += 1;
     }
+    
+
+}
+function updateTextResource() {
     for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
     }
@@ -198,14 +208,29 @@ Game.addNewPlayer = function(id){
     this.world.bringToTop(player1Group);
     this.world.bringToTop(player2group);
     
-        timer = game.time.create(false);
+    Client.standby();
 
-    //  Set a TimerEvent to occur after 2 seconds
-    timer.loop(3000, updateResource, this);
-    
-    timer.start();
 
 };
+
+Game.startResource = function(id){
+    
+    timer = game.time.create(false);
+
+    //  Set a TimerEvent to occur after 2 seconds
+    setTimeout(function() { timerCall(); }, 3000);
+
+
+};
+
+function timerCall() {
+    timer.loop(3000, updateResource, this);
+    timer.loop(1000, updateTextResource, this);
+    timer.start();
+    
+
+}
+
 
 Game.addNewUnit = function(playerNum,x,y){
     

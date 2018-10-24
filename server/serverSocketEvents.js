@@ -1,5 +1,6 @@
 var io;
 var players = [];
+var ready = [];
 
 function setupSockets(ioInstance) {
     
@@ -23,6 +24,19 @@ function setupSockets(ioInstance) {
                 
             }else{
                 io.emit('newplayer', newPlayer);
+            }
+            
+
+            
+        });
+        
+        socket.on('ready',function(data){
+            ready.push(0);
+            
+            if(ready.length < 2){
+                
+            }else{
+                io.emit('start');
             }
             
 
@@ -91,6 +105,7 @@ function setupSockets(ioInstance) {
             for (let i = 0; i < players.length; i++) {
                 if (players[i].id === socket.id) { players.splice(i, 1); }
             }
+            ready.pop();
             socket.leave('room1');
         });
         

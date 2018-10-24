@@ -6,6 +6,9 @@ Client.sendTest = function(){
     console.log("test sent");
     Client.socket.emit('test');
 };
+Client.standby = function(){
+    Client.socket.emit('ready');
+};
 
 Client.spawnLane1 = function(){
     console.log("spawn lane 1");
@@ -52,3 +55,6 @@ Client.socket.on('error', function (err) {
     console.log(err);
 });
 
+Client.socket.on('start', function () {
+    Game.startResource();
+});
