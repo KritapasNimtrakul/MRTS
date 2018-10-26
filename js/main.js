@@ -283,6 +283,20 @@ SpecialSlot.appendChild(slot2);
 SpecialOverlay.appendChild(SpecialSlot);
 }
 
+var statsOverlay = document.createElement('div');
+statsOverlay.classList.add("stats");
+
+statsOverlay.style.top = "-100px";
+statsOverlay.style.left = window.innerWidth / 2 - 250 + "px";
+
+var statsTitle = document.createElement('p');
+statsTitle.innerHTML = "Stats";
+statsTitle.classList.add("statsText");
+
+statsOverlay.appendChild(statsTitle);
+
+ui.appendChild(statsOverlay);
+
 ui.appendChild(SpecialOverlay);
 
 document.getElementById('game').appendChild(ui);

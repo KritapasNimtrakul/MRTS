@@ -167,6 +167,9 @@ Game.create = function(){
         buttonSpawn[i].addEventListener('click',function(e){
         
         //playerSprite[0] = this.value;
+        var stats  = document.getElementsByClassName("stats");
+        stats[0].innerHTML = "should change";
+        console.log("hit");
         Client.setEnemySprite(this.value);
     });
     }

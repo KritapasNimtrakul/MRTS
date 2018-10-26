@@ -30,3 +30,18 @@
 .special-overlay{
     display: none;
 }
+
+.stats {
+    position: absolute;
+    z-index: 1000;
+    width: 500px;
+    height: 75px;
+    display: block;
+    background-color: lightgray;
+}
+
+.statsText, .stats {
+    font-size: 20px;
+    text-align: center;
+    
+}
