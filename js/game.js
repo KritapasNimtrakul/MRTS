@@ -166,7 +166,7 @@ Game.create = function(){
         
         buttonSpawn[i].addEventListener('click',function(e){
         
-        //playerSprite[0] = this.value;
+        playerSprite[0] = this.value;
         Client.setEnemySprite(this.value);
     });
     }
@@ -203,7 +203,6 @@ function updateTextResource() {
 
 Game.addNewPlayer = function(id){
     console.log(id);
-
     lane = laneGroup.create(10, 20, 'lane');
     //var x = 2960/window.innerWidth;
     //var y = 1440/window.innerHeight;

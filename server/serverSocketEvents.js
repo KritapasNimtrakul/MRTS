@@ -44,15 +44,11 @@ function setupSockets(ioInstance) {
         });
         
         socket.on('spawn',function(data){
-            var newUnit = {
-                playerNum: 100,
-                x:0,
-                y: data.y
-            };
             
             if(players.length < 2){
                 
             }else{
+                /*
                 for(var i =0;i<players.length;i++){
                     if(socket.id == players[i].id){
                         newUnit.playerNum = i;
@@ -62,9 +58,21 @@ function setupSockets(ioInstance) {
                         else{
                             newUnit.x = 500;
                         }
-                        io.emit('spawnUnit', newUnit);
+                        socket.emit('spawnUnit', newUnit);
+                        socket.broadcast.emit('spawnUnit',newUnit);
+                        //io.emit('spawnUnit', newUnit);
                     }
-                }
+                }*/
+                socket.emit('spawnUnit', {
+                playerNum: 0,
+                x:450,
+                y: data.y
+            });
+                socket.broadcast.emit('spawnUnit',{
+                playerNum: 1,
+                x:500,
+                y: data.y
+            });
 
             }
             
@@ -84,9 +92,9 @@ function setupSockets(ioInstance) {
                 
                 for(var i =0;i<players.length;i++){
                     if(socket.id == players[i].id){
-                        unitSprite.playerNum = i;
+                        unitSprite.playerNum = 1;
 
-                        io.emit('ename',unitSprite);
+                        socket.broadcast.emit('ename',unitSprite);
                     }
                 }
                 
