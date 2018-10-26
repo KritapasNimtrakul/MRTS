@@ -24,6 +24,10 @@
 .img1{
     height: 80px;
 }
+.imgStats{
+    height: 60px;
+    display: inline;
+}
 .inventory-overlay{
     display: none;
 }
@@ -41,7 +45,10 @@
 }
 
 .statsText, .stats {
+    display: inline;
     font-size: 20px;
-    text-align: center;
+    
+}
+.statvis{
     
 }

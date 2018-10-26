@@ -3,6 +3,7 @@ var Lobby = {};
 var Over = {};
 
 var testKey,player2base,lane,spawnLane1Key,spawnLane2Key, player1base, overlay,canvas,buttonSpawn;
+var playerN;
 var removeElement, player1Group, player2Group, laneGroup;
 var playerSprite;
 let player1unit,player2unit;
@@ -95,6 +96,7 @@ Game.create = function(){
     game.physics.p2.setImpactEvents(true);
   
     game.physics.p2.gravity.y = 0;
+    playerN = 0;
   
     Game.playerMap = {};
     testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
@@ -167,8 +169,247 @@ Game.create = function(){
         buttonSpawn[i].addEventListener('click',function(e){
         
         //playerSprite[0] = this.value;
-        var stats  = document.getElementsByClassName("stats");
-        stats[0].innerHTML = "should change";
+        var statusWindow  = document.querySelector(".stats");
+            console.dir(statusWindow);
+        switch(this.value){
+            case "butter.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.butter.health + " ATK:" + stats.butter.att + " Range: " + stats.butter.range + " Speed:" + stats.butter.speed;
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "flour.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.flour.health + " ATK:" + stats.flour.att + " Range: " + stats.flour.range + " Speed:" + stats.flour.speed;
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "sugar.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.sugar.health + " ATK:" + stats.sugar.att + " Range: " + stats.sugar.range + " Speed:" + stats.sugar.speed;
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "oil.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.oil.health + " ATK:" + stats.oil.att + " Range: " + stats.oil.range + " Speed:" + stats.oil.speed;
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "milk.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.milk.health + " ATK:" + stats.milk.att + " Range: " + stats.milk.range + " Speed:" + stats.milk.speed;
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "water.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.water.health + " ATK:" + stats.water.att + " Range: " + stats.water.range + " Speed:" + stats.water.speed;
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "heat.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.heat.health + " ATK:" + stats.heat.att + " Range: " + stats.heat.range + " Speed:" + stats.heat.speed;
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "cold.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.cold.health + " ATK:" + stats.cold.att + " Range: " + stats.cold.range + " Speed:" + stats.cold.speed;
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "cracker.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.cracker.health + " ATK:" + stats.cracker.att + " Range: " + stats.cracker.range + " Speed:" + stats.cracker.speed + " Cost: Flour, Oil";
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "lavaCake.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.lavaCake.health + " ATK:" + stats.lavaCake.att + " Range: " + stats.lavaCake.range  + " Speed:" + stats.lavaCake.speed+ " Cost: Heat, Butter, Sugar";
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "cupCake.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.cupCake.health + " ATK:" + stats.cupCake.att + " Range: " + stats.cupCake.range + " Speed:" + stats.cupCake.speed + " Cost: Flour, Milk, Sugar, Oil";
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "monstrosity.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.monstrosity.health + " ATK:" + stats.monstrosity.att + " Range: " + stats.monstrosity.range + " Speed:" + stats.monstrosity.speed + " Cost: ALL";
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "iceWater.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.iceWater.health + " ATK:" + stats.iceWater.att + " Range: " + stats.iceWater.range + " Speed:" + stats.iceWater.speed + " Cost: Water, Cold";
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "milkTea.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.milkTea.health + " ATK:" + stats.milkTea.att + " Range: " + stats.milkTea.range  + " Speed:" + stats.milkTea.speed+ " Cost: Water, Heat, Milk, Sugar";
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "butterMilk.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.butterMilk.health + " ATK:" + stats.butterMilk.att + " Range: " + stats.butterMilk.range  + " Speed:" + stats.butterMilk.speed+ " Cost: Milk,Butter,Cold";
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            case "bread.png": 
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.bread.health + " ATK:" + stats.bread.att + " Range: " + stats.bread.range + " Speed:" + stats.bread.speed + " Cost: Flour, Oil";
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+            default:
+                statusWindow.removeChild(statusWindow.firstChild);
+                var div = document.createElement('div');
+                var img = document.createElement('img');
+                var statsShow = document.createElement('div');
+                img.classList.add("imgStats");
+                img.src = "../assets/sprites/"+this.value;
+                statsShow.classList.add("statvis");
+                
+                statsShow.appendChild(img);
+                statsShow.innerHTML += "Health:" + stats.cracker.health + " ATK:" + stats.cracker.att + " Range: " + stats.cracker.range;
+                div.appendChild(statsShow);
+                statusWindow.appendChild(div);
+                break;
+        }
+        //stats[0].innerHTML = "should change";
+        //console.dir(this.value);
         playerSprite[0] = this.value;
         Client.setEnemySprite(this.value);
     });
@@ -197,12 +438,25 @@ function updateResource() {
 
 }
 function updateTextResource() {
-    for(var i=0;i<buttonSpawn.length;i++){
+    if(playerN == 0){
+            for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
     }
+    }else{
+            for(var i=0;i<buttonSpawn.length;i++){
+            buttonSpawn[i].childNodes[1].textContent = player2base.resource[buttonSpawn[i].value.slice(0, -4)];
+    }
+    }
+
     
 
 }
+
+Game.p2Resource = function(){
+    
+    playerN = 1;
+
+};
 
 Game.addNewPlayer = function(id){
     console.log(id);
@@ -211,6 +465,7 @@ Game.addNewPlayer = function(id){
     //var y = 1440/window.innerHeight;
     //console.dir(lane);
     //lane.scale.setTo()
+    player2base.tint = 1 * 0xff0000;
     lane.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
     //lane.scale.setTo(window.innerWidth/2960, window.innerHeight/1440);
     this.world.bringToTop(player1Group);

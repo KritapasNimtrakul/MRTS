@@ -24,6 +24,11 @@ function setupSockets(ioInstance) {
                 
             }else{
                 io.emit('newplayer', newPlayer);
+                if(socket.id == players[1].id){
+                    socket.broadcast.emit('p2ResourceCtrl');
+                }
+                
+                
             }
             
 
