@@ -140,7 +140,7 @@ var stats = {
     "wait": 0.5,
   },
   base : {
-      "att": 0,
+      "att": 10000,
     "health": 100,
     "speed": 0,
     "range": 0,
