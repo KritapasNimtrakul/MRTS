@@ -145,6 +145,13 @@ var stats = {
     "speed": 0,
     "range": 0,
     "wait": 100000,
+  },
+  none : {
+            "att": 0,
+    "health": 1,
+    "speed": 0,
+    "range": 0,
+    "wait": 10000,
   }
 };
 
@@ -156,11 +163,11 @@ game.state.start('Game');
 
 var list1 = ["butter.png","flour.png","milk.png","sugar.png"];
 var list2 = ["cold.png","heat.png","oil.png","water.png"];
-var list3 = ["cracker.png","bread.png","lavaCake.png","cupCake.png"];
+var list3 = ["glass.png","bread.png","lavaCake.png","cupCake.png"];
 var list4 = ["monstrosity.png","iceWater.png","milkTea.png","butterMilk.png"];
 var list5 = [stats.butter, stats.flour, stats.milk, stats.sugar];
 var list6 = [stats.cold, stats.hot, stats.oil, stats.water];
-var list7 = [stats.cracker, stats.bread, stats.lavaCake, stats.cupCake];
+var list7 = [stats.none, stats.bread, stats.lavaCake, stats.cupCake];
 var list8 = [stats.monstrosity, stats.iceWater, stats.milkTea, stats.butterMilk];
 
 var ui = document.createElement('div');

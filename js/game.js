@@ -23,14 +23,14 @@ var cost = {
     water:"1,water",
     heat:"1,heat",
     cold:"1,cold",
-    cracker:"1,flour,1,oil",
-    bread:"1,flour,1,water,1,oil,1,heat",
-    lavaCake:"1,heat,1,butter,1,sugar",
-    cupCake:"1,flour,1,milk,1,sugar,1,butter",
-    monstrosity:"1,butter,1,flour,1,sugar,1,oil,1,milk,1,water,1,heat,1,cold",
-    iceWater:"1,water,1,cold",
-    milkTea:"1,water,1,heat,1,milk",
-    butterMilk:"1,milk,1,butter,1,cold",
+    cracker:"1,flour,1,oil,1,glass",
+    bread:"1,flour,1,water,1,oil,1,heat,1,glass",
+    lavaCake:"1,heat,1,butter,1,sugar,1,glass",
+    cupCake:"1,flour,1,milk,1,sugar,1,butter,1,glass",
+    monstrosity:"1,butter,1,flour,1,sugar,1,oil,1,milk,1,water,1,heat,1,cold,1,glass",
+    iceWater:"1,water,1,cold,glass",
+    milkTea:"1,water,1,heat,1,milk,1,glass",
+    butterMilk:"1,milk,1,butter,1,cold,1,glass",
 }
 
 var resource = {
@@ -403,15 +403,20 @@ Game.create = function(){
                 statsShow.classList.add("statvis");
                 
                 statsShow.appendChild(img);
-                statsShow.innerHTML += "Health:" + stats.cracker.health + " ATK:" + stats.cracker.att + " Range: " + stats.cracker.range;
+                statsShow.innerHTML += "Health:" + stats.none.health + " ATK:" + stats.none.att + " Range: " + stats.none.range;
                 div.appendChild(statsShow);
                 statusWindow.appendChild(div);
                 break;
         }
         //stats[0].innerHTML = "should change";
         //console.dir(this.value);
-        playerSprite[0] = this.value;
-        Client.setEnemySprite(this.value);
+            //// need fix
+        if(this.value == "glass.png"){
+            
+        }else{
+            playerSprite[0] = this.value;
+            Client.setEnemySprite(this.value);
+        }
     });
     }
     
@@ -430,10 +435,16 @@ function listener () {
 
 function updateResource() {
 
-    for(var i =0;i<key.length;i++){
+    for(var i =0;i<key.length-1;i++){
         player1base.resource[key[i]] += 1;
         player2base.resource[key[i]] += 1;
     }
+    
+
+}
+function updateGlass() {
+        player1base.resource.glass += 1;
+        player2base.resource.glass += 1;
     
 
 }
@@ -453,6 +464,7 @@ function updateTextResource() {
 }
 
 Game.p2Resource = function(){
+    ////// send to client and make it player2
     
     playerN = 1;
 
@@ -487,7 +499,9 @@ Game.startResource = function(id){
 };
 
 function timerCall() {
-    timer.loop(3000, updateResource, this);
+    timer.loop(20000, updateResource, this);
+    //timer.loop(20000, updateResource, this);
+    timer.loop(15000, updateGlass, this);
     timer.loop(1000, updateTextResource, this);
     timer.start();
     
@@ -769,9 +783,14 @@ function damageCalculation(body1,body2) {
     } else if(body1.sprite == null){
         return;
     }
+    console.dir(body2);
   //body2.sprite.combat.health -= 0;
     body2.sprite.combat.health -= body1.sprite.combat.att;
     console.log("curr enemy health: " + body2.sprite.combat.health);
+    if(body2.sprite.key === "player2base" || body2.sprite.key === "player1base"){
+        body1.sprite.pendingDestroy = true;
+        body1.removeNextStep = true;
+    }
     if(body1.sprite.combat.health > 0){
         game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
     }
