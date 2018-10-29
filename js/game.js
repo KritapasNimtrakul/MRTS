@@ -170,7 +170,7 @@ Game.create = function(){
         
         //playerSprite[0] = this.value;
         var statusWindow  = document.querySelector(".stats");
-            console.dir(statusWindow);
+            //console.dir(statusWindow);
         switch(this.value){
             case "butter.png": 
                 statusWindow.removeChild(statusWindow.firstChild);
@@ -409,7 +409,7 @@ Game.create = function(){
                 break;
         }
         //stats[0].innerHTML = "should change";
-        //console.dir(this.value);
+        ////console.dir(this.value);
             //// need fix
         if(this.value == "glass.png"){
             
@@ -471,11 +471,11 @@ Game.p2Resource = function(numplayer){
 };
 
 Game.addNewPlayer = function(id){
-    console.log(id);
+    //console.log(id);
     lane = laneGroup.create(10, 20, 'lane');
     //var x = 2960/window.innerWidth;
     //var y = 1440/window.innerHeight;
-    //console.dir(lane);
+    ////console.dir(lane);
     //lane.scale.setTo()
     player2base.tint = 1 * 0xff0000;
     lane.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
@@ -531,7 +531,7 @@ Game.addNewUnit = function(playerNum,x,y){
     var costStr = cost[playerSprite[playerNum].slice(0, -4)];
     var tempStorage = costStr.split(",");
     var resourceValues = {...resource};
-    //console.log(player1base.resource[key[0]]);
+    ////console.log(player1base.resource[key[0]]);
 
     for(var i =0;i<tempStorage.length;i++){
         if (i % 2 == 1) {
@@ -547,7 +547,7 @@ Game.addNewUnit = function(playerNum,x,y){
             if(player1base.resource[key[i]] > resourceValues[key[i]] ){
                 
             }else{
-                console.log("NO DISCOUNT, THIS IS NOT A CHARITY");
+                //console.log("NO DISCOUNT, THIS IS NOT A CHARITY");
                 return;
         }
         if(i== key.length-1 && player1base.resource[key[i]] >= resourceValues[key[i]]){
@@ -634,7 +634,7 @@ Game.addNewUnit = function(playerNum,x,y){
             if(player2base.resource[key[i]] > resourceValues[key[i]] ){
                 
             }else{
-                console.log("NO DISCOUNT, THIS IS NOT A CHARITY");
+                //console.log("NO DISCOUNT, THIS IS NOT A CHARITY");
                 return;
         }
         if(i== key.length-1 && player2base.resource[key[i]] >= resourceValues[key[i]]){
@@ -720,7 +720,7 @@ Game.addNewUnit = function(playerNum,x,y){
 }};
 
 Game.ChangeUnit = function(spriteName,playerNum){
-    console.dir(playerSprite);
+    //console.dir(playerSprite);
     playerSprite[playerNum] = spriteName;
 };
 
@@ -749,8 +749,8 @@ function stopSpawn(base) {
 };
 
 function hitUnit(body1, body2) {
-       console.dir(body1.sprite.combat.health);
-  console.dir(body2.sprite.combat.health);
+       //console.dir(body1.sprite.combat.health);
+  //console.dir(body2.sprite.combat.health);
     body1.sprite.combat.decision = combatMovement.attack;
     if(body1.sprite.combat.decision == combatMovement.attack ){
         body1.data.velocity = [0,0];
@@ -778,15 +778,15 @@ function damageCalculation(body1,body2) {
         body1.data.inertia = 0;
         body1.data.velocity = [-1*body1.sprite.combat.speed,0];
         
-        console.dir(body1.sprite.combat.speed);
+        //console.dir(body1.sprite.combat.speed);
         return;
     } else if(body1.sprite == null){
         return;
     }
-    console.dir(body2);
+    //console.dir(body2);
   //body2.sprite.combat.health -= 0;
     body2.sprite.combat.health -= body1.sprite.combat.att;
-    console.log("curr enemy health: " + body2.sprite.combat.health);
+    //console.log("curr enemy health: " + body2.sprite.combat.health);
     if(body2.sprite.key === "player2base" || body2.sprite.key === "player1base"){
         body1.sprite.pendingDestroy = true;
         body1.removeNextStep = true;
