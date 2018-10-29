@@ -499,9 +499,9 @@ Game.startResource = function(id){
 };
 
 function timerCall() {
-    timer.loop(10000, updateResource, this);
+    timer.loop(20000, updateResource, this);
     //timer.loop(20000, updateResource, this);
-    timer.loop(1000, updateGlass, this);
+    timer.loop(15000, updateGlass, this);
     timer.add(1000, updateTextResource, this);
     timer.start();
     
