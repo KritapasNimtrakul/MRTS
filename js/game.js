@@ -449,24 +449,24 @@ function updateGlass() {
 
 }
 function updateTextResource() {
-    if(playerN == 0){
             for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
     }
-    }else{
+    /*
             for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player2base.resource[buttonSpawn[i].value.slice(0, -4)];
     }
-    }
+    */
+    timer.add(1000, updateTextResource, this);
 
     
 
 }
 
-Game.p2Resource = function(){
+Game.p2Resource = function(numplayer){
     ////// send to client and make it player2
     
-    playerN = 1;
+    playerN = numplayer;
 
 };
 
@@ -499,10 +499,10 @@ Game.startResource = function(id){
 };
 
 function timerCall() {
-    timer.loop(20000, updateResource, this);
+    timer.loop(10000, updateResource, this);
     //timer.loop(20000, updateResource, this);
-    timer.loop(15000, updateGlass, this);
-    timer.loop(1000, updateTextResource, this);
+    timer.loop(1000, updateGlass, this);
+    timer.add(1000, updateTextResource, this);
     timer.start();
     
 

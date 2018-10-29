@@ -58,7 +58,7 @@ Client.socket.on('error', function (err) {
 Client.socket.on('start', function () {
     Game.startResource();
 });
-Client.socket.on('p2ResourceCtrl', function () {
-    Game.p2Resource();
+Client.socket.on('p2ResourceCtrl', function (data) {
+    Game.p2Resource(data.playerNum);
 });
 
