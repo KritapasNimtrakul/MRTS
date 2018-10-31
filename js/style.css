@@ -7,7 +7,7 @@
 .b1, .b2 {
     display:block;
     width: 275px;
-   height: 343px;
+    height: 343px;
     font-size: 150px;
 }
 
@@ -25,7 +25,7 @@
     height: 80px;
 }
 .imgStats{
-    height: 60px;
+    height: 90px;
     display: inline;
 }
 .inventory-overlay{
@@ -36,10 +36,11 @@
 }
 
 .stats {
+    margin-top: -120px;
     position: absolute;
     z-index: 1000;
-    width: 500px;
-    height: 75px;
+    width: 1000px;
+    height: 100px;
     display: block;
     background-color: lightgray;
 }
