@@ -9,6 +9,9 @@ Client.sendTest = function(){
 Client.standby = function(){
     Client.socket.emit('ready');
 };
+Client.gameOver = function(p){
+    Client.socket.emit('gameOver',{player:p});
+};
 
 Client.spawnLane1 = function(){
     console.log("spawn lane 1");
@@ -60,5 +63,8 @@ Client.socket.on('start', function () {
 });
 Client.socket.on('p2ResourceCtrl', function (data) {
     Game.p2Resource(data.playerNum);
+});
+Client.socket.on('endGame', function (data) {
+    Game.conclude(data.player);
 });
 

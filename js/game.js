@@ -9,6 +9,7 @@ var playerSprite;
 let player1unit,player2unit;
 var player1CollisionGroup,player2CollisionGroup;
 var timer;
+var gameText;
 var key;
 var combatMovement ={
     move:0,
@@ -28,7 +29,7 @@ var cost = {
     lavaCake:"1,heat,1,butter,1,sugar,1,glass",
     cupCake:"1,flour,1,milk,1,sugar,1,butter,1,glass",
     monstrosity:"1,butter,1,flour,1,sugar,1,oil,1,milk,1,water,1,heat,1,cold,1,glass",
-    iceWater:"1,water,1,cold,glass",
+    iceWater:"1,water,1,cold,1,glass",
     milkTea:"1,water,1,heat,1,milk,1,glass",
     butterMilk:"1,milk,1,butter,1,cold,1,glass",
 }
@@ -235,6 +236,18 @@ Game.p2Resource = function(numplayer){
     playerN = numplayer;
 
 };
+Game.conclude = function(player){
+    ////// send to client and make it player2
+    
+    if(player === "p1"){
+        gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You Win', { font: '24px Arial', fill: '#fff' });
+    }else{
+        gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You Lose', { font: '24px Arial', fill: '#fff' });
+    }
+            
+    game.paused = true;
+
+};
 
 Game.addNewPlayer = function(id){
     //console.log(id);
@@ -296,7 +309,7 @@ Game.addNewUnit = function(playerNum,x,y){
   
     var costStr = cost[playerSprite[playerNum].slice(0, -4)];
     var tempStorage = costStr.split(",");
-    var resourceValues = {...resource};
+    var resourceValues = {...resource, glass:0};
     ////console.log(player1base.resource[key[0]]);
 
     for(var i =0;i<tempStorage.length;i++){
@@ -496,6 +509,12 @@ Game.removePlayer = function(id){
 };
 
 Game.update = function(){
+    if(game.paused === true){
+    if (game.input.keyboard.isDown(Phaser.Keyboard.N))
+    {
+        game.state.start('Game');
+    }
+    }
 }
 
 /*Game.dropHandler = function() {
@@ -554,6 +573,17 @@ function damageCalculation(body1,body2) {
     body2.sprite.combat.health -= body1.sprite.combat.att;
     //console.log("curr enemy health: " + body2.sprite.combat.health);
     if(body2.sprite.key === "player2base" || body2.sprite.key === "player1base"){
+        if(body2.sprite.combat.health <= 0){
+            if(body2.sprite.key === "player1base"){
+                Client.gameOver("p1");
+                gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You lose', { font: '24px Arial', fill: '#fff' });
+            }else{
+                Client.gameOver("p2");
+                gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You win', { font: '24px Arial', fill: '#fff' });
+            }
+            
+            game.paused = true;
+        }
         body1.sprite.pendingDestroy = true;
         body1.removeNextStep = true;
     }

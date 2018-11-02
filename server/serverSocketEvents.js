@@ -115,6 +115,11 @@ function setupSockets(ioInstance) {
             
         });
         
+        socket.on('gameOver',function(data){
+            socket.broadcast.emit('endGame',data);
+            
+        });
+        
         // Called when players disconnect
         socket.on('disconnect',function(){
             for (let i = 0; i < players.length; i++) {
