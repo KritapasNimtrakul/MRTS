@@ -112,10 +112,30 @@ Game.create = function(){
     
     player1base = player1Group.create(window.innerWidth*0.1, window.innerHeight*0.5, 'player1base');
     player1base.combat = {...stats.base, decision:0  };
-    player1base.resource = {...resource};
+    player1base.resource = {...resource,
+    butter:1,
+    flour:1,
+    sugar:1,
+    oil:1,
+    milk:1,
+    water:1,
+    heat:1,
+    cold:1,
+    glass:2,
+};
     player2base = player2group.create(window.innerWidth*0.9, window.innerHeight*0.5, 'player2base');
     player2base.combat = {...stats.base, decision:0  };
-    player2base.resource = {...resource};
+    player2base.resource = {...resource,
+    butter:1,
+    flour:1,
+    sugar:1,
+    oil:1,
+    milk:1,
+    water:1,
+    heat:1,
+    cold:1,
+    glass:2,
+};
     testKey.onDown.add(Client.sendTest, this);
     spawnLane1Key.onDown.add(Client.spawnLane1, this);
     spawnLane2Key.onDown.add(Client.spawnLane2, this);
@@ -169,20 +189,22 @@ Game.create = function(){
         
         buttonSpawn[i].addEventListener('click',function(e){
         
-        var statusWindow  = document.querySelector(".stats");
-        statusWindow.removeChild(statusWindow.firstChild);
-        var div = document.createElement('div');
-        var img = document.createElement('img');
-        img.classList.add("imgStats");
-        img.src = "../assets/sprites/"+this.value.slice(0, -4) + "_Stats.png";
-        div.appendChild(img);
-        statusWindow.appendChild(div);
+
           
         if(this.value == "glass.png"){
             
         }else{
+            var statusWindow  = document.querySelector(".stats");
+            statusWindow.removeChild(statusWindow.firstChild);
+            var div = document.createElement('div');
+            var img = document.createElement('img');
+            img.classList.add("imgStats");
+            img.src = "../assets/sprites/"+this.value.slice(0, -4) + "_Stats.png";
+            div.appendChild(img);
+            statusWindow.appendChild(div);
             playerSprite[0] = this.value;
             Client.setEnemySprite(this.value);
+
         }
     });
     }
@@ -278,9 +300,9 @@ Game.startResource = function(id){
 };
 
 function timerCall() {
-    timer.loop(20000, updateResource, this);
+    timer.loop(10000, updateResource, this);
     //timer.loop(20000, updateResource, this);
-    timer.loop(15000, updateGlass, this);
+    timer.loop(8000, updateGlass, this);
     timer.add(1000, updateTextResource, this);
     timer.start();
     

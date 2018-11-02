@@ -1,15 +1,3 @@
-/*
-var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
-*/
 var stats = {
   
   butter: {
@@ -21,8 +9,8 @@ var stats = {
   },
   
   flour: {
-    "att": 3,
-    "health": 1,
+    "att": 2,
+    "health": 2,
     "speed": 2,
     "range": 1,
     "wait": 0.5,
@@ -39,14 +27,14 @@ var stats = {
   oil: {
     "att": 2,
     "health": 1,
-    "speed": 3,
+    "speed": 2,
     "range": 4,
     "wait": 0.5,
   },
   
   milk: {
-    "att": 3,
-    "health": 1,
+    "att": 2,
+    "health": 2,
     "speed": 3,
     "range": 3,
     "wait": 0.5,
@@ -63,15 +51,15 @@ var stats = {
   heat: {
     "att": 2,
     "health": 1,
-    "speed": 2,
+    "speed": 3,
     "range": 4,
     "wait": 0.5,  
   },
   
   cold: {
     "att": 1,
-    "health": 1,
-    "speed": 3,
+    "health": 2,
+    "speed": 2,
     "range": 4,
     "wait": 0.5,  
   },
@@ -85,33 +73,33 @@ var stats = {
   },
   
   bread: {
-    "att": 4,
+    "att": 2,
     "health": 5,
-    "speed": 5,
+    "speed": 6,
     "range": 1,
     "wait": 0.5,
   },
   
   lavaCake: {
-    "att": 6,
-    "health": 8,
-    "speed": 7,
+    "att": 11,
+    "health": 3,
+    "speed": 8,
     "range": 1,
     "wait": 0.5,  
   },
   
   cupCake: {
-    "att": 4,
-    "health": 4,
-    "speed": 3,
+    "att": 6,
+    "health": 10,
+    "speed": 4,
     "range": 1,
     "wait": 0.5,  
   },
   
   monstrosity: {
-    "att": 10,
-    "health": 6,
-    "speed": 4,
+    "att": 11,
+    "health": 11,
+    "speed": 2,
     "range": 1,
     "wait": 0.5,
   },
@@ -119,24 +107,24 @@ var stats = {
   iceWater: {
     "att": 2,
     "health": 2,
-    "speed": 3,
-    "range": 8,
+    "speed": 4,
+    "range": 6,
     "wait": 0.5,
   },
   
   milkTea: {
-    "att": 2,
-    "health": 3,
-    "speed": 3,
-    "range": 6,
+    "att": 4,
+    "health": 5,
+    "speed": 2,
+    "range": 4,
     "wait": 0.5,
   },
   
   butterMilk: {
     "att": 2,
     "health": 1,
-    "speed": 3,
-    "range": 6,
+    "speed": 6,
+    "range": 8,
     "wait": 0.5,
   },
   base : {
