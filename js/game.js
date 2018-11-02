@@ -113,27 +113,27 @@ Game.create = function(){
     player1base = player1Group.create(window.innerWidth*0.1, window.innerHeight*0.5, 'player1base');
     player1base.combat = {...stats.base, decision:0  };
     player1base.resource = {...resource,
-    butter:1,
-    flour:1,
-    sugar:1,
-    oil:1,
-    milk:1,
-    water:1,
-    heat:1,
-    cold:1,
+    butter:3,
+    flour:3,
+    sugar:3,
+    oil:3,
+    milk:3,
+    water:3,
+    heat:3,
+    cold:3,
     glass:2,
 };
     player2base = player2group.create(window.innerWidth*0.9, window.innerHeight*0.5, 'player2base');
     player2base.combat = {...stats.base, decision:0  };
     player2base.resource = {...resource,
-    butter:1,
-    flour:1,
-    sugar:1,
-    oil:1,
-    milk:1,
-    water:1,
-    heat:1,
-    cold:1,
+    butter:3,
+    flour:3,
+    sugar:3,
+    oil:3,
+    milk:3,
+    water:3,
+    heat:3,
+    cold:3,
     glass:2,
 };
     testKey.onDown.add(Client.sendTest, this);
@@ -300,9 +300,9 @@ Game.startResource = function(id){
 };
 
 function timerCall() {
-    timer.loop(10000, updateResource, this);
+    timer.loop(20000, updateResource, this);
     //timer.loop(20000, updateResource, this);
-    timer.loop(8000, updateGlass, this);
+    timer.loop(15000, updateGlass, this);
     timer.add(1000, updateTextResource, this);
     timer.start();
     
@@ -598,10 +598,10 @@ function damageCalculation(body1,body2) {
         if(body2.sprite.combat.health <= 0){
             if(body2.sprite.key === "player1base"){
                 Client.gameOver("p1");
-                gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You lose', { font: '24px Arial', fill: '#fff' });
+                gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You lose', { font: '24px Arial', fill: '#000' });
             }else{
                 Client.gameOver("p2");
-                gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You win', { font: '24px Arial', fill: '#fff' });
+                gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You win', { font: '24px Arial', fill: '#000' });
             }
             
             game.paused = true;
