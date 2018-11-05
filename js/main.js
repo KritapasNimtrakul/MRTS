@@ -167,13 +167,13 @@ buttonOverlay.classList.add("b1-overlay");
 
 var button1 = document.createElement('button');
 button1.classList.add("b1");
-var t1 = document.createTextNode("I");
+var t1 = document.createTextNode("Ingredients");
 button1.appendChild(t1);
 buttonOverlay.appendChild(button1);
 
 var button2 = document.createElement('button');
 button2.classList.add("b2");
-var t2 = document.createTextNode("S");
+var t2 = document.createTextNode("Menu");
 button2.appendChild(t2);
 buttonOverlay.appendChild(button2);
 
