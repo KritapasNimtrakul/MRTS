@@ -350,7 +350,7 @@ Game.addNewUnit = function(playerNum,x,y){
     if(playerNum == 0){
 
         for(var i =0;i<key.length;i++){
-            if(player1base.resource[key[i]] > resourceValues[key[i]] ){
+            if(player1base.resource[key[i]] >= resourceValues[key[i]] &&  player1base.resource[key[i]] != 0 ){
                 
             }else{
                 //console.log("NO DISCOUNT, THIS IS NOT A CHARITY");
@@ -437,7 +437,7 @@ Game.addNewUnit = function(playerNum,x,y){
     else{
         
         for(var i =0;i<key.length;i++){
-            if(player2base.resource[key[i]] > resourceValues[key[i]] ){
+            if(player2base.resource[key[i]] >= resourceValues[key[i]] &&  player2base.resource[key[i]] != 0){
                 
             }else{
                 //console.log("NO DISCOUNT, THIS IS NOT A CHARITY");
