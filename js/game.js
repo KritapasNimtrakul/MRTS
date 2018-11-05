@@ -432,6 +432,9 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit.body.collides(player2CollisionGroup, hitUnit, this);
             }
         }
+        for(var i=0;i<buttonSpawn.length;i++){
+            buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
+    }
 
     }
     else{
@@ -517,7 +520,9 @@ Game.addNewUnit = function(playerNum,x,y){
         player2unit.body.setCollisionGroup(player2CollisionGroup);
 
         player2unit.body.collides(player1CollisionGroup, hitUnit, this);
-        
+        for(var i=0;i<buttonSpawn.length;i++){
+            buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
+    }
 
     }
         }
