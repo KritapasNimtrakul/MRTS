@@ -13,6 +13,7 @@ var gameText;
 var key;
 var combatMovement ={
     move:0,
+    move:0,
     attack:1,
 }
 var cost = {
@@ -58,7 +59,7 @@ var combat = {
 
 Game.init = function(){
     //game.stage.disableVisibilityChange = true;
-    playerSprite = ["butter.png","cold.png"];
+    playerSprite = ["butter.png","butter.png"];
   
 };
 
@@ -273,7 +274,7 @@ Game.conclude = function(player){
 
 Game.addNewPlayer = function(id){
     //console.log(id);
-    lane = laneGroup.create(10, 20, 'lane');
+    lane = laneGroup.create(0, 0, 'lane');
     //var x = 2960/window.innerWidth;
     //var y = 1440/window.innerHeight;
     ////console.dir(lane);
@@ -300,9 +301,13 @@ Game.startResource = function(id){
 };
 
 function timerCall() {
+
+    // How often you get ingredients (in milliseconds)
     timer.loop(20000, updateResource, this);
     //timer.loop(20000, updateResource, this);
+    //How often you get glass (in milliseconds)
     timer.loop(15000, updateGlass, this);
+    // How often the resources are visually updated
     timer.add(1000, updateTextResource, this);
     timer.start();
     
@@ -411,7 +416,7 @@ Game.addNewUnit = function(playerNum,x,y){
                 break;
         }
         
-        player1unit.scale.setTo(0.25, 0.25);
+        player1unit.scale.setTo(0.2, 0.2);
         game.physics.p2.enable(player1unit);
         player1unit.enableBody = true;
         player1unit.physicsBodyType = Phaser.Physics.P2JS;
@@ -498,10 +503,10 @@ Game.addNewUnit = function(playerNum,x,y){
                 break;
         }
         player2unit.combat.speed *= -1;
-        player2unit.scale.setTo(0.25, 0.25);
+        player2unit.scale.setTo(0.2, 0.2);
         game.physics.p2.enable(player2unit);
         player2unit.enableBody = true;
-        player2unit.scale.x = -0.25;
+        player2unit.scale.x = -0.2;
         player2unit.physicsBodyType = Phaser.Physics.P2JS;
         player2unit.body.data.gravityScale = 0.0;
         player2unit.body.data.damping = 0.0;

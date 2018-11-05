@@ -15,17 +15,17 @@ Client.gameOver = function(p){
 
 Client.spawnLane1 = function(){
     console.log("spawn lane 1");
-    Client.socket.emit('spawn',{y:window.innerHeight*0.2});
+    Client.socket.emit('spawn',{y:window.innerHeight*0.25});
 };
 
 Client.spawnLane2 = function(){
     console.log("spawn lane 2");
-    Client.socket.emit('spawn',{y:window.innerHeight*0.5});
+    Client.socket.emit('spawn',{y:window.innerHeight*0.52});
 };
 
 Client.spawnLane3 = function(){
     console.log("spawn lane 3");
-    Client.socket.emit('spawn',{y:window.innerHeight*0.8});
+    Client.socket.emit('spawn',{y:window.innerHeight*0.80});
 };
 Client.setEnemySprite = function(spriteName){
     console.log("XYZ");
