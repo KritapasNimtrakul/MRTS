@@ -226,6 +226,15 @@ InventorySlot.appendChild(slot2);
 InventoryOverlay.appendChild(InventorySlot);
 }
 
+var backDiv = document.createElement('div');
+backDiv.classList.add("backDiv");
+var backBtn = document.createElement('button');
+backBtn.classList.add("backBtn");
+var backText = document.createTextNode("\u21e6");
+backBtn.appendChild(backText);
+
+backDiv.appendChild(backBtn);
+InventorySlot.appendChild(backDiv);
 ui.appendChild(InventoryOverlay);
 
 
@@ -277,6 +286,15 @@ SpecialSlot.appendChild(slot2);
 
 SpecialOverlay.appendChild(SpecialSlot);
 }
+var backDiv = document.createElement('div');
+backDiv.classList.add("backDiv");
+var backBtn = document.createElement('button');
+backBtn.classList.add("backBtn");
+var backText = document.createTextNode("\u21e6");
+backBtn.appendChild(backText);
+
+backDiv.appendChild(backBtn);
+SpecialOverlay.appendChild(backDiv);
 
 var statsOverlay = document.createElement('div');
 statsOverlay.classList.add("stats");

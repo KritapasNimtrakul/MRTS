@@ -11,6 +11,7 @@ var player1CollisionGroup,player2CollisionGroup;
 var timer;
 var gameText;
 var key;
+var selectLane,lane1,lane2,lane3;
 var combatMovement ={
     move:0,
     move:0,
@@ -99,6 +100,7 @@ Game.create = function(){
   
     game.physics.p2.gravity.y = 0;
     playerN = 0;
+    selectLane = 1;
   
     Game.playerMap = {};
     testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
@@ -168,6 +170,18 @@ Game.create = function(){
         document.querySelector('.b1-overlay').style.display = "none";
         document.querySelector('.inventory-overlay').style.display = "block";
         document.querySelector('.special-overlay').style.display = "none";
+        
+        switch(selectLane){
+            case 0: //lane1.loadTexture('');
+                break;
+            case 1: //lane2.loadTexture('');
+                break;
+            case 2: //lane3.loadTexture('');
+                break;
+            default:
+                break;
+            
+        }
     });
     
     overlay2 = document.querySelector('.b2');
@@ -175,15 +189,49 @@ Game.create = function(){
         document.querySelector('.b1-overlay').style.display = "none";
         document.querySelector('.inventory-overlay').style.display = "none";
         document.querySelector('.special-overlay').style.display = "block";
+        
+        switch(selectLane){
+            case 0: //lane1.loadTexture('');
+                break;
+            case 1: //lane2.loadTexture('');
+                break;
+            case 2: //lane3.loadTexture('');
+                break;
+            default:
+                break;
+            
+        }
     });
-    
+    /*
     canvas = document.querySelector('canvas');
     canvas.addEventListener('click',function(e){
         document.querySelector('.b1-overlay').style.display = "block";
         document.querySelector('.inventory-overlay').style.display = "none";
         document.querySelector('.special-overlay').style.display = "none";
     });
+    */
     
+    backBtn = document.querySelectorAll('.backBtn');
+    backBtn.forEach(function(btn) {
+        
+    btn.addEventListener('click',function(e){
+        document.querySelector('.b1-overlay').style.display = "block";
+        document.querySelector('.inventory-overlay').style.display = "none";
+        document.querySelector('.special-overlay').style.display = "none";
+        
+        switch(selectLane){
+            case 0: //lane1.loadTexture('');
+                break;
+            case 1: //lane2.loadTexture('');
+                break;
+            case 2: //lane3.loadTexture('');
+                break;
+            default:
+                break;
+            
+        }
+    });
+    });
     
     buttonSpawn = document.querySelectorAll('.slot');
     for(var i=0;i<buttonSpawn.length;i++){
@@ -275,6 +323,21 @@ Game.conclude = function(player){
 Game.addNewPlayer = function(id){
     //console.log(id);
     lane = laneGroup.create(0, 0, 'lane');
+    
+    /*
+    lane1 = laneGroup.create(0, 0, 'lane');
+    lane2 = laneGroup.create(0, 0, 'lane');
+    lane3 = laneGroup.create(0, 0, 'lane');
+    
+    lane1.inputEnabled = true;
+    lane1.events.onInputDown.add(changeSpawnLane, this,0);
+    lane2.inputEnabled = true;
+    lane2.events.onInputDown.add(changeSpawnLane, this,1);
+    lane3.inputEnabled = true;
+    lane3.events.onInputDown.add(changeSpawnLane, this,2);
+    */
+    
+    
     //var x = 2960/window.innerWidth;
     //var y = 1440/window.innerHeight;
     ////console.dir(lane);
@@ -282,6 +345,8 @@ Game.addNewPlayer = function(id){
     player2base.tint = 1 * 0xff0000;
     lane.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
     //lane.scale.setTo(window.innerWidth/2960, window.innerHeight/1440);
+    lane.inputEnabled = true;
+    lane.events.onInputDown.add(changeSpawnLane, this,1);
     this.world.bringToTop(player1Group);
     this.world.bringToTop(player2group);
     
@@ -299,6 +364,26 @@ Game.startResource = function(id){
 
 
 };
+
+function changeSpawnLane(laneNum) {
+    if(document.querySelector('.b1-overlay').style.display == "none"){
+        selectLane = laneNum;
+    }else{
+    }
+    switch(selectLane){
+        case 0: //lane1.loadTexture('');
+            break;
+        case 1: //lane2.loadTexture('');
+            break;
+        case 2: //lane3.loadTexture('');
+            break;
+        default:
+            break;
+
+    }
+    
+
+}
 
 function timerCall() {
 
