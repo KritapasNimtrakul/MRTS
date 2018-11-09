@@ -9,6 +9,7 @@ var playerSprite;
 let player1unit,player2unit;
 var player1CollisionGroup,player2CollisionGroup;
 var timer;
+var background;
 var gameText;
 var key;
 var selectLane,lane1,lane2,lane3;
@@ -67,7 +68,11 @@ Game.init = function(){
 Game.preload = function() {
     game.load.image('player1base','assets/sprites/base.png');
     game.load.image('player2base','assets/sprites/base.png');
-    game.load.image('lane','assets/sprites/lane.png');
+    game.load.image('background','assets/sprites/background.png');
+    
+    game.load.image('lane1','assets/sprites/topTable.png');
+    game.load.image('lane2','assets/sprites/middleTable.png');
+    game.load.image('lane3','assets/sprites/bottomTable.png');
     
     game.load.image('butter.png','assets/sprites/butter.png');
     game.load.image('cold.png','assets/sprites/cold.png');
@@ -112,6 +117,8 @@ Game.create = function(){
     player1Group = game.add.group();
     player2group = game.add.group();
     laneGroup = game.add.group();
+    
+    background = game.add.image(0, 0, 'background');
     
     player1base = player1Group.create(window.innerWidth*0.1, window.innerHeight*0.5, 'player1base');
     player1base.combat = {...stats.base, decision:0  };
@@ -171,17 +178,21 @@ Game.create = function(){
         document.querySelector('.inventory-overlay').style.display = "block";
         document.querySelector('.special-overlay').style.display = "none";
         
-        switch(selectLane){
-            case 0: //lane1.loadTexture('');
-                break;
-            case 1: //lane2.loadTexture('');
-                break;
-            case 2: //lane3.loadTexture('');
-                break;
-            default:
-                break;
-            
-        }
+    switch(selectLane){
+        case 0: //lane1.loadTexture('');
+            lane1.tint = 1 * 0xff0000;
+            break;
+        case 1: //lane2.loadTexture('');
+            lane2.tint = 1 * 0xff0000;
+            break;
+        case 2: //lane3.loadTexture('');
+            lane3.tint = 1 * 0xff0000;
+            break;
+        default:
+            lane2.tint = 1 * 0xff0000;
+            break;
+
+    }
     });
     
     overlay2 = document.querySelector('.b2');
@@ -190,17 +201,21 @@ Game.create = function(){
         document.querySelector('.inventory-overlay').style.display = "none";
         document.querySelector('.special-overlay').style.display = "block";
         
-        switch(selectLane){
-            case 0: //lane1.loadTexture('');
-                break;
-            case 1: //lane2.loadTexture('');
-                break;
-            case 2: //lane3.loadTexture('');
-                break;
-            default:
-                break;
-            
-        }
+    switch(selectLane){
+        case 0: //lane1.loadTexture('');
+            lane1.tint = 1 * 0xff0000;
+            break;
+        case 1: //lane2.loadTexture('');
+            lane2.tint = 1 * 0xff0000;
+            break;
+        case 2: //lane3.loadTexture('');
+            lane3.tint = 1 * 0xff0000;
+            break;
+        default:
+            lane2.tint = 1 * 0xff0000;
+            break;
+
+    }
     });
     /*
     canvas = document.querySelector('canvas');
@@ -219,17 +234,21 @@ Game.create = function(){
         document.querySelector('.inventory-overlay').style.display = "none";
         document.querySelector('.special-overlay').style.display = "none";
         
-        switch(selectLane){
-            case 0: //lane1.loadTexture('');
-                break;
-            case 1: //lane2.loadTexture('');
-                break;
-            case 2: //lane3.loadTexture('');
-                break;
-            default:
-                break;
-            
-        }
+    switch(selectLane){
+        case 0: //lane1.loadTexture('');
+            lane1.tint = 1 * 0xff0000;
+            break;
+        case 1: //lane2.loadTexture('');
+            lane2.tint = 1 * 0xff0000;
+            break;
+        case 2: //lane3.loadTexture('');
+            lane3.tint = 1 * 0xff0000;
+            break;
+        default:
+            lane2.tint = 1 * 0xff0000;
+            break;
+
+    }
     });
     });
     
@@ -322,12 +341,12 @@ Game.conclude = function(player){
 
 Game.addNewPlayer = function(id){
     //console.log(id);
-    lane = laneGroup.create(0, 0, 'lane');
+    //lane = laneGroup.create(0, 0, 'lane');
     
-    /*
-    lane1 = laneGroup.create(0, 0, 'lane');
-    lane2 = laneGroup.create(0, 0, 'lane');
-    lane3 = laneGroup.create(0, 0, 'lane');
+    
+    lane1 = laneGroup.create(0, 0, 'lane1');
+    lane2 = laneGroup.create(0, 0, 'lane2');
+    lane3 = laneGroup.create(0, 0, 'lane3');
     
     lane1.inputEnabled = true;
     lane1.events.onInputDown.add(changeSpawnLane, this,0);
@@ -335,7 +354,7 @@ Game.addNewPlayer = function(id){
     lane2.events.onInputDown.add(changeSpawnLane, this,1);
     lane3.inputEnabled = true;
     lane3.events.onInputDown.add(changeSpawnLane, this,2);
-    */
+    
     
     
     //var x = 2960/window.innerWidth;
@@ -343,10 +362,10 @@ Game.addNewPlayer = function(id){
     ////console.dir(lane);
     //lane.scale.setTo()
     player2base.tint = 1 * 0xff0000;
-    lane.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
+    lane1.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
+    lane2.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
+    lane3.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
     //lane.scale.setTo(window.innerWidth/2960, window.innerHeight/1440);
-    lane.inputEnabled = true;
-    lane.events.onInputDown.add(changeSpawnLane, this,1);
     this.world.bringToTop(player1Group);
     this.world.bringToTop(player2group);
     
@@ -372,12 +391,16 @@ function changeSpawnLane(laneNum) {
     }
     switch(selectLane){
         case 0: //lane1.loadTexture('');
+            lane1.tint = 1 * 0xff0000;
             break;
         case 1: //lane2.loadTexture('');
+            lane2.tint = 1 * 0xff0000;
             break;
         case 2: //lane3.loadTexture('');
+            lane3.tint = 1 * 0xff0000;
             break;
         default:
+            lane2.tint = 1 * 0xff0000;
             break;
 
     }
