@@ -721,7 +721,7 @@ function damageCalculation(body1,body2) {
                 body2.sprite.combat.health -= body1.sprite.combat.att;
                 break;
         }
-    }else{
+    }else if(body2.sprite.combat.type == 'l'){
         switch(body1.sprite.combat.type){
             case 's':
                 body2.sprite.combat.health -= (body1.sprite.combat.att*2);
@@ -736,6 +736,8 @@ function damageCalculation(body1,body2) {
                 body2.sprite.combat.health -= body1.sprite.combat.att;
                 break;
         }
+    }else{
+        body2.sprite.combat.health -= body1.sprite.combat.att;
     }
     
     //console.log("curr enemy health: " + body2.sprite.combat.health);
