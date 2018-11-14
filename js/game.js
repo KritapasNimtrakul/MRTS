@@ -2,7 +2,7 @@ var Game = {};
 var Lobby = {};
 var Over = {};
 
-var testKey,player2base,lane,spawnLane1Key,spawnLane2Key, player1base, overlay,canvas,buttonSpawn;
+var testKey,player2base,spawnLane1Key,spawnLane2Key, player1base, overlay,canvas,buttonSpawn;
 var playerN;
 var removeElement, player1Group, player2Group, laneGroup;
 var playerSprite;
@@ -73,6 +73,7 @@ Game.preload = function() {
     game.load.image('lane1','assets/sprites/topTable.png');
     game.load.image('lane2','assets/sprites/middleTable.png');
     game.load.image('lane3','assets/sprites/bottomTable.png');
+    game.load.image('lane','assets/sprites/table.png');
     
     game.load.image('butter.png','assets/sprites/butter.png');
     game.load.image('cold.png','assets/sprites/cold.png');
@@ -105,20 +106,27 @@ Game.create = function(){
   
     game.physics.p2.gravity.y = 0;
     playerN = 0;
-    selectLane = 1;
+    selectLane = [];
+    
+    glowFilter=new Phaser.Filter.Glow(game);
   
     Game.playerMap = {};
     testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
-    spawnLane1Key = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
-    spawnLane2Key = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
-    spawnLane3Key = game.input.keyboard.addKey(Phaser.Keyboard.THREE);
+    //spawnLane1Key = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
+    //spawnLane2Key = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
+    //spawnLane3Key = game.input.keyboard.addKey(Phaser.Keyboard.THREE);
     
     removeElement = game.add.group();
     player1Group = game.add.group();
     player2group = game.add.group();
     laneGroup = game.add.group();
     
-    background = game.add.image(0, 0, 'background');
+    laneGroup.inputEnableChildren = true;
+    
+    background = laneGroup.create(0, 0, 'background');
+    background.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
+    background.events.onInputDown.add(changeSpawnLane, this,0,100);
+    
     
     player1base = player1Group.create(window.innerWidth*0.1, window.innerHeight*0.5, 'player1base');
     player1base.combat = {...stats.base, decision:0  };
@@ -147,9 +155,6 @@ Game.create = function(){
     glass:2,
 };
     testKey.onDown.add(Client.sendTest, this);
-    spawnLane1Key.onDown.add(Client.spawnLane1, this);
-    spawnLane2Key.onDown.add(Client.spawnLane2, this);
-    spawnLane3Key.onDown.add(Client.spawnLane3, this);
     
     player1base.inputEnabled = true;
     player1base.canSpawn = true;
@@ -177,22 +182,7 @@ Game.create = function(){
         document.querySelector('.b1-overlay').style.display = "none";
         document.querySelector('.inventory-overlay').style.display = "block";
         document.querySelector('.special-overlay').style.display = "none";
-        
-    switch(selectLane){
-        case 0: //lane1.loadTexture('');
-            lane1.tint = 1 * 0xff0000;
-            break;
-        case 1: //lane2.loadTexture('');
-            lane2.tint = 1 * 0xff0000;
-            break;
-        case 2: //lane3.loadTexture('');
-            lane3.tint = 1 * 0xff0000;
-            break;
-        default:
-            lane2.tint = 1 * 0xff0000;
-            break;
 
-    }
     });
     
     overlay2 = document.querySelector('.b2');
@@ -200,22 +190,7 @@ Game.create = function(){
         document.querySelector('.b1-overlay').style.display = "none";
         document.querySelector('.inventory-overlay').style.display = "none";
         document.querySelector('.special-overlay').style.display = "block";
-        
-    switch(selectLane){
-        case 0: //lane1.loadTexture('');
-            lane1.tint = 1 * 0xff0000;
-            break;
-        case 1: //lane2.loadTexture('');
-            lane2.tint = 1 * 0xff0000;
-            break;
-        case 2: //lane3.loadTexture('');
-            lane3.tint = 1 * 0xff0000;
-            break;
-        default:
-            lane2.tint = 1 * 0xff0000;
-            break;
 
-    }
     });
     /*
     canvas = document.querySelector('canvas');
@@ -233,22 +208,7 @@ Game.create = function(){
         document.querySelector('.b1-overlay').style.display = "block";
         document.querySelector('.inventory-overlay').style.display = "none";
         document.querySelector('.special-overlay').style.display = "none";
-        
-    switch(selectLane){
-        case 0: //lane1.loadTexture('');
-            lane1.tint = 1 * 0xff0000;
-            break;
-        case 1: //lane2.loadTexture('');
-            lane2.tint = 1 * 0xff0000;
-            break;
-        case 2: //lane3.loadTexture('');
-            lane3.tint = 1 * 0xff0000;
-            break;
-        default:
-            lane2.tint = 1 * 0xff0000;
-            break;
 
-    }
     });
     });
     
@@ -256,12 +216,19 @@ Game.create = function(){
     for(var i=0;i<buttonSpawn.length;i++){
         
         buttonSpawn[i].addEventListener('click',function(e){
-        
-
           
         if(this.value == "glass.png"){
             
         }else{
+            lane1.filters=[glowFilter];
+            lane2.filters=[glowFilter];
+            lane3.filters=[glowFilter];
+            
+            selectLane.push(this.value.slice(0, -4));
+            if(selectLane.length > 2){
+                selectLane.shift();
+            }
+            
             var statusWindow  = document.querySelector(".stats");
             statusWindow.removeChild(statusWindow.firstChild);
             var div = document.createElement('div');
@@ -344,16 +311,12 @@ Game.addNewPlayer = function(id){
     //lane = laneGroup.create(0, 0, 'lane');
     
     
-    lane1 = laneGroup.create(0, 0, 'lane1');
-    lane2 = laneGroup.create(0, 0, 'lane2');
-    lane3 = laneGroup.create(0, 0, 'lane3');
-    
-    lane1.inputEnabled = true;
-    lane1.events.onInputDown.add(changeSpawnLane, this,0);
-    lane2.inputEnabled = true;
-    lane2.events.onInputDown.add(changeSpawnLane, this,1);
-    lane3.inputEnabled = true;
-    lane3.events.onInputDown.add(changeSpawnLane, this,2);
+    lane1 = laneGroup.create(window.innerWidth/4,window.innerHeight*0.25, 'lane');
+    lane1.events.onInputDown.add(changeSpawnLane, this,0,0);
+    lane2 = laneGroup.create(window.innerWidth/4, window.innerHeight*0.52, 'lane');
+    lane2.events.onInputDown.add(changeSpawnLane,this,0,1);
+    lane3 = laneGroup.create(window.innerWidth/4, window.innerHeight*0.80, 'lane');
+    lane3.events.onInputDown.add(changeSpawnLane, this,0,2);
     
     
     
@@ -362,9 +325,9 @@ Game.addNewPlayer = function(id){
     ////console.dir(lane);
     //lane.scale.setTo()
     player2base.tint = 1 * 0xff0000;
-    lane1.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
-    lane2.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
-    lane3.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
+    lane1.scale.setTo(window.innerWidth/4000, window.innerHeight/1500);
+    lane2.scale.setTo(window.innerWidth/4000, window.innerHeight/1500);
+    lane3.scale.setTo(window.innerWidth/4000, window.innerHeight/1500);
     //lane.scale.setTo(window.innerWidth/2960, window.innerHeight/1440);
     this.world.bringToTop(player1Group);
     this.world.bringToTop(player2group);
@@ -384,26 +347,44 @@ Game.startResource = function(id){
 
 };
 
-function changeSpawnLane(laneNum) {
+function changeSpawnLane(o,x,laneNum) {
+    console.log(laneNum);
+    console.log(o);
+    console.log(x);
+    
     if(document.querySelector('.b1-overlay').style.display == "none"){
-        selectLane = laneNum;
+        selectLane.push(laneNum);
+        if(selectLane.length > 2){
+            selectLane.shift();
+        }
     }else{
     }
-    switch(selectLane){
-        case 0: //lane1.loadTexture('');
-            lane1.tint = 1 * 0xff0000;
-            break;
-        case 1: //lane2.loadTexture('');
-            lane2.tint = 1 * 0xff0000;
-            break;
-        case 2: //lane3.loadTexture('');
-            lane3.tint = 1 * 0xff0000;
+    switch(isNaN(selectLane[0]) || parseInt(selectLane[0])){
+        case true: //lane1.loadTexture('');
+            switch(selectLane[1]){
+                case 0:
+                    Client.spawnLane1();
+                    break;
+                case 1:
+                    Client.spawnLane2();
+
+                    break;
+                case 2:
+                    Client.spawnLane3();
+
+                    break;
+                default:
+
+                    break;
+            }
             break;
         default:
-            lane2.tint = 1 * 0xff0000;
             break;
 
     }
+    lane1.filters=null;
+    lane2.filters=null;
+    lane3.filters=null;
     
 
 }
@@ -732,3 +713,58 @@ function damageCalculation(body1,body2) {
     }
     
 }
+
+
+
+
+
+Phaser.Filter.Glow = function (game) {
+    'use strict';
+    Phaser.Filter.call(this, game);
+    this.uniforms.alpha = { type: '1f', value: 1.0 };
+    //the shader, remove cosine/sine to make it a static glow
+    this.fragmentSrc = [
+        'precision lowp float;',
+        'varying vec2 vTextureCoord;',
+        'varying vec4 vColor;',
+        'uniform sampler2D uSampler;',
+        'uniform float alpha;',
+        'uniform float time;',
+        'void main() {',
+            'vec4 sum = vec4(0);',
+            'vec2 texcoord = vTextureCoord;',
+            'for(int xx = -4; xx <= 4; xx++) {',
+                'for(int yy = -4; yy <= 4; yy++) {',
+                    'float dist = sqrt(float(xx*xx) + float(yy*yy));',
+                    'float factor = 0.0;',
+                    'if (dist == 0.0) {',
+                        'factor = 2.0;',
+                    '} else {',
+                        'factor = 2.0/abs(float(dist));',
+                    '}',
+                    'sum += texture2D(uSampler, texcoord + vec2(xx, yy) * 0.002) * (abs(sin(time))+0.06);',
+                '}',
+            '}',
+            'gl_FragColor = sum * 0.025 + texture2D(uSampler, texcoord)*alpha;',
+        '}'
+    ];
+};
+  
+Phaser.Filter.Glow.prototype = Object.create(Phaser.Filter.prototype);
+Phaser.Filter.Glow.prototype.constructor = Phaser.Filter.Glow;
+
+Object.defineProperty(Phaser.Filter.Glow.prototype, 'alpha', {
+
+    get: function() {
+        return this.uniforms.alpha.value;
+    },
+
+    set: function(value) {
+        this.uniforms.alpha.value = value;
+    }
+
+});
+
+
+
+
