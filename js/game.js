@@ -65,6 +65,8 @@ Game.init = function(){
   
 };
 
+var sugarSprite;
+
 Game.preload = function() {
     game.load.image('player1base','assets/sprites/base.png');
     game.load.image('player2base','assets/sprites/base.png');
@@ -93,6 +95,22 @@ Game.preload = function() {
     game.load.image('milkTea.png','assets/sprites/milkTea.png');
     game.load.image('butterMilk.png','assets/sprites/butterMilk.png');
   
+    game.load.image('sugar0', 'assets/animations/sugarAttack/sugarAttack00.png');
+    game.load.image('sugar1', 'assets/animations/sugarAttack/sugarAttack01.png');
+    game.load.image('sugar2', 'assets/animations/sugarAttack/sugarAttack02.png');
+    game.load.image('sugar3', 'assets/animations/sugarAttack/sugarAttack03.png');
+    game.load.image('sugar4', 'assets/animations/sugarAttack/sugarAttack04.png');
+    game.load.image('sugar5', 'assets/animations/sugarAttack/sugarAttack05.png');
+    game.load.image('sugar6', 'assets/animations/sugarAttack/sugarAttack06.png');
+    game.load.image('sugar7', 'assets/animations/sugarAttack/sugarAttack07.png');
+    game.load.image('sugar8', 'assets/animations/sugarAttack/sugarAttack08.png');
+    game.load.image('sugar9', 'assets/animations/sugarAttack/sugarAttack09.png');
+    game.load.image('sugar10', 'assets/animations/sugarAttack/sugarAttack10.png');
+    game.load.image('sugar11', 'assets/animations/sugarAttack/sugarAttack11.png');
+    game.load.image('sugar12', 'assets/animations/sugarAttack/sugarAttack12.png');
+    game.load.image('sugar13', 'assets/animations/sugarAttack/sugarAttack13.png');
+    game.load.image('sugar14', 'assets/animations/sugarAttack/sugarAttack14.png');
+  
     game.stage.disableVisibilityChange = true;
 };
 
@@ -115,7 +133,35 @@ Game.create = function(){
     //spawnLane1Key = game.input.keyboard.addKey(Phaser.Keyboard.ONE);
     //spawnLane2Key = game.input.keyboard.addKey(Phaser.Keyboard.TWO);
     //spawnLane3Key = game.input.keyboard.addKey(Phaser.Keyboard.THREE);
-    
+  
+  
+    /*
+    console.dir(sugarSprite);
+  
+    sugarSprite.animations.create({
+      key: 'sugarAttack',
+      frames: [
+        { key: 'sugar0', frame: null},
+        { key: 'sugar1', frame: null},
+        { key: 'sugar2', frame: null},
+        { key: 'sugar3', frame: null},
+        { key: 'sugar4', frame: null},
+        { key: 'sugar5', frame: null},
+        { key: 'sugar6', frame: null},
+        { key: 'sugar7', frame: null},
+        { key: 'sugar8', frame: null},
+        { key: 'sugar9', frame: null},
+        { key: 'sugar10', frame: null},
+        { key: 'sugar11', frame: null},
+        { key: 'sugar12', frame: null},
+        { key: 'sugar13', frame: null},
+        { key: 'sugar14', frame: null},
+      ],
+      frameRate: 8,
+      repeat: -1
+    });
+    */
+  
     removeElement = game.add.group();
     player1Group = game.add.group();
     player2group = game.add.group();
@@ -324,7 +370,7 @@ Game.addNewPlayer = function(id){
     //var y = 1440/window.innerHeight;
     ////console.dir(lane);
     //lane.scale.setTo()
-    player2base.tint = 1 * 0xff0000;
+    
     lane1.scale.setTo(window.innerWidth/4000, window.innerHeight/1500);
     lane2.scale.setTo(window.innerWidth/4000, window.innerHeight/1500);
     lane3.scale.setTo(window.innerWidth/4000, window.innerHeight/1500);
@@ -662,6 +708,7 @@ function hitUnit(body1, body2) {
         body1.data.velocity = [0,0];
         //body1.velocity.destination = [0,0];
         body1.static = true;
+        console.dir(body1.sprite);
             //  Set a TimerEvent to occur after 2 seconds
         //timer.loop(1000*body1.sprite.combat.waitTime, damageCalculation(body1,body2), this);
         game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
