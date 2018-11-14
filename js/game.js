@@ -691,7 +691,53 @@ function damageCalculation(body1,body2) {
     }
     //console.dir(body2);
   //body2.sprite.combat.health -= 0;
-    body2.sprite.combat.health -= body1.sprite.combat.att;
+    if(body2.sprite.combat.type == 's'){
+        switch(body1.sprite.combat.type){
+            case 's':
+                body2.sprite.combat.health -= body1.sprite.combat.att;
+                break;
+            case 'l':
+                body2.sprite.combat.health -= (body1.sprite.combat.att*2);
+                break;
+            case 'm':
+                body2.sprite.combat.health -= (body1.sprite.combat.att/2);
+                break;
+            default:
+                body2.sprite.combat.health -= body1.sprite.combat.att;
+                break;
+        }
+    }else if(body2.sprite.combat.type == 'm'){
+        switch(body1.sprite.combat.type){
+            case 's':
+                body2.sprite.combat.health -= (body1.sprite.combat.att/2);
+                break;
+            case 'l':
+                body2.sprite.combat.health -= (body1.sprite.combat.att*2);
+                break;
+            case 'm':
+                body2.sprite.combat.health -= (body1.sprite.combat.att);
+                break;
+            default:
+                body2.sprite.combat.health -= body1.sprite.combat.att;
+                break;
+        }
+    }else{
+        switch(body1.sprite.combat.type){
+            case 's':
+                body2.sprite.combat.health -= (body1.sprite.combat.att*2);
+                break;
+            case 'l':
+                body2.sprite.combat.health -= (body1.sprite.combat.att);
+                break;
+            case 'm':
+                body2.sprite.combat.health -= (body1.sprite.combat.att/2);
+                break;
+            default:
+                body2.sprite.combat.health -= body1.sprite.combat.att;
+                break;
+        }
+    }
+    
     //console.log("curr enemy health: " + body2.sprite.combat.health);
     if(body2.sprite.key === "player2base" || body2.sprite.key === "player1base"){
         if(body2.sprite.combat.health <= 0){

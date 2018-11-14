@@ -6,6 +6,7 @@ var stats = {
     "speed": 6,
     "range": 1,
     "wait": 0.5,
+    "type":"s",
   },
   
   flour: {
@@ -14,6 +15,7 @@ var stats = {
     "speed": 2,
     "range": 1,
     "wait": 0.5,
+    "type":"s",
   },
   
   sugar: {
@@ -22,6 +24,7 @@ var stats = {
     "speed": 8,
     "range": 1,
     "wait": 0.5,
+      "type":"s",
   },
   
   oil: {
@@ -30,6 +33,7 @@ var stats = {
     "speed": 2,
     "range": 4,
     "wait": 0.5,
+      "type":"s",
   },
   
   milk: {
@@ -38,6 +42,7 @@ var stats = {
     "speed": 3,
     "range": 3,
     "wait": 0.5,
+      "type":"s",
   },
   
   water: {
@@ -46,6 +51,7 @@ var stats = {
     "speed": 3,
     "range": 6,
     "wait": 0.5,
+      "type":"s",
   },
   
   heat: {
@@ -54,6 +60,7 @@ var stats = {
     "speed": 3,
     "range": 4,
     "wait": 0.5,  
+      "type":"s",
   },
   
   cold: {
@@ -62,6 +69,7 @@ var stats = {
     "speed": 2,
     "range": 4,
     "wait": 0.5,  
+      "type":"s",
   },
   
   cracker: {
@@ -70,6 +78,7 @@ var stats = {
     "speed": 4,
     "range": 1,
     "wait": 0.5,
+      "type":"s",
   },
   
   bread: {
@@ -78,6 +87,7 @@ var stats = {
     "speed": 6,
     "range": 1,
     "wait": 0.5,
+      "type":"s",
   },
   
   lavaCake: {
@@ -86,6 +96,7 @@ var stats = {
     "speed": 8,
     "range": 1,
     "wait": 0.5,  
+      "type":"s",
   },
   
   cupCake: {
@@ -94,6 +105,7 @@ var stats = {
     "speed": 4,
     "range": 1,
     "wait": 0.5,  
+      "type":"s",
   },
   
   monstrosity: {
@@ -102,6 +114,7 @@ var stats = {
     "speed": 2,
     "range": 1,
     "wait": 0.5,
+      "type":"s",
   },
   
   iceWater: {
@@ -110,6 +123,7 @@ var stats = {
     "speed": 4,
     "range": 6,
     "wait": 0.5,
+      "type":"s",
   },
   
   milkTea: {
@@ -118,6 +132,7 @@ var stats = {
     "speed": 2,
     "range": 4,
     "wait": 0.5,
+      "type":"s",
   },
   
   butterMilk: {
@@ -126,6 +141,7 @@ var stats = {
     "speed": 6,
     "range": 8,
     "wait": 0.5,
+      "type":"s",
   },
   base : {
       "att": 10000,
@@ -133,6 +149,7 @@ var stats = {
     "speed": 0,
     "range": 0,
     "wait": 100000,
+      "type":"s",
   },
   none : {
             "att": 0,
@@ -140,6 +157,7 @@ var stats = {
     "speed": 0,
     "range": 0,
     "wait": 10000,
+      "type":"s",
   }
 };
 
