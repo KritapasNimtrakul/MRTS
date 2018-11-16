@@ -143,6 +143,7 @@ var stats = {
     "wait": 0.5,
       "type":"n",
   },
+    
   base : {
       "att": 10000,
     "health": 100,
@@ -167,14 +168,11 @@ game.state.add('Lobby',Lobby);
 game.state.add('Over',Over);
 game.state.start('Game');
 
-var list1 = ["butter.png","flour.png","milk.png","sugar.png"];
-var list2 = ["cold.png","heat.png","oil.png","water.png"];
-var list3 = ["glass.png","bread.png","lavaCake.png","cupCake.png"];
-var list4 = ["monstrosity.png","iceWater.png","milkTea.png","butterMilk.png"];
-var list5 = [stats.butter, stats.flour, stats.milk, stats.sugar];
-var list6 = [stats.cold, stats.hot, stats.oil, stats.water];
-var list7 = [stats.none, stats.bread, stats.lavaCake, stats.cupCake];
-var list8 = [stats.monstrosity, stats.iceWater, stats.milkTea, stats.butterMilk];
+var ingredients = ["butter.png", "flour.png", "sugar.png", "oil.png", "milk.png", "water.png"];
+
+var solids = ["bread.png","cracker.png"];
+var mixed = ["cupCake.png", "lavaCake.png"];
+var liquid = ["milkTea.png", "iceWater.png"];
 
 var ui = document.createElement('div');
 ui.classList.add("js-overlay");
@@ -200,49 +198,55 @@ ui.appendChild(buttonOverlay);
 var InventoryOverlay = document.createElement('div');
 InventoryOverlay.classList.add("inventory-overlay");
 
-for(var i=0;i<4;i++){
+// ---------------- CREATES INGREDIENTS MENU ------------------------
+
+buildSlot(ingredients, 0, 1);
+buildSlot(ingredients, 2, 3);
+buildSlot(ingredients, 4, 5);
+
+function buildSlot (images, index1, index2) {
     
+    var InventorySlot = document.createElement('div');
+    InventorySlot.classList.add("inventory-slot");
+    
+    var slot1 = document.createElement('button');
+    slot1.classList.add("slot");
+    slot1.value = ingredients[index1];
+    
+    var img1 = document.createElement('img');
+    img1.classList.add("img1");
+    img1.src = "../assets/sprites/"+ingredients[index1];
+    slot1.appendChild(img1);
+    
+    var resouceDP1 = document.createElement('div');
+    resouceDP1.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP1.appendChild(t1);
+    slot1.appendChild(resouceDP1);
+    
+    var slot2 = document.createElement('button');
+    slot2.classList.add("slot");
+    slot2.value = ingredients[index2];
+    
+    var img2 = document.createElement('img');
+    img2.classList.add("img1");
+    img2.src = "../assets/sprites/"+ingredients[index2];
+    slot2.appendChild(img2);
+    
+    var resouceDP2 = document.createElement('div');
+    resouceDP2.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP2.appendChild(t1);
+    slot2.appendChild(resouceDP2);
+    
+    InventorySlot.appendChild(slot1);
+    InventorySlot.appendChild(slot2);
+    
+    InventoryOverlay.appendChild(InventorySlot);
+}
+
 var InventorySlot = document.createElement('div');
 InventorySlot.classList.add("inventory-slot");
-
-var slot1 = document.createElement('button');
-slot1.classList.add("slot");
-slot1.value = list1[i];
-
-var img1 = document.createElement('img');
-img1.classList.add("img1");
-img1.src = "../assets/sprites/"+list1[i];
-slot1.appendChild(img1);
-    
-var resouceDP1 = document.createElement('div');
-resouceDP1.classList.add("resouceDP");
-var t1 = document.createTextNode("0");
-resouceDP1.appendChild(t1);
-slot1.appendChild(resouceDP1);
-
-var slot2 = document.createElement('button');
-slot2.classList.add("slot");
-slot2.value = list2[i];
-
-var img2 = document.createElement('img');
-img2.classList.add("img1");
-img2.src = "../assets/sprites/"+list2[i];
-slot2.appendChild(img2);
-    
-var resouceDP2 = document.createElement('div');
-resouceDP2.classList.add("resouceDP");
-var t1 = document.createTextNode("0");
-resouceDP2.appendChild(t1);
-slot2.appendChild(resouceDP2);
-
-
-
-InventorySlot.appendChild(slot1);
-InventorySlot.appendChild(slot2);
-
-
-InventoryOverlay.appendChild(InventorySlot);
-}
 
 var backDiv = document.createElement('div');
 backDiv.classList.add("backDiv");
@@ -250,60 +254,72 @@ var backBtn = document.createElement('button');
 backBtn.classList.add("backBtn");
 var backText = document.createTextNode("\u21e6");
 backBtn.appendChild(backText);
-
 backDiv.appendChild(backBtn);
 InventorySlot.appendChild(backDiv);
+InventoryOverlay.appendChild(InventorySlot);
 ui.appendChild(InventoryOverlay);
 
+// ----------------------------------------------------------------------
 
-
+// -------------------------- CREATES MENU OVERLAY ----------------------------------
 
 var SpecialOverlay = document.createElement('div');
 SpecialOverlay.classList.add("special-overlay");
 
-for(var i=0;i<4;i++){
+buildSpecialSlot(solids, "Solids", "blue");
+buildSpecialSlot(mixed, "Mixed", "purple");
+buildSpecialSlot(liquid, "Liquid", "red");
+
+function buildSpecialSlot(images, type, color) {
     
-var SpecialSlot = document.createElement('div');
-SpecialSlot.classList.add("special-slot");
-
-var slot1 = document.createElement('button');
-slot1.classList.add("slot");
-slot1.value = list3[i];
-
-var img1 = document.createElement('img');
-img1.classList.add("img1");
-img1.src = "../assets/sprites/"+list3[i];
-slot1.appendChild(img1);
+    var SpecialSlot = document.createElement('div');
+    SpecialSlot.classList.add("special-slot");
+    SpecialSlot.setAttribute("id", type);
     
-var resouceDP1 = document.createElement('div');
-resouceDP1.classList.add("resouceDP");
-var t1 = document.createTextNode("0");
-resouceDP1.appendChild(t1);
-slot1.appendChild(resouceDP1);
-
-
-var slot2 = document.createElement('button');
-slot2.classList.add("slot");
-slot2.value = list4[i];
-
-var img2 = document.createElement('img');
-img2.classList.add("img1");
-img2.src = "../assets/sprites/"+list4[i];
-slot2.appendChild(img2);
+    var label = document.createElement('p');
+    label.innerHTML = type;
+    label.classList.add("labelText");
+        
+    SpecialSlot.appendChild(label);
     
-var resouceDP2 = document.createElement('div');
-resouceDP2.classList.add("resouceDP");
-var t1 = document.createTextNode("0");
-resouceDP2.appendChild(t1);
-slot2.appendChild(resouceDP2);
-
-
-SpecialSlot.appendChild(slot1);
-SpecialSlot.appendChild(slot2);
-
-
-SpecialOverlay.appendChild(SpecialSlot);
+    var slot1 = document.createElement('button');
+    slot1.classList.add("slot");
+    slot1.value = images[0];
+    
+    var img1 = document.createElement('img');
+    img1.classList.add("img1");
+    img1.src = "../assets/sprites/"+images[0];
+    slot1.appendChild(img1);
+    
+    var resouceDP1 = document.createElement('div');
+    resouceDP1.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP1.appendChild(t1);
+    slot1.appendChild(resouceDP1);
+    
+    
+    var slot2 = document.createElement('button');
+    slot2.classList.add("slot");
+    slot2.value = images[1];
+    
+    var img2 = document.createElement('img');
+    img2.classList.add("img1");
+    img2.src = "../assets/sprites/"+images[1];
+    slot2.appendChild(img2);
+    
+    var resouceDP2 = document.createElement('div');
+    resouceDP2.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP2.appendChild(t1);
+    slot2.appendChild(resouceDP2);
+    
+    
+    SpecialSlot.appendChild(slot1);
+    SpecialSlot.appendChild(slot2);
+    
+    SpecialOverlay.appendChild(SpecialSlot);
 }
+
 var backDiv = document.createElement('div');
 backDiv.classList.add("backDiv");
 var backBtn = document.createElement('button');
@@ -313,6 +329,8 @@ backBtn.appendChild(backText);
 
 backDiv.appendChild(backBtn);
 SpecialOverlay.appendChild(backDiv);
+
+// ---------------------------------------------------------------
 
 var statsOverlay = document.createElement('div');
 statsOverlay.classList.add("stats");

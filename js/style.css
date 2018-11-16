@@ -30,6 +30,7 @@
 }
 .inventory-overlay{
     display: none;
+    background-color: rgb(0, 0, 0, 0.5);
 }
 .special-overlay{
     display: none;
@@ -65,4 +66,21 @@
     text-align: center;
     font-size: 5em;
     position:relative;
+}
+
+.labelText {
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    font-style: bold;
+    margin: 0px;
+}
+#Liquid {
+    background-color: rgb(255, 0, 0, 0.5);
+}
+#Mixed {
+    background-color: rgb(128, 0, 128, 0.5);
+}
+#Solids {
+    background-color: rgb(0, 0, 255, 0.5);
 }
