@@ -146,11 +146,11 @@ var stats = {
     
   base : {
       "att": 10000,
-    "health": 100,
+    "health": [30,30,30],
     "speed": 0,
     "range": 0,
     "wait": 100000,
-      "type":"n",
+      "type":"b",
   },
   none : {
     "att": 0,

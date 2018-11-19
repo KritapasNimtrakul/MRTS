@@ -12,7 +12,7 @@ var timer;
 var background;
 var gameText;
 var key;
-var selectLane,lane1,lane2,lane3;
+var selectLane,lane1,lane2,lane3, activeLane,p1Point,p2Point;
 var combatMovement ={
     move:0,
     move:0,
@@ -125,8 +125,12 @@ Game.create = function(){
     game.physics.p2.gravity.y = 0;
     playerN = 0;
     selectLane = [];
+    p1Point = 0;
+    p2Point = 0;
     
     glowFilter=new Phaser.Filter.Glow(game);
+    
+    activeLane = {0:1,1:1,2:1};
   
     Game.playerMap = {};
     testKey = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
@@ -266,10 +270,18 @@ Game.create = function(){
         if(this.value == "glass.png"){
             
         }else{
-            lane1.filters=[glowFilter];
-            lane2.filters=[glowFilter];
-            lane3.filters=[glowFilter];
-            
+            if(player1base.combat.health[0] > 0 && player2base.combat.health[0] > 0){
+                lane1.tint = 0x5FFB17;
+                lane1.filters=[glowFilter];
+            }
+            if(player1base.combat.health[1] > 0 && player2base.combat.health[1] > 0){
+                lane2.tint = 0x5FFB17;
+                lane2.filters=[glowFilter];
+            }
+            if(player1base.combat.health[2] > 0 && player2base.combat.health[2] > 0){
+                lane3.tint = 0x5FFB17;
+                lane3.filters=[glowFilter];
+            }
             selectLane.push(this.value.slice(0, -4));
             if(selectLane.length > 2){
                 selectLane.shift();
@@ -304,17 +316,32 @@ function listener () {
 }
 
 function updateResource() {
-
-    for(var i =0;i<key.length-1;i++){
+    for(var x = 0; x<3;x++){
+        if(activeLane[x] == 0){
+            return;
+        }
+        if(x == 2){
+        for(var i =0;i<key.length-1;i++){
         player1base.resource[key[i]] += 1;
         player2base.resource[key[i]] += 1;
-    }
-    
+                }
+        }
+    }  
 
 }
 function updateGlass() {
+        for(var x = 0; x<3;x++){
+        if(activeLane[x] == 0){
+            return;
+        }
+        if(x == 2){
+        for(var i =0;i<key.length-1;i++){
         player1base.resource.glass += 1;
         player2base.resource.glass += 1;
+                }
+        }
+    }
+
     
 
 }
@@ -409,14 +436,19 @@ function changeSpawnLane(o,x,laneNum) {
         case true: //lane1.loadTexture('');
             switch(selectLane[1]){
                 case 0:
-                    Client.spawnLane1();
+                    if(player1base.combat.health[0] > 0 && player2base.combat.health[0] > 0){
+                        Client.spawnLane1();
+                    }
                     break;
                 case 1:
-                    Client.spawnLane2();
-
+                    if(player1base.combat.health[1] > 0 && player2base.combat.health[1] > 0){
+                        Client.spawnLane2();
+                    }
                     break;
                 case 2:
-                    Client.spawnLane3();
+                    if(player1base.combat.health[2] > 0 && player2base.combat.health[2] > 0){
+                        Client.spawnLane3();
+                    }
 
                     break;
                 default:
@@ -431,6 +463,9 @@ function changeSpawnLane(o,x,laneNum) {
     lane1.filters=null;
     lane2.filters=null;
     lane3.filters=null;
+    lane1.tint = 0xffffff;
+    lane2.tint = 0xffffff;
+    lane3.tint = 0xffffff;
     
 
 }
@@ -499,55 +534,67 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit = player1Group.create(x, y, playerSprite[0]);
         switch(playerSprite[0]){
             case "butter.png": 
-                player1unit.combat = {...stats.butter, decision:0  };
+                player1unit.combat = {...stats.butter, decision:0, laneSpawn:5  };
                 break;
             case "flour.png": 
-                player1unit.combat = {...stats.flour, decision:0  };
+                player1unit.combat = {...stats.flour, decision:0, laneSpawn:5   };
                 break;
             case "sugar.png": 
-                player1unit.combat = {...stats.sugar, decision:0  };
+                player1unit.combat = {...stats.sugar, decision:0, laneSpawn:5   };
                 break;
             case "oil.png": 
-                player1unit.combat = {...stats.oil, decision:0  };
+                player1unit.combat = {...stats.oil, decision:0, laneSpawn:5   };
                 break;
             case "milk.png": 
-                player1unit.combat = {...stats.milk, decision:0  };
+                player1unit.combat = {...stats.milk, decision:0, laneSpawn:5   };
                 break;
             case "water.png": 
-                player1unit.combat = {...stats.water, decision:0  };
+                player1unit.combat = {...stats.water, decision:0, laneSpawn:5   };
                 break;
             case "heat.png": 
-                player1unit.combat = {...stats.heat, decision:0  };
+                player1unit.combat = {...stats.heat, decision:0, laneSpawn:5   };
                 break;
             case "cold.png": 
-                player1unit.combat = {...stats.cold, decision:0  };
+                player1unit.combat = {...stats.cold, decision:0, laneSpawn:5   };
                 break;
             case "cracker.png": 
-                player1unit.combat = {...stats.cracker, decision:0  };
+                player1unit.combat = {...stats.cracker, decision:0, laneSpawn:5   };
                 break;
             case "lavaCake.png": 
-                player1unit.combat = {...stats.lavaCake, decision:0  };
+                player1unit.combat = {...stats.lavaCake, decision:0, laneSpawn:5   };
                 break;
             case "cupCake.png": 
-                player1unit.combat = {...stats.cupCake, decision:0  };
+                player1unit.combat = {...stats.cupCake, decision:0, laneSpawn:5   };
                 break;
             case "monstrosity.png": 
-                player1unit.combat = {...stats.monstrosity, decision:0  };
+                player1unit.combat = {...stats.monstrosity, decision:0, laneSpawn:5   };
                 break;
             case "iceWater.png": 
-                player1unit.combat = {...stats.iceWater, decision:0  };
+                player1unit.combat = {...stats.iceWater, decision:0, laneSpawn:5   };
                 break;
             case "milkTea.png": 
-                player1unit.combat = {...stats.milkTea, decision:0  };
+                player1unit.combat = {...stats.milkTea, decision:0, laneSpawn:5   };
                 break;
             case "butterMilk.png": 
-                player1unit.combat = {...stats.butterMilk, decision:0  };
+                player1unit.combat = {...stats.butterMilk, decision:0, laneSpawn:5   };
                 break;
             case "bread.png": 
-                player1unit.combat = {...stats.bread, decision:0  };
+                player1unit.combat = {...stats.bread, decision:0, laneSpawn:5   };
                 break;
             default:
                 player1unit.combat = {...combat};
+                break;
+        }
+            
+        switch(y){
+            case window.innerHeight*0.25:
+                player1unit.combat.laneSpawn = 0;
+                break;
+            case window.innerHeight*0.52:
+                player1unit.combat.laneSpawn = 1;
+                break;
+            case window.innerHeight*0.80:
+                player1unit.combat.laneSpawn = 2;
                 break;
         }
         
@@ -589,55 +636,67 @@ Game.addNewUnit = function(playerNum,x,y){
         player2unit = player2group.create(window.innerWidth-x, y, playerSprite[1]);
         switch(playerSprite[1]){
             case "butter.png": 
-                player2unit.combat = {...stats.butter, decision:0  };
+                player2unit.combat = {...stats.butter, decision:0, laneSpawn:5  };
                 break;
             case "flour.png": 
-                player2unit.combat = {...stats.flour, decision:0  };
+                player2unit.combat = {...stats.flour, decision:0, laneSpawn:5  };
                 break;
             case "sugar.png": 
-                player2unit.combat = {...stats.sugar, decision:0  };
+                player2unit.combat = {...stats.sugar, decision:0, laneSpawn:5  };
                 break;
             case "oil.png": 
-                player2unit.combat = {...stats.oil, decision:0  };
+                player2unit.combat = {...stats.oil, decision:0, laneSpawn:5  };
                 break;
             case "milk.png": 
-                player2unit.combat = {...stats.milk, decision:0  };
+                player2unit.combat = {...stats.milk, decision:0, laneSpawn:5  };
                 break;
             case "water.png": 
-                player2unit.combat = {...stats.water, decision:0  };
+                player2unit.combat = {...stats.water, decision:0, laneSpawn:5  };
                 break;
             case "heat.png": 
-                player2unit.combat = {...stats.heat, decision:0  };
+                player2unit.combat = {...stats.heat, decision:0, laneSpawn:5  };
                 break;
             case "cold.png": 
-                player2unit.combat = {...stats.cold, decision:0  };
+                player2unit.combat = {...stats.cold, decision:0, laneSpawn:5  };
                 break;
             case "cracker.png": 
-                player2unit.combat = {...stats.cracker, decision:0  };
+                player2unit.combat = {...stats.cracker, decision:0, laneSpawn:5  };
                 break;
             case "lavaCake.png": 
-                player2unit.combat = {...stats.lavaCake, decision:0  };
+                player2unit.combat = {...stats.lavaCake, decision:0, laneSpawn:5  };
                 break;
             case "cupCake.png": 
-                player2unit.combat = {...stats.cupCake, decision:0  };
+                player2unit.combat = {...stats.cupCake, decision:0, laneSpawn:5  };
                 break;
             case "monstrosity.png": 
-                player2unit.combat = {...stats.monstrosity, decision:0  };
+                player2unit.combat = {...stats.monstrosity, decision:0, laneSpawn:5  };
                 break;
             case "iceWater.png": 
-                player2unit.combat = {...stats.iceWater, decision:0  };
+                player2unit.combat = {...stats.iceWater, decision:0, laneSpawn:5  };
                 break;
             case "milkTea.png": 
-                player2unit.combat = {...stats.milkTea, decision:0  };
+                player2unit.combat = {...stats.milkTea, decision:0, laneSpawn:5  };
                 break;
             case "butterMilk.png": 
-                player2unit.combat = {...stats.butterMilk, decision:0  };
+                player2unit.combat = {...stats.butterMilk, decision:0, laneSpawn:5  };
                 break;
             case "bread.png": 
-                player2unit.combat = {...stats.bread, decision:0  };
+                player2unit.combat = {...stats.bread, decision:0, laneSpawn:5  };
                 break;
             default:
                 player2unit.combat = {...combat};
+                break;
+        }
+            
+        switch(y){
+            case window.innerHeight*0.25:
+                player2unit.combat.laneSpawn = 0;
+                break;
+            case window.innerHeight*0.52:
+                player2unit.combat.laneSpawn = 1;
+                break;
+            case window.innerHeight*0.80:
+                player2unit.combat.laneSpawn = 2;
                 break;
         }
         player2unit.combat.speed *= -1;
@@ -722,6 +781,8 @@ function damageCalculation(body1,body2) {
     if(body1.sprite == null || body2.sprite == null) {
       return;
     }
+    console.dir(body1);
+    console.dir(body2);
   
     if(body2.sprite.combat.health <= 0 || body2.sprite == null ){
         body2.sprite.pendingDestroy = true;
@@ -736,9 +797,10 @@ function damageCalculation(body1,body2) {
     } else if(body1.sprite == null){
         return;
     }
-    //console.dir(body2);
-  //body2.sprite.combat.health -= 0;
-    if(body2.sprite.combat.type == 's'){
+    if((body2.sprite.pendingDestroy == true &&  body2.removeNextStep == true) ||  (body1.sprite.pendingDestroy == true &&  body1.removeNextStep == true)){
+        
+    }else{
+        if(body2.sprite.combat.type == 's'){
         switch(body1.sprite.combat.type){
             case 's':
                 body2.sprite.combat.health -= body1.sprite.combat.att;
@@ -783,25 +845,48 @@ function damageCalculation(body1,body2) {
                 body2.sprite.combat.health -= body1.sprite.combat.att;
                 break;
         }
-    }else{
+    }else if(body2.sprite.combat.type == 'b'){
+        if(body2.sprite.combat.health[body1.sprite.combat.laneSpawn] > 0){
+            body2.sprite.combat.health[body1.sprite.combat.laneSpawn] -= body1.sprite.combat.att + body1.sprite.combat.health;
+            if(body2.sprite.combat.health[body1.sprite.combat.laneSpawn] <= 0){
+                activeLane[body1.sprite.combat.laneSpawn] = 0;
+                if(body2.sprite.key === "player2base"){
+                    p1Point += 1;
+                }else{
+                    p2Point += 1;
+                }
+            }
+        }
+    }
+    else{
         body2.sprite.combat.health -= body1.sprite.combat.att;
     }
+    }
+    
     
     //console.log("curr enemy health: " + body2.sprite.combat.health);
     if(body2.sprite.key === "player2base" || body2.sprite.key === "player1base"){
-        if(body2.sprite.combat.health <= 0){
-            if(body2.sprite.key === "player1base"){
-                Client.gameOver("p1");
-                gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You lose', { font: '24px Arial', fill: '#000' });
-            }else{
-                Client.gameOver("p2");
-                gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You win', { font: '24px Arial', fill: '#000' });
-            }
-            
-            game.paused = true;
-        }
         body1.sprite.pendingDestroy = true;
         body1.removeNextStep = true;
+        for(var x = 0; x<3;x++){
+            if(activeLane[x] == 1){
+                return;
+            }
+            if(x == 2){
+                if(p1Point > p2Point){
+                    Client.gameOver("p2");
+                gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You win', { font: '24px Arial', fill: '#000' });
+                }
+                if(p2Point > p1Point){
+                    Client.gameOver("p1");
+                gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You lose', { font: '24px Arial', fill: '#000' });
+                }
+                game.paused = true;
+            }
+        }  
+
+        
+
     }
     if(body1.sprite.combat.health > 0){
         game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
