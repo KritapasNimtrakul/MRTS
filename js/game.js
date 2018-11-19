@@ -140,7 +140,7 @@ Game.create = function(){
   
   
     /*
-    console.dir(sugarSprite);
+    //console.dir(sugarSprite);
   
     sugarSprite.animations.create({
       key: 'sugarAttack',
@@ -316,31 +316,23 @@ function listener () {
 }
 
 function updateResource() {
-    for(var x = 0; x<3;x++){
-        if(activeLane[x] == 0){
-            return;
-        }
-        if(x == 2){
-        for(var i =0;i<key.length-1;i++){
+        if(p1Point >= 2 || p2Point >= 2){
+                    for(var i =0;i<key.length-1;i++){
         player1base.resource[key[i]] += 1;
         player2base.resource[key[i]] += 1;
                 }
         }
-    }  
+
 
 }
 function updateGlass() {
-        for(var x = 0; x<3;x++){
-        if(activeLane[x] == 0){
-            return;
-        }
-        if(x == 2){
-        for(var i =0;i<key.length-1;i++){
+    
+        if(p1Point >= 2 || p2Point >= 2){
+                    for(var i =0;i<key.length-1;i++){
         player1base.resource.glass += 1;
         player2base.resource.glass += 1;
                 }
         }
-    }
 
     
 
@@ -380,7 +372,7 @@ Game.conclude = function(player){
 };
 
 Game.addNewPlayer = function(id){
-    //console.log(id);
+    ////console.log(id);
     //lane = laneGroup.create(0, 0, 'lane');
     
     
@@ -395,7 +387,7 @@ Game.addNewPlayer = function(id){
     
     //var x = 2960/window.innerWidth;
     //var y = 1440/window.innerHeight;
-    ////console.dir(lane);
+    //////console.dir(lane);
     //lane.scale.setTo()
     
     lane1.scale.setTo(window.innerWidth/4000, window.innerHeight/1500);
@@ -421,9 +413,9 @@ Game.startResource = function(id){
 };
 
 function changeSpawnLane(o,x,laneNum) {
-    console.log(laneNum);
-    console.log(o);
-    console.log(x);
+    //console.log(laneNum);
+    //console.log(o);
+    //console.log(x);
     
     if(document.querySelector('.b1-overlay').style.display == "none"){
         selectLane.push(laneNum);
@@ -507,7 +499,7 @@ Game.addNewUnit = function(playerNum,x,y){
     var costStr = cost[playerSprite[playerNum].slice(0, -4)];
     var tempStorage = costStr.split(",");
     var resourceValues = {...resource, glass:0};
-    ////console.log(player1base.resource[key[0]]);
+    //////console.log(player1base.resource[key[0]]);
 
     for(var i =0;i<tempStorage.length;i++){
         if (i % 2 == 1) {
@@ -523,7 +515,7 @@ Game.addNewUnit = function(playerNum,x,y){
             if(player1base.resource[key[i]] >= resourceValues[key[i]] ){
                 
             }else{
-                console.log(player1base.resource[key[i]]);
+                //console.log(player1base.resource[key[i]]);
                 return;
         }
         if(i== key.length-1 && player1base.resource[key[i]] >= resourceValues[key[i]]){
@@ -625,7 +617,7 @@ Game.addNewUnit = function(playerNum,x,y){
             if(player2base.resource[key[i]] >= resourceValues[key[i]]){
                 
             }else{
-                console.log(player2base.resource[key[i]]);
+                //console.log(player2base.resource[key[i]]);
                 return;
         }
         if(i== key.length-1 && player2base.resource[key[i]] >= resourceValues[key[i]]){
@@ -725,7 +717,7 @@ Game.addNewUnit = function(playerNum,x,y){
 }};
 
 Game.ChangeUnit = function(spriteName,playerNum){
-    //console.dir(playerSprite);
+    ////console.dir(playerSprite);
     playerSprite[playerNum] = spriteName;
 };
 
@@ -760,14 +752,14 @@ function stopSpawn(base) {
 };
 
 function hitUnit(body1, body2) {
-       //console.dir(body1.sprite.combat.health);
-  //console.dir(body2.sprite.combat.health);
+       ////console.dir(body1.sprite.combat.health);
+  ////console.dir(body2.sprite.combat.health);
     body1.sprite.combat.decision = combatMovement.attack;
     if(body1.sprite.combat.decision == combatMovement.attack ){
         body1.data.velocity = [0,0];
         //body1.velocity.destination = [0,0];
         body1.static = true;
-        console.dir(body1.sprite);
+        //console.dir(body1.sprite);
             //  Set a TimerEvent to occur after 2 seconds
         //timer.loop(1000*body1.sprite.combat.waitTime, damageCalculation(body1,body2), this);
         game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
@@ -781,8 +773,8 @@ function damageCalculation(body1,body2) {
     if(body1.sprite == null || body2.sprite == null) {
       return;
     }
-    console.dir(body1);
-    console.dir(body2);
+    //console.dir(body1);
+    //console.dir(body2);
   
     if(body2.sprite.combat.health <= 0 || body2.sprite == null ){
         body2.sprite.pendingDestroy = true;
@@ -792,7 +784,7 @@ function damageCalculation(body1,body2) {
         body1.data.inertia = 0;
         body1.data.velocity = [-1*body1.sprite.combat.speed,0];
         
-        //console.dir(body1.sprite.combat.speed);
+        ////console.dir(body1.sprite.combat.speed);
         return;
     } else if(body1.sprite == null){
         return;
@@ -864,7 +856,7 @@ function damageCalculation(body1,body2) {
     }
     
     
-    //console.log("curr enemy health: " + body2.sprite.combat.health);
+    ////console.log("curr enemy health: " + body2.sprite.combat.health);
     if(body2.sprite.key === "player2base" || body2.sprite.key === "player1base"){
         body1.sprite.pendingDestroy = true;
         body1.removeNextStep = true;
