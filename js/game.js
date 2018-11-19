@@ -4,7 +4,7 @@ var Over = {};
 
 var testKey,player2base,spawnLane1Key,spawnLane2Key, player1base, overlay,canvas,buttonSpawn;
 var playerN;
-var removeElement, player1Group, player2Group, laneGroup;
+var removeElement, player1Group, player2Group, laneGroup,chefGroup;
 var playerSprite;
 let player1unit,player2unit;
 var player1CollisionGroup,player2CollisionGroup;
@@ -18,6 +18,8 @@ var combatMovement ={
     move:0,
     attack:1,
 }
+var chef1,chef2,chef3,chef4,chef5,chef6;
+var chef,enemyChef;
 var cost = {
     butter:"1,butter",
     flour:"1,flour",
@@ -68,6 +70,8 @@ Game.init = function(){
 var sugarSprite;
 
 Game.preload = function() {
+    
+    game.load.image('chef','assets/sprites/Chef.png');
     game.load.image('player1base','assets/sprites/base.png');
     game.load.image('player2base','assets/sprites/base.png');
     game.load.image('background','assets/sprites/background.png');
@@ -127,6 +131,8 @@ Game.create = function(){
     selectLane = [];
     p1Point = 0;
     p2Point = 0;
+    chef = {0:1,1:1,2:1};
+    enemyChef = {0:1,1:1,2:1};
     
     glowFilter=new Phaser.Filter.Glow(game);
     
@@ -170,12 +176,28 @@ Game.create = function(){
     player1Group = game.add.group();
     player2group = game.add.group();
     laneGroup = game.add.group();
+    chefGroup = game.add.group();
     
     laneGroup.inputEnableChildren = true;
     
     background = laneGroup.create(0, 0, 'background');
     background.scale.setTo(window.innerWidth/3000, window.innerHeight/1500);
     background.events.onInputDown.add(changeSpawnLane, this,0,100);
+    
+    chef1 = chefGroup.create(window.innerWidth*0.2, window.innerHeight*0.25, 'chef');
+    chef2 = chefGroup.create(window.innerWidth*0.2, window.innerHeight*0.52, 'chef');
+    chef3 = chefGroup.create(window.innerWidth*0.2, window.innerHeight*0.80, 'chef');
+    chef4 = chefGroup.create(window.innerWidth*0.9, window.innerHeight*0.25, 'chef');
+    chef5 = chefGroup.create(window.innerWidth*0.9, window.innerHeight*0.52, 'chef');
+    chef6 = chefGroup.create(window.innerWidth*0.9, window.innerHeight*0.80, 'chef');
+    
+    chef1.scale.setTo(0.2, 0.2);
+    chef2.scale.setTo(0.2, 0.2);
+    chef3.scale.setTo(0.2, 0.2);
+    chef4.scale.setTo(-0.2, 0.2);
+    chef5.scale.setTo(-0.2, 0.2);
+    chef6.scale.setTo(-0.2, 0.2);
+    
     
     
     player1base = player1Group.create(window.innerWidth*0.1, window.innerHeight*0.5, 'player1base');
@@ -396,6 +418,7 @@ Game.addNewPlayer = function(id){
     //lane.scale.setTo(window.innerWidth/2960, window.innerHeight/1440);
     this.world.bringToTop(player1Group);
     this.world.bringToTop(player2group);
+    this.world.bringToTop(chefGroup);
     
     Client.standby();
 
@@ -844,8 +867,34 @@ function damageCalculation(body1,body2) {
                 activeLane[body1.sprite.combat.laneSpawn] = 0;
                 if(body2.sprite.key === "player2base"){
                     p1Point += 1;
+                    switch(body1.sprite.combat.laneSpawn){
+                        case 0:
+                            chef4.destroy();
+                            break;
+                        case 1:
+                            chef5.destroy();
+                            break;
+                        case 2:
+                            chef6.destroy();
+                            break;
+                        default:
+                            break;
+                    }
                 }else{
                     p2Point += 1;
+                    switch(body1.sprite.combat.laneSpawn){
+                        case 0:
+                            chef1.destroy();
+                            break;
+                        case 1:
+                            chef2.destroy();
+                            break;
+                        case 2:
+                            chef3.destroy();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
