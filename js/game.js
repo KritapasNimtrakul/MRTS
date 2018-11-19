@@ -338,7 +338,7 @@ function listener () {
 }
 
 function updateResource() {
-        if(p1Point >= 2 || p2Point >= 2){
+        if(p1Point <= 2 || p2Point = 2){
                     for(var i =0;i<key.length-1;i++){
         player1base.resource[key[i]] += 1;
         player2base.resource[key[i]] += 1;
@@ -349,7 +349,7 @@ function updateResource() {
 }
 function updateGlass() {
     
-        if(p1Point >= 2 || p2Point >= 2){
+        if(p1Point <= 2 || p2Point = 2){
                     for(var i =0;i<key.length-1;i++){
         player1base.resource.glass += 1;
         player2base.resource.glass += 1;
