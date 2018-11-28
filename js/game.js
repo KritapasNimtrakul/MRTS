@@ -293,15 +293,15 @@ Game.create = function(){
             
         }else{
             if(player1base.combat.health[0] > 0 && player2base.combat.health[0] > 0){
-                lane1.tint = 0x5FFB17;
+                lane1.tint = 0x279AD4;
                 lane1.filters=[glowFilter];
             }
             if(player1base.combat.health[1] > 0 && player2base.combat.health[1] > 0){
-                lane2.tint = 0x5FFB17;
+                lane2.tint = 0x279AD4;
                 lane2.filters=[glowFilter];
             }
             if(player1base.combat.health[2] > 0 && player2base.combat.health[2] > 0){
-                lane3.tint = 0x5FFB17;
+                lane3.tint = 0x279AD4;
                 lane3.filters=[glowFilter];
             }
             selectLane.push(this.value.slice(0, -4));
