@@ -200,7 +200,7 @@ Game.create = function(){
     
     
     
-    player1base = player1Group.create(window.innerWidth*0.1, window.innerHeight*0.5, 'player1base');
+    player1base = player1Group.create(window.innerWidth*0.08, window.innerHeight*0.6, 'player1base');
     player1base.combat = {...stats.base, decision:0  };
     player1base.resource = {...resource,
     butter:3,
@@ -213,7 +213,7 @@ Game.create = function(){
     cold:3,
     glass:2,
 };
-    player2base = player2group.create(window.innerWidth*0.9, window.innerHeight*0.5, 'player2base');
+    player2base = player2group.create(window.innerWidth*0.9, window.innerHeight*0.6, 'player2base');
     player2base.combat = {...stats.base, decision:0  };
     player2base.resource = {...resource,
     butter:3,
@@ -226,6 +226,8 @@ Game.create = function(){
     cold:3,
     glass:2,
 };
+    player1base.scale.setTo(window.innerWidth/190*0.2, window.innerHeight/493*0.75);
+    player2base.scale.setTo(window.innerWidth/190*0.2, window.innerHeight/493*0.75);
     testKey.onDown.add(Client.sendTest, this);
     
     player1base.inputEnabled = true;
