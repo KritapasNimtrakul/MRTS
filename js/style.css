@@ -30,7 +30,7 @@
 }
 .inventory-overlay{
     display: none;
-    background-color: rgb(0, 0, 0, 0.5);
+    background-color: rgb(0, 0, 0);
 }
 .special-overlay{
     display: none;
@@ -76,11 +76,11 @@
     margin: 0px;
 }
 #Liquid {
-    background-color: rgb(255, 0, 0, 0.5);
+    background-color: rgb(255, 0, 0);
 }
 #Mixed {
-    background-color: rgb(128, 0, 128, 0.5);
+    background-color: rgb(128, 0, 128);
 }
 #Solids {
-    background-color: rgb(0, 0, 255, 0.5);
+    background-color: rgb(0, 0, 255);
 }
