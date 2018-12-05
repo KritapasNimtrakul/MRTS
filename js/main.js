@@ -146,7 +146,7 @@ var stats = {
     
   base : {
       "att": 10000,
-    "health": [30,30,30],
+    "health": 30,
     "speed": 0,
     "range": 0,
     "wait": 100000,

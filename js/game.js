@@ -294,15 +294,11 @@ Game.create = function(){
         if(this.value == "glass.png"){
             
         }else{
-            if(player1base.combat.health[0] > 0 && player2base.combat.health[0] > 0){
+            if(player1base.combat.health > 0 && player2base.combat.health > 0){
                 lane1.tint = 0x279AD4;
                 lane1.filters=[glowFilter];
-            }
-            if(player1base.combat.health[1] > 0 && player2base.combat.health[1] > 0){
                 lane2.tint = 0x279AD4;
                 lane2.filters=[glowFilter];
-            }
-            if(player1base.combat.health[2] > 0 && player2base.combat.health[2] > 0){
                 lane3.tint = 0x279AD4;
                 lane3.filters=[glowFilter];
             }
@@ -453,17 +449,17 @@ function changeSpawnLane(o,x,laneNum) {
         case true: //lane1.loadTexture('');
             switch(selectLane[1]){
                 case 0:
-                    if(player1base.combat.health[0] > 0 && player2base.combat.health[0] > 0){
+                    if(player1base.combat.health > 0 && player2base.combat.health > 0){
                         Client.spawnLane1();
                     }
                     break;
                 case 1:
-                    if(player1base.combat.health[1] > 0 && player2base.combat.health[1] > 0){
+                    if(player1base.combat.health > 0 && player2base.combat.health > 0){
                         Client.spawnLane2();
                     }
                     break;
                 case 2:
-                    if(player1base.combat.health[2] > 0 && player2base.combat.health[2] > 0){
+                    if(player1base.combat.health > 0 && player2base.combat.health > 0){
                         Client.spawnLane3();
                     }
 
@@ -863,43 +859,22 @@ function damageCalculation(body1,body2) {
                 break;
         }
     }else if(body2.sprite.combat.type == 'b'){
-        if(body2.sprite.combat.health[body1.sprite.combat.laneSpawn] > 0){
-            body2.sprite.combat.health[body1.sprite.combat.laneSpawn] -= body1.sprite.combat.att + body1.sprite.combat.health;
-            if(body2.sprite.combat.health[body1.sprite.combat.laneSpawn] <= 0){
+        if(body2.sprite.combat.health > 0){
+            body2.sprite.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
+            if(body2.sprite.combat.health <= 0){
                 activeLane[body1.sprite.combat.laneSpawn] = 0;
                 if(body2.sprite.key === "player2base"){
-                    p1Point += 1;
-                    switch(body1.sprite.combat.laneSpawn){
-                        case 0:
-                            chef4.destroy();
-                            break;
-                        case 1:
-                            chef5.destroy();
-                            break;
-                        case 2:
-                            chef6.destroy();
-                            break;
-                        default:
-                            break;
-                    }
-                }else{
-                    p2Point += 1;
-                    switch(body1.sprite.combat.laneSpawn){
-                        case 0:
-                            chef1.destroy();
-                            break;
-                        case 1:
-                            chef2.destroy();
-                            break;
-                        case 2:
-                            chef3.destroy();
-                            break;
-                        default:
-                            break;
-                    }
+                    Client.gameOver("p2");
+                    gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You win', { font: '24px Arial', fill: '#000' });
+                }else if(body2.sprite.key === "player1base"){
+                    Client.gameOver("p1");
+                    gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You lose', { font: '24px Arial', fill: '#000' });
                 }
+                game.paused = true;
             }
         }
+        body1.sprite.pendingDestroy = true;
+        body1.removeNextStep = true;
     }
     else{
         body2.sprite.combat.health -= body1.sprite.combat.att;
@@ -908,6 +883,7 @@ function damageCalculation(body1,body2) {
     
     
     ////console.log("curr enemy health: " + body2.sprite.combat.health);
+    /*
     if(body2.sprite.key === "player2base" || body2.sprite.key === "player1base"){
         body1.sprite.pendingDestroy = true;
         body1.removeNextStep = true;
@@ -927,10 +903,9 @@ function damageCalculation(body1,body2) {
                 game.paused = true;
             }
         }  
-
-        
-
     }
+    
+    */
     if(body1.sprite.combat.health > 0){
         game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
     }
