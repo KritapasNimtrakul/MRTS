@@ -19,7 +19,7 @@ var combatMovement ={
     attack:1,
 }
 var chef1,chef2,chef3,chef4,chef5,chef6;
-var chef,enemyChef;
+var chef = [],enemyChef = [];
 var cost = {
     butter:"1,butter",
     flour:"1,flour",
@@ -131,8 +131,8 @@ Game.create = function(){
     selectLane = [];
     p1Point = 0;
     p2Point = 0;
-    chef = {0:1,1:1,2:1};
-    enemyChef = {0:1,1:1,2:1};
+    //chef = {0:1,1:1,2:1};
+    //enemyChef = {0:1,1:1,2:1};
     
     glowFilter=new Phaser.Filter.Glow(game);
     
@@ -187,18 +187,18 @@ Game.create = function(){
     chef1 = chefGroup.create(window.innerWidth*0.2, window.innerHeight*0.25, 'chef');
     chef2 = chefGroup.create(window.innerWidth*0.2, window.innerHeight*0.52, 'chef');
     chef3 = chefGroup.create(window.innerWidth*0.2, window.innerHeight*0.80, 'chef');
-    chef4 = chefGroup.create(window.innerWidth*0.9, window.innerHeight*0.25, 'chef');
-    chef5 = chefGroup.create(window.innerWidth*0.9, window.innerHeight*0.52, 'chef');
-    chef6 = chefGroup.create(window.innerWidth*0.9, window.innerHeight*0.80, 'chef');
+    chef4 = chefGroup.create(window.innerWidth*0.8, window.innerHeight*0.25, 'chef');
+    chef5 = chefGroup.create(window.innerWidth*0.8, window.innerHeight*0.52, 'chef');
+    chef6 = chefGroup.create(window.innerWidth*0.8, window.innerHeight*0.80, 'chef');
     
-    chef1.scale.setTo(0.2, 0.2);
-    chef2.scale.setTo(0.2, 0.2);
-    chef3.scale.setTo(0.2, 0.2);
-    chef4.scale.setTo(-0.2, 0.2);
-    chef5.scale.setTo(-0.2, 0.2);
-    chef6.scale.setTo(-0.2, 0.2);
+    chef.push(chef1);
+    chef.push(chef2);
+    chef.push(chef3);
+    enemyChef.push(chef4);
+    enemyChef.push(chef5);
+    enemyChef.push(chef6);
     
-    
+
     
     player1base = player1Group.create(window.innerWidth*0.08, window.innerHeight*0.6, 'player1base');
     player1base.combat = {...stats.base, decision:0  };
@@ -249,6 +249,31 @@ Game.create = function(){
     
     player1base.body.collides([player1CollisionGroup, player2CollisionGroup]);
     player2base.body.collides([player1CollisionGroup, player2CollisionGroup]);
+    
+        for(var i =0; i<chef.length;i++){
+        chef[i].combat = {...stats.base, decision:0};
+        chef[i].scale.setTo(0.2, 0.2);
+        game.physics.p2.enable(chef[i]);
+        chef[i].enableBody = true;
+        chef[i].physicsBodyType = Phaser.Physics.P2JS;
+        chef[i].body.setCollisionGroup(player1CollisionGroup);
+        chef[i].body.collides(player2CollisionGroup, hitUnit, this);
+        
+    }
+        console.dir(chef);
+    
+    for(var i =0; i<enemyChef.length;i++){
+        enemyChef[i].combat = {...stats.base, decision:0};
+        
+        game.physics.p2.enable(enemyChef[i]);
+        enemyChef[i].enableBody = true;
+        enemyChef[i].physicsBodyType = Phaser.Physics.P2JS;
+        enemyChef[i].body.setCollisionGroup(player2CollisionGroup);
+        enemyChef[i].body.collides(player1CollisionGroup, hitUnit, this);
+        enemyChef[i].scale.setTo(-0.2, 0.2);
+    }
+    
+    console.dir(chef);
     
     
     overlay = document.querySelector('.b1');
@@ -860,7 +885,11 @@ function damageCalculation(body1,body2) {
         }
     }else if(body2.sprite.combat.type == 'b'){
         if(body2.sprite.combat.health > 0){
-            body2.sprite.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
+            if(body2.sprite.key === "player2base"){
+                player2base.sprite.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
+            }else if(body2.sprite.key === "player1base"){
+                player1base.sprite.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
+            }
             if(body2.sprite.combat.health <= 0){
                 activeLane[body1.sprite.combat.laneSpawn] = 0;
                 if(body2.sprite.key === "player2base"){
