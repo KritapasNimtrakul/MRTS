@@ -2,7 +2,7 @@ var stats = {
   
   butter: {
     "att": 1,
-    "health": 2,
+    "health": 1,
     "speed": 6,
     "range": 1,
     "wait": 0.5,
@@ -28,9 +28,9 @@ var stats = {
   },
   
   oil: {
-    "att": 2,
-    "health": 1,
-    "speed": 2,
+    "att": 1,
+    "health": 2,
+    "speed": 3,
     "range": 4,
     "wait": 0.5,
       "type":"n",
@@ -38,8 +38,8 @@ var stats = {
   
   milk: {
     "att": 2,
-    "health": 2,
-    "speed": 3,
+    "health": 1,
+    "speed": 2,
     "range": 3,
     "wait": 0.5,
       "type":"n",
@@ -57,7 +57,7 @@ var stats = {
   heat: {
     "att": 2,
     "health": 1,
-    "speed": 3,
+    "speed": 4,
     "range": 4,
     "wait": 0.5,  
       "type":"n",
@@ -74,34 +74,34 @@ var stats = {
   
   cracker: {
     "att": 2,
-    "health": 4,
-    "speed": 4,
-    "range": 1,
-    "wait": 0.5,
-      "type":"s",
-  },
-  
-  bread: {
-    "att": 2,
-    "health": 5,
+    "health": 10,
     "speed": 6,
     "range": 1,
     "wait": 0.5,
       "type":"s",
   },
   
+  bread: {
+    "att": 6,
+    "health": 18,
+    "speed": 4,
+    "range": 1,
+    "wait": 0.5,
+      "type":"s",
+  },
+  
   lavaCake: {
-    "att": 11,
-    "health": 3,
-    "speed": 8,
+    "att": 6,
+    "health": 6,
+    "speed": 6,
     "range": 1,
     "wait": 0.5,  
       "type":"m",
   },
   
   cupCake: {
-    "att": 6,
-    "health": 10,
+    "att": 12,
+    "health": 12,
     "speed": 4,
     "range": 1,
     "wait": 0.5,  
@@ -118,18 +118,18 @@ var stats = {
   },
   
   iceWater: {
-    "att": 2,
-    "health": 2,
-    "speed": 4,
+    "att": 8,
+    "health": 3,
+    "speed": 7,
     "range": 6,
     "wait": 0.5,
       "type":"l",
   },
   
   milkTea: {
-    "att": 4,
-    "health": 5,
-    "speed": 2,
+    "att": 18,
+    "health": 6,
+    "speed": 5,
     "range": 4,
     "wait": 0.5,
       "type":"l",
