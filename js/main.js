@@ -177,6 +177,7 @@ var liquid = ["milkTea.png", "iceWater.png"];
 var ui = document.createElement('div');
 ui.classList.add("js-overlay");
 ui.classList.add("overlay");
+ui.setAttribute('id', 'ui');
 
 var buttonOverlay = document.createElement('div');
 buttonOverlay.classList.add("b1-overlay");
