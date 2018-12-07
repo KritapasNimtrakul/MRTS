@@ -3,6 +3,7 @@ var stats = {
   butter: {
     "att": 1,
     "health": 1,
+    "maxHealth": 1,
     "speed": 6,
     "range": 1,
     "wait": 0.5,
@@ -12,6 +13,7 @@ var stats = {
   flour: {
     "att": 2,
     "health": 2,
+    "maxHealth": 2,
     "speed": 2,
     "range": 1,
     "wait": 0.5,
@@ -21,6 +23,7 @@ var stats = {
   sugar: {
     "att": 2,
     "health": 1,
+    "maxHealth": 1,
     "speed": 8,
     "range": 1,
     "wait": 0.5,
@@ -30,6 +33,7 @@ var stats = {
   oil: {
     "att": 1,
     "health": 2,
+    "maxHealth": 2,
     "speed": 3,
     "range": 4,
     "wait": 0.5,
@@ -39,6 +43,7 @@ var stats = {
   milk: {
     "att": 2,
     "health": 1,
+    "maxHealth": 1,
     "speed": 2,
     "range": 3,
     "wait": 0.5,
@@ -48,6 +53,7 @@ var stats = {
   water: {
     "att": 1,
     "health": 1,
+    "maxHealth": 1,
     "speed": 3,
     "range": 6,
     "wait": 0.5,
@@ -57,6 +63,7 @@ var stats = {
   heat: {
     "att": 2,
     "health": 1,
+    "maxHealth": 1,
     "speed": 4,
     "range": 4,
     "wait": 0.5,  
@@ -66,6 +73,7 @@ var stats = {
   cold: {
     "att": 1,
     "health": 2,
+    "maxHealth": 2,
     "speed": 2,
     "range": 4,
     "wait": 0.5,  
@@ -75,6 +83,7 @@ var stats = {
   cracker: {
     "att": 2,
     "health": 10,
+    "maxHealth": 10,
     "speed": 6,
     "range": 1,
     "wait": 0.5,
@@ -84,6 +93,7 @@ var stats = {
   bread: {
     "att": 6,
     "health": 18,
+    "maxHealth": 18,
     "speed": 4,
     "range": 1,
     "wait": 0.5,
@@ -93,6 +103,7 @@ var stats = {
   lavaCake: {
     "att": 6,
     "health": 6,
+    "maxHealth": 6,
     "speed": 6,
     "range": 1,
     "wait": 0.5,  
@@ -102,6 +113,7 @@ var stats = {
   cupCake: {
     "att": 12,
     "health": 12,
+    "maxHealth": 12,
     "speed": 4,
     "range": 1,
     "wait": 0.5,  
@@ -120,6 +132,7 @@ var stats = {
   iceWater: {
     "att": 8,
     "health": 3,
+    "maxHealth": 3,
     "speed": 7,
     "range": 6,
     "wait": 0.5,
@@ -129,6 +142,7 @@ var stats = {
   milkTea: {
     "att": 18,
     "health": 6,
+    "maxHealth": 6,
     "speed": 5,
     "range": 4,
     "wait": 0.5,
@@ -138,6 +152,7 @@ var stats = {
   butterMilk: {
     "att": 2,
     "health": 1,
+    "maxHealth": 1,
     "speed": 6,
     "range": 8,
     "wait": 0.5,

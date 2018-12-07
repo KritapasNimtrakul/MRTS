@@ -964,7 +964,8 @@ function damageCalculation(body1,body2) {
         game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
     }
   
-    body1.sprite.children[0].scale.x = 0.5;
+    body1.sprite.children[0].scale.x = (body1.sprite.combat.health / body1.sprite.combat.maxHealth) * 5;
+    body2.sprite.children[0].scale.x = (body2.sprite.combat.health / body2.sprite.combat.maxHealth) * 5;
   
     
     
