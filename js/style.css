@@ -24,6 +24,10 @@
 .img1{
     height: 80px;
 }
+.glassImg{
+    margin-left: 10%;
+     height: 160px; 
+}
 .imgStats{
     height: 90px;
     display: inline;
@@ -84,7 +88,19 @@
 #Solids {
     background-color: rgb(0, 0, 255);
 }
-
+.resourceOverlay{
+  position: absolute;
+        display:block;
+  z-index: 1000;
+  margin-left: 0.9%;
+  margin-top: 2%;
+    background-color: white;
+}
+.reSlot{
+    display: inline-block;
+    margin-left: 12px;
+    margin-right: 40px;
+}
 .healthbar {
   height: 10px;
   width: 100px;

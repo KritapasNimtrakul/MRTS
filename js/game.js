@@ -2,7 +2,7 @@ var Game = {};
 var Lobby = {};
 var Over = {};
 
-var testKey,player2base,spawnLane1Key,spawnLane2Key, player1base, overlay,canvas,buttonSpawn;
+var testKey,player2base,spawnLane1Key,spawnLane2Key, player1base, overlay,canvas,buttonSpawn, resourceUI;
 var playerN;
 var removeElement, player1Group, player2Group, laneGroup,chefGroup;
 var playerSprite;
@@ -262,6 +262,7 @@ Game.create = function(){
         chef[i].physicsBodyType = Phaser.Physics.P2JS;
         chef[i].body.setCollisionGroup(player1CollisionGroup);
         chef[i].body.collides(player2CollisionGroup, hitUnit, this);
+        chef[i].body.static = true;
         
     }
         console.dir(chef);
@@ -275,6 +276,7 @@ Game.create = function(){
         enemyChef[i].body.setCollisionGroup(player2CollisionGroup);
         enemyChef[i].body.collides(player1CollisionGroup, hitUnit, this);
         enemyChef[i].scale.setTo(-0.2, 0.2);
+        enemyChef[i].body.static = true;
     }
     
     console.dir(chef);
@@ -316,6 +318,7 @@ Game.create = function(){
     });
     
     buttonSpawn = document.querySelectorAll('.slot');
+    resourceUI = document.querySelectorAll('.reSlot');
     for(var i=0;i<buttonSpawn.length;i++){
         
         buttonSpawn[i].addEventListener('click',function(e){
@@ -390,6 +393,10 @@ function updateTextResource() {
             for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
     }
+                for(var i=0;i<resourceUI.length;i++){
+            resourceUI[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
+    }
+    
     /*
             for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player2base.resource[buttonSpawn[i].value.slice(0, -4)];
@@ -913,19 +920,23 @@ function damageCalculation(body1,body2) {
         console.dir(body2);
         if(body2.sprite.combat.health > 0){
             if(body2.collidesWith[0].mask == 4){
-                player2base.sprite.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
+                player2base.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
+                console.dir(player2base);
             }else if(body2.collidesWith[0].mask == 8){
-                player1base.sprite.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
+                player1base.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
+                console.dir(player1base);
             }
-            if(player2base.sprite.combat.health <= 0){
+            if(player2base.combat.health <= 0){
 
                     Client.gameOver("p2");
                     gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You win', { font: '24px Arial', fill: '#000' });
-            }else if(player1base.sprite.combat.health <= 0){
+                game.paused = true;
+            }else if(player1base.combat.health <= 0){
                     Client.gameOver("p1");
                     gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You lose', { font: '24px Arial', fill: '#000' });
-                }
                 game.paused = true;
+                }
+                
         }
         body1.sprite.pendingDestroy = true;
         body1.removeNextStep = true;

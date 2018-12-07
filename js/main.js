@@ -183,7 +183,7 @@ game.state.add('Lobby',Lobby);
 game.state.add('Over',Over);
 game.state.start('Game');
 
-var ingredients = ["butter.png", "flour.png", "sugar.png", "oil.png", "milk.png", "water.png"];
+var ingredients = ["butter.png", "flour.png", "sugar.png", "oil.png", "milk.png", "water.png", "EmptyGlass.png"];
 
 var solids = ["bread.png","cracker.png"];
 var mixed = ["cupCake.png", "lavaCake.png"];
@@ -363,5 +363,147 @@ ui.appendChild(statsOverlay);
 
 ui.appendChild(SpecialOverlay);
 
-document.getElementById('game').appendChild(ui);
+//document.getElementById('game').appendChild(ui);
 
+
+
+
+
+
+
+
+
+
+
+
+
+var resourceOverlay = document.createElement('div');
+resourceOverlay.classList.add("resourceOverlay");
+
+var resourceTitle = document.createElement('div');
+resourceTitle.classList.add("resourceText");
+
+resourceOverlay.appendChild(resourceTitle);
+
+var resourceTitle2 = document.createElement('div');
+resourceTitle2.classList.add("resourceText");
+
+resourceOverlay.appendChild(resourceTitle2);
+
+var slot1 = document.createElement('div');
+    slot1.classList.add("reSlot");
+    slot1.value = ingredients[0];
+    
+    var img1 = document.createElement('img');
+    img1.classList.add("img1");
+    img1.src = "../assets/sprites/"+ingredients[0];
+    slot1.appendChild(img1);
+    
+    var resouceDP1 = document.createElement('div');
+    resouceDP1.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP1.appendChild(t1);
+    slot1.appendChild(resouceDP1);
+    
+    var slot2 = document.createElement('div');
+    slot2.classList.add("reSlot");
+    slot2.value = ingredients[1];
+    
+    var img2 = document.createElement('img');
+    img2.classList.add("img1");
+    img2.src = "../assets/sprites/"+ingredients[1];
+    slot2.appendChild(img2);
+    
+    var resouceDP2 = document.createElement('div');
+    resouceDP2.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP2.appendChild(t1);
+    slot2.appendChild(resouceDP2);
+
+var slot3 = document.createElement('div');
+    slot3.classList.add("reSlot");
+    slot3.value = ingredients[2];
+    
+    var img3 = document.createElement('img');
+    img3.classList.add("img1");
+    img3.src = "../assets/sprites/"+ingredients[2];
+    slot3.appendChild(img3);
+    
+    var resouceDP3 = document.createElement('div');
+    resouceDP3.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP3.appendChild(t1);
+    slot3.appendChild(resouceDP3);
+
+
+var slot4 = document.createElement('div');
+    slot4.classList.add("reSlot");
+    slot4.value = ingredients[3];
+    
+    var img4 = document.createElement('img');
+    img4.classList.add("img1");
+    img4.src = "../assets/sprites/"+ingredients[3];
+    slot4.appendChild(img4);
+    
+    var resouceDP4 = document.createElement('div');
+    resouceDP4.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP4.appendChild(t1);
+    slot4.appendChild(resouceDP4);
+    
+    var slot5 = document.createElement('div');
+    slot5.classList.add("reSlot");
+    slot5.value = ingredients[4];
+    
+    var img5 = document.createElement('img');
+    img5.classList.add("img1");
+    img5.src = "../assets/sprites/"+ingredients[4];
+    slot5.appendChild(img5);
+    
+    var resouceDP5 = document.createElement('div');
+    resouceDP5.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP5.appendChild(t1);
+    slot5.appendChild(resouceDP5);
+
+var slot6 = document.createElement('div');
+    slot6.classList.add("reSlot");
+    slot6.value = ingredients[5];
+    
+    var img6 = document.createElement('img');
+    img6.classList.add("img1");
+    img6.src = "../assets/sprites/"+ingredients[5];
+    slot6.appendChild(img6);
+    
+    var resouceDP6 = document.createElement('div');
+    resouceDP6.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP6.appendChild(t1);
+    slot6.appendChild(resouceDP6);
+
+var slot7 = document.createElement('div');
+    slot7.classList.add("reSlot");
+    slot7.value = ingredients[6];
+    
+    var img7 = document.createElement('img');
+    img7.classList.add("glassImg");
+    img7.src = "../assets/sprites/"+ingredients[6];
+    slot7.appendChild(img7);
+    
+    var resouceDP7 = document.createElement('div');
+    resouceDP7.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP7.appendChild(t1);
+    slot7.appendChild(resouceDP7);
+    
+    resourceTitle.appendChild(slot1);
+    resourceTitle.appendChild(slot2);
+    resourceTitle.appendChild(slot3);
+    resourceTitle2.appendChild(slot4);
+    resourceTitle2.appendChild(slot5);
+    resourceTitle2.appendChild(slot6);
+    resourceTitle2.appendChild(slot7);
+
+document.getElementById('game').appendChild(resourceOverlay);
+
+document.getElementById('game').appendChild(ui);
