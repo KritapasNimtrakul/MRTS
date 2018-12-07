@@ -910,23 +910,22 @@ function damageCalculation(body1,body2) {
                 break;
         }
     }else if(body2.sprite.combat.type == 'b'){
+        console.dir(body2);
         if(body2.sprite.combat.health > 0){
-            if(body2.sprite.key === "player2base"){
+            if(body2.collidesWith[0].mask == 4){
                 player2base.sprite.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
-            }else if(body2.sprite.key === "player1base"){
+            }else if(body2.collidesWith[0].mask == 8){
                 player1base.sprite.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
             }
-            if(body2.sprite.combat.health <= 0){
-                activeLane[body1.sprite.combat.laneSpawn] = 0;
-                if(body2.sprite.key === "player2base"){
+            if(player2base.sprite.combat.health <= 0){
+
                     Client.gameOver("p2");
                     gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You win', { font: '24px Arial', fill: '#000' });
-                }else if(body2.sprite.key === "player1base"){
+            }else if(player1base.sprite.combat.health <= 0){
                     Client.gameOver("p1");
                     gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You lose', { font: '24px Arial', fill: '#000' });
                 }
                 game.paused = true;
-            }
         }
         body1.sprite.pendingDestroy = true;
         body1.removeNextStep = true;
