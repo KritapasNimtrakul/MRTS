@@ -76,6 +76,8 @@ Game.preload = function() {
     game.load.image('player2base','assets/sprites/base.png');
     game.load.image('background','assets/sprites/background.png');
     
+    game.load.image('healthBar', 'assets/sprites/healthBar.png');
+  
     game.load.image('lane1','assets/sprites/topTable.png');
     game.load.image('lane2','assets/sprites/middleTable.png');
     game.load.image('lane3','assets/sprites/bottomTable.png');
@@ -178,6 +180,8 @@ Game.create = function(){
     laneGroup = game.add.group();
     chefGroup = game.add.group();
     
+    
+  
     laneGroup.inputEnableChildren = true;
     
     background = laneGroup.create(0, 0, 'background');
@@ -650,13 +654,24 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit.body.velocity.x = 10*player1unit.combat.speed;
         player1unit.body.velocity.y = 0;
         player1unit.body.setCollisionGroup(player1CollisionGroup);
-
+          
         player1unit.body.collides(player2CollisionGroup, hitUnit, this);
+        var healthbar = game.make.sprite(player1unit.x - 700, player1unit.y - 600, 'healthBar');
+        healthbar.scale.setTo(5, 5);
+        player1unit.addChild(healthbar);
+          
+      /*  var healthbar = document.createElement('div');
+        healthbar.classList.add('healthbar');
+        healthbar.style.left = player1unit.x + "px";
+        healthbar.style.top = player1unit.y - 75 + "px";
+        document.getElementById('game').append(healthbar);*/
+//      player1unit.appendChild(healthbar);
+          
             }
         }
         for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
-    }
+        }
 
     }
     else{
@@ -754,6 +769,12 @@ Game.addNewUnit = function(playerNum,x,y){
         player2unit.body.setCollisionGroup(player2CollisionGroup);
 
         player2unit.body.collides(player1CollisionGroup, hitUnit, this);
+          
+        var healthbar2 = game.make.sprite(player2unit.x - 1100, player2unit.y - 600, 'healthBar');
+        healthbar2.scale.setTo(5, 5);
+        player2unit.addChild(healthbar2);
+          
+        //console.dir(player2unit);
         for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
     }
@@ -818,6 +839,11 @@ function hitUnit(body1, body2) {
 
 function damageCalculation(body1,body2) {
     
+    //console.dir(body1);
+  
+    //console.dir(body1.sprite.children[0]);
+    //console.dir(body2.sprite.children[0]);
+  
     if(body1.sprite == null || body2.sprite == null) {
       return;
     }
@@ -939,6 +965,10 @@ function damageCalculation(body1,body2) {
     if(body1.sprite.combat.health > 0){
         game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
     }
+  
+    body1.sprite.children[0].scale.x = 0.5;
+  
+    
     
 }
 

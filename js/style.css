@@ -2,7 +2,7 @@
   position: absolute;
   z-index: 1000;
   margin-left: 0.9%;
-  margin-top: 7.1%;
+  margin-top: 11.5%;
 }
 .b1, .b2 {
     display:block;
@@ -84,6 +84,7 @@
 #Solids {
     background-color: rgb(0, 0, 255);
 }
+<<<<<<< HEAD
 .resourceOverlay{
   position: absolute;
         display:block;
@@ -91,4 +92,14 @@
   margin-left: 0.9%;
   margin-top: 2%;
     background-color: black;
+=======
+
+.healthbar {
+  height: 10px;
+  width: 100px;
+  background-color: red;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+>>>>>>> 2d27a462ea39a9673db6d4c03ff3601628eaac75
 }
