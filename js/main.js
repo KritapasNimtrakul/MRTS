@@ -347,5 +347,61 @@ ui.appendChild(statsOverlay);
 
 ui.appendChild(SpecialOverlay);
 
-document.getElementById('game').appendChild(ui);
+//document.getElementById('game').appendChild(ui);
 
+
+
+
+
+
+
+
+
+
+
+
+
+var resourceOverlay = document.createElement('div');
+resourceOverlay.classList.add("resourceOverlay");
+
+var resourceTitle = document.createElement('div');
+resourceTitle.classList.add("resourceText");
+
+resourceOverlay.appendChild(resourceTitle);
+
+var slot1 = document.createElement('div');
+    slot1.classList.add("slot");
+    slot1.value = ingredients[0];
+    
+    var img1 = document.createElement('img');
+    img1.classList.add("img1");
+    img1.src = "../assets/sprites/"+ingredients[0];
+    slot1.appendChild(img1);
+    
+    var resouceDP1 = document.createElement('div');
+    resouceDP1.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP1.appendChild(t1);
+    slot1.appendChild(resouceDP1);
+    
+    var slot2 = document.createElement('div');
+    slot2.classList.add("slot");
+    slot2.value = ingredients[1];
+    
+    var img2 = document.createElement('img');
+    img2.classList.add("img1");
+    img2.src = "../assets/sprites/"+ingredients[1];
+    slot2.appendChild(img2);
+    
+    var resouceDP2 = document.createElement('div');
+    resouceDP2.classList.add("resouceDP");
+    var t1 = document.createTextNode("0");
+    resouceDP2.appendChild(t1);
+    slot2.appendChild(resouceDP2);
+    
+    resourceTitle.appendChild(slot1);
+    resourceTitle.appendChild(slot2);
+
+document.getElementById('game').appendChild(resourceOverlay);
+
+document.getElementById('game').appendChild(ui);

@@ -258,6 +258,7 @@ Game.create = function(){
         chef[i].physicsBodyType = Phaser.Physics.P2JS;
         chef[i].body.setCollisionGroup(player1CollisionGroup);
         chef[i].body.collides(player2CollisionGroup, hitUnit, this);
+        chef[i].body.static = true;
         
     }
         console.dir(chef);
@@ -271,6 +272,7 @@ Game.create = function(){
         enemyChef[i].body.setCollisionGroup(player2CollisionGroup);
         enemyChef[i].body.collides(player1CollisionGroup, hitUnit, this);
         enemyChef[i].scale.setTo(-0.2, 0.2);
+        enemyChef[i].body.static = true;
     }
     
     console.dir(chef);
