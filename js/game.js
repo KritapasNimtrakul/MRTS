@@ -2,7 +2,7 @@ var Game = {};
 var Lobby = {};
 var Over = {};
 
-var testKey,player2base,spawnLane1Key,spawnLane2Key, player1base, overlay,canvas,buttonSpawn;
+var testKey,player2base,spawnLane1Key,spawnLane2Key, player1base, overlay,canvas,buttonSpawn, resourceUI;
 var playerN;
 var removeElement, player1Group, player2Group, laneGroup,chefGroup;
 var playerSprite;
@@ -318,6 +318,7 @@ Game.create = function(){
     });
     
     buttonSpawn = document.querySelectorAll('.slot');
+    resourceUI = document.querySelectorAll('.reSlot');
     for(var i=0;i<buttonSpawn.length;i++){
         
         buttonSpawn[i].addEventListener('click',function(e){
@@ -392,6 +393,10 @@ function updateTextResource() {
             for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
     }
+                for(var i=0;i<resourceUI.length;i++){
+            resourceUI[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
+    }
+    
     /*
             for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player2base.resource[buttonSpawn[i].value.slice(0, -4)];
