@@ -8,6 +8,7 @@ var removeElement, player1Group, player2Group, laneGroup,chefGroup;
 var playerSprite;
 let player1unit,player2unit;
 var player1CollisionGroup,player2CollisionGroup;
+var winlose;
 var timer;
 var background;
 var gameText;
@@ -75,6 +76,8 @@ Game.preload = function() {
     game.load.image('player1base','assets/sprites/base.png');
     game.load.image('player2base','assets/sprites/base.png');
     game.load.image('background','assets/sprites/background.png');
+    game.load.image('win','assets/sprites/WinLossCrest.png');
+    game.load.image('lose','assets/sprites/LossWinCrest.png');
     
     game.load.image('healthBar', 'assets/sprites/healthBar.png');
   
@@ -669,7 +672,7 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit.body.setCollisionGroup(player1CollisionGroup);
           
         player1unit.body.collides(player2CollisionGroup, hitUnit, this);
-        console.dir(player1unit);
+        //console.dir(player1unit);
         var healthbar = game.make.sprite(-player1unit.texture.width / 1.4, -player1unit.texture.height / 1.5, 'healthBar');
         healthbar.scale.setTo(5, 5);
         player1unit.addChild(healthbar);
@@ -924,22 +927,26 @@ function damageCalculation(body1,body2) {
                 break;
         }
     }else if(body2.sprite.combat.type == 'b'){
-        console.dir(body2);
+        //console.dir(body2);
         if(body2.sprite.combat.health > 0){
             if(body2.collidesWith[0].mask == 4){
                 player2base.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
-                console.dir(player2base);
+                //console.dir(player2base);
             }else if(body2.collidesWith[0].mask == 8){
                 player1base.combat.health -= body1.sprite.combat.att + body1.sprite.combat.health;
-                console.dir(player1base);
+                //console.dir(player1base);
             }
             if(player2base.combat.health <= 0){
 
                     Client.gameOver("p2");
+                winlose = game.add.sprite(window.innerWidth/4, window.innerHeight/4, 'win');
+                winlose.scale.setTo(window.innerWidth/1000, window.innerHeight/1000);
                     gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You win', { font: '24px Arial', fill: '#000' });
                 game.paused = true;
             }else if(player1base.combat.health <= 0){
                     Client.gameOver("p1");
+                winlose = game.add.sprite(window.innerWidth/4, window.innerHeight/4, 'lose');
+                winlose.scale.setTo(window.innerWidth/1000, window.innerHeight/1000);
                     gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You lose', { font: '24px Arial', fill: '#000' });
                 game.paused = true;
                 }
@@ -955,10 +962,15 @@ function damageCalculation(body1,body2) {
     if(body2.sprite != null){
       if(body2.collidesWith[0].mask == 8){
         player1base.children[0].scale.x = (player1base.combat.health / player1base.combat.maxHealth) * 1.4;
+          if(player1base.children[0].scale.x <= 0){
+              player1base.children[0].scale.x = 0;
+          }
       }else if(body2.collidesWith[0].mask == 4){
         player2base.children[0].scale.x = (player2base.combat.health / player2base.combat.maxHealth) * 1.4;
+        if(player2base.children[0].scale.x <= 0){
+              player2base.children[0].scale.x = 0;
+          }
       } else {
-         
          body2.sprite.children[0].scale.x = (body2.sprite.combat.health / body2.sprite.combat.maxHealth) * 5;
       }
         

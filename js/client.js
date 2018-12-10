@@ -3,7 +3,7 @@ var Client = {};
 Client.socket = io.connect();
 
 Client.sendTest = function(){
-    console.log("test sent");
+    //console.log("test sent");
     Client.socket.emit('test');
 };
 Client.standby = function(){
@@ -14,21 +14,21 @@ Client.gameOver = function(p){
 };
 
 Client.spawnLane1 = function(){
-    console.log("spawn lane 1");
+    //console.log("spawn lane 1");
     Client.socket.emit('spawn',{y:window.innerHeight*0.25});
 };
 
 Client.spawnLane2 = function(){
-    console.log("spawn lane 2");
+    //console.log("spawn lane 2");
     Client.socket.emit('spawn',{y:window.innerHeight*0.52});
 };
 
 Client.spawnLane3 = function(){
-    console.log("spawn lane 3");
+    //console.log("spawn lane 3");
     Client.socket.emit('spawn',{y:window.innerHeight*0.80});
 };
 Client.setEnemySprite = function(spriteName){
-    console.log("XYZ");
+    ///console.log("XYZ");
     Client.socket.emit('setEnemy',{name:spriteName});
 };
 
@@ -37,7 +37,7 @@ Client.askNewPlayer = function(){
 };
 
 Client.sendClick = function(x,y){
-    console.log("x: "+ x  +" y "+ y);
+   // console.log("x: "+ x  +" y "+ y);
   Client.socket.emit('click',{x:x,y:y});
 };
 
@@ -46,16 +46,16 @@ Client.socket.on('newplayer',function(data){
     Game.addNewPlayer(data.id);
 });
 Client.socket.on('spawnUnit',function(data){
-    console.dir(data + "spwn1");
+    //console.dir(data + "spwn1");
     Game.addNewUnit(data.playerNum,data.x,data.y);
 });
 Client.socket.on('ename',function(data){
-    console.dir(data);
+   // console.dir(data);
     Game.ChangeUnit(data.name,data.playerNum);
 });
 
 Client.socket.on('error', function (err) {
-    console.log(err);
+   // console.log(err);
 });
 
 Client.socket.on('start', function () {

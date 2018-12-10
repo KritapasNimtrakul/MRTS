@@ -11,12 +11,12 @@ function setupSockets(ioInstance) {
     io.on('connection',function(socket){
         // Whenever a player connects, they join room1
         socket.on('joinRoom',function(){
-            console.log("hello");
+            //console.log("hello");
             var newPlayer = {
                 id: socket.id
             };
             
-            console.dir(newPlayer);
+            //console.dir(newPlayer);
             players.push(newPlayer);   
             
             console.log(players.length);
