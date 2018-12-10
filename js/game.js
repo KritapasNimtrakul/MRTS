@@ -661,7 +661,7 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit.body.setCollisionGroup(player1CollisionGroup);
           
         player1unit.body.collides(player2CollisionGroup, hitUnit, this);
-        var healthbar = game.make.sprite(player1unit.x - 700, player1unit.y - 600, 'healthBar');
+        var healthbar = game.make.sprite(0, 0, 'healthBar');
         healthbar.scale.setTo(5, 5);
         player1unit.addChild(healthbar);
           
@@ -775,7 +775,7 @@ Game.addNewUnit = function(playerNum,x,y){
 
         player2unit.body.collides(player1CollisionGroup, hitUnit, this);
           
-        var healthbar2 = game.make.sprite(player2unit.x - 1100, player2unit.y - 600, 'healthBar');
+        var healthbar2 = game.make.sprite(0, 0, 'healthBar');
         healthbar2.scale.setTo(5, 5);
         player2unit.addChild(healthbar2);
           
@@ -973,10 +973,12 @@ function damageCalculation(body1,body2) {
     */
     if(body1.sprite.combat.health > 0){
         game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
+      
+      body1.sprite.children[0].scale.x = (body1.sprite.combat.health / body1.sprite.combat.maxHealth) * 5;
+      body2.sprite.children[0].scale.x = (body2.sprite.combat.health / body2.sprite.combat.maxHealth) * 5;
     }
   
-    body1.sprite.children[0].scale.x = (body1.sprite.combat.health / body1.sprite.combat.maxHealth) * 5;
-    body2.sprite.children[0].scale.x = (body2.sprite.combat.health / body2.sprite.combat.maxHealth) * 5;
+    
   
     
     
