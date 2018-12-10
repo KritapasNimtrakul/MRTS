@@ -183,7 +183,7 @@ game.state.add('Lobby',Lobby);
 game.state.add('Over',Over);
 game.state.start('Game');
 
-var ingredients = ["butter.png", "flour.png", "sugar.png", "oil.png", "milk.png", "water.png", "EmptyGlass.png"];
+var ingredients = ["butter.png", "flour.png", "sugar.png", "oil.png", "milk.png", "water.png", "glass.png"];
 
 var solids = ["bread.png","cracker.png"];
 var mixed = ["cupCake.png", "lavaCake.png"];
@@ -395,7 +395,7 @@ var slot1 = document.createElement('div');
     slot1.value = ingredients[0];
     
     var img1 = document.createElement('img');
-    img1.classList.add("img1");
+    img1.classList.add("resourceimg");
     img1.src = "../assets/sprites/"+ingredients[0];
     slot1.appendChild(img1);
     
@@ -410,7 +410,7 @@ var slot1 = document.createElement('div');
     slot2.value = ingredients[1];
     
     var img2 = document.createElement('img');
-    img2.classList.add("img1");
+    img2.classList.add("resourceimg");
     img2.src = "../assets/sprites/"+ingredients[1];
     slot2.appendChild(img2);
     
@@ -425,7 +425,7 @@ var slot3 = document.createElement('div');
     slot3.value = ingredients[2];
     
     var img3 = document.createElement('img');
-    img3.classList.add("img1");
+    img3.classList.add("resourceimg");
     img3.src = "../assets/sprites/"+ingredients[2];
     slot3.appendChild(img3);
     
@@ -441,7 +441,7 @@ var slot4 = document.createElement('div');
     slot4.value = ingredients[3];
     
     var img4 = document.createElement('img');
-    img4.classList.add("img1");
+    img4.classList.add("resourceimg");
     img4.src = "../assets/sprites/"+ingredients[3];
     slot4.appendChild(img4);
     
@@ -456,7 +456,7 @@ var slot4 = document.createElement('div');
     slot5.value = ingredients[4];
     
     var img5 = document.createElement('img');
-    img5.classList.add("img1");
+    img5.classList.add("resourceimg");
     img5.src = "../assets/sprites/"+ingredients[4];
     slot5.appendChild(img5);
     
@@ -471,7 +471,7 @@ var slot6 = document.createElement('div');
     slot6.value = ingredients[5];
     
     var img6 = document.createElement('img');
-    img6.classList.add("img1");
+    img6.classList.add("resourceimg");
     img6.src = "../assets/sprites/"+ingredients[5];
     slot6.appendChild(img6);
     

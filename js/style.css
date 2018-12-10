@@ -24,10 +24,7 @@
 .img1{
     height: 80px;
 }
-.glassImg{
-    margin-left: 10%;
-     height: 160px; 
-}
+
 .imgStats{
     height: 90px;
     display: inline;
@@ -93,13 +90,16 @@
         display:block;
   z-index: 1000;
   margin-left: 0.9%;
-  margin-top: 2%;
-    background-color: white;
+  margin-top: 1%;
+    background-color: lightgray;
 }
 .reSlot{
     display: inline-block;
     margin-left: 12px;
     margin-right: 40px;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    text-align: center;
 }
 .healthbar {
   height: 10px;
@@ -108,4 +108,10 @@
   top: 0px;
   left: 0px;
   position: absolute;
+}
+.resourceimg{
+    height: 40px;
+}
+.glassImg{
+     height: 60px; 
 }
