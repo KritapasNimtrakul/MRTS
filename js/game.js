@@ -394,7 +394,7 @@ function updateTextResource() {
             buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
     }
                 for(var i=0;i<resourceUI.length;i++){
-            resourceUI[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
+            resourceUI[i].childNodes[1].textContent = player1base.resource[resourceUI[i].value.slice(0, -4)];
     }
     
     /*
@@ -676,6 +676,9 @@ Game.addNewUnit = function(playerNum,x,y){
         }
         for(var i=0;i<buttonSpawn.length;i++){
             buttonSpawn[i].childNodes[1].textContent = player1base.resource[buttonSpawn[i].value.slice(0, -4)];
+        }
+        for(var i=0;i<resourceUI.length;i++){
+            resourceUI[i].childNodes[1].textContent = player1base.resource[resourceUI[i].value.slice(0, -4)];
         }
 
     }
