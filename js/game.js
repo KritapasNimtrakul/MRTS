@@ -530,10 +530,10 @@ function changeSpawnLane(o,x,laneNum) {
 function timerCall() {
 
     // How often you get ingredients (in milliseconds)
-    timer.loop(20000, updateResource, this);
+    timer.loop(15000, updateResource, this);
     //timer.loop(20000, updateResource, this);
     //How often you get glass (in milliseconds)
-    timer.loop(15000, updateGlass, this);
+    timer.loop(11250, updateGlass, this);
     // How often the resources are visually updated
     timer.add(1000, updateTextResource, this);
     timer.start();
@@ -664,7 +664,7 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit.body.data.fixedY = true;
         player1unit.body.data.fixedX = false;
         player1unit.body.fixedRotation = true;
-        player1unit.body.velocity.x = 10*player1unit.combat.speed;
+        player1unit.body.velocity.x = 20*player1unit.combat.speed;
         player1unit.body.velocity.y = 0;
         player1unit.body.setCollisionGroup(player1CollisionGroup);
           
@@ -775,7 +775,7 @@ Game.addNewUnit = function(playerNum,x,y){
         player2unit.body.data.fixedY = true;  
         player2unit.body.data.fixedX = false; 
         player2unit.body.fixedRotation = true;
-        player2unit.body.velocity.x = 10*player2unit.combat.speed;
+        player2unit.body.velocity.x = 20*player2unit.combat.speed;
         player2unit.body.setCollisionGroup(player2CollisionGroup);
 
         player2unit.body.collides(player1CollisionGroup, hitUnit, this);
@@ -841,7 +841,7 @@ function hitUnit(body1, body2) {
         //console.dir(body1.sprite);
             //  Set a TimerEvent to occur after 2 seconds
         //timer.loop(1000*body1.sprite.combat.waitTime, damageCalculation(body1,body2), this);
-        game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
+        game.time.events.add(500*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
     }
 
 
@@ -989,7 +989,7 @@ function damageCalculation(body1,body2) {
     
     */
     if(body1.sprite.combat.health > 0){
-        game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
+        game.time.events.add(500*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
       
       
     }
