@@ -42,7 +42,7 @@ Client.sendClick = function(x,y){
 };
 
 Client.socket.on('newplayer',function(data){
-    console.dir(data);
+    
     Game.addNewPlayer(data.id);
 });
 Client.socket.on('spawnUnit',function(data){

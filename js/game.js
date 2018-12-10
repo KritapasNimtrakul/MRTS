@@ -241,9 +241,19 @@ Game.create = function(){
     player2base.canSpawn = true;
   
     game.physics.p2.enable( [ player1base, player2base ]);
-    
+  
     player1base.body.static = true;
     player2base.body.static = true;
+  
+    var basebar1 = game.make.sprite(-player1base.texture.width / 2.7, -player1base.texture.height / 1.8, 'healthBar');
+    basebar1.enablebody = false;
+    basebar1.scale.setTo(1.4, 1.4);
+    player1base.addChild(basebar1);
+  
+    var basebar2 = game.make.sprite(-player2base.texture.width / 2.7, -player2base.texture.height / 1.8, 'healthBar');
+    basebar2.static = true;
+    basebar2.scale.setTo(1.4, 1.4);
+    player2base.addChild(basebar2);
     
     player1CollisionGroup = game.physics.p2.createCollisionGroup();
     player2CollisionGroup = game.physics.p2.createCollisionGroup();
@@ -265,7 +275,7 @@ Game.create = function(){
         chef[i].body.static = true;
         
     }
-        console.dir(chef);
+        
     
     for(var i =0; i<enemyChef.length;i++){
         enemyChef[i].combat = {...stats.base, decision:0};
@@ -279,7 +289,7 @@ Game.create = function(){
         enemyChef[i].body.static = true;
     }
     
-    console.dir(chef);
+    
     
     
     overlay = document.querySelector('.b1');
@@ -661,17 +671,11 @@ Game.addNewUnit = function(playerNum,x,y){
         player1unit.body.setCollisionGroup(player1CollisionGroup);
           
         player1unit.body.collides(player2CollisionGroup, hitUnit, this);
-        var healthbar = game.make.sprite(0, 0, 'healthBar');
+        console.dir(player1unit);
+        var healthbar = game.make.sprite(-player1unit.texture.width / 1.4, -player1unit.texture.height / 1.5, 'healthBar');
         healthbar.scale.setTo(5, 5);
         player1unit.addChild(healthbar);
-          
-      /*  var healthbar = document.createElement('div');
-        healthbar.classList.add('healthbar');
-        healthbar.style.left = player1unit.x + "px";
-        healthbar.style.top = player1unit.y - 75 + "px";
-        document.getElementById('game').append(healthbar);*/
-//      player1unit.appendChild(healthbar);
-          
+ 
             }
         }
         for(var i=0;i<buttonSpawn.length;i++){
@@ -778,7 +782,7 @@ Game.addNewUnit = function(playerNum,x,y){
 
         player2unit.body.collides(player1CollisionGroup, hitUnit, this);
           
-        var healthbar2 = game.make.sprite(0, 0, 'healthBar');
+        var healthbar2 = game.make.sprite(-player2unit.texture.width / 1.4, -player2unit.texture.height / 1.5, 'healthBar');
         healthbar2.scale.setTo(5, 5);
         player2unit.addChild(healthbar2);
           
@@ -865,6 +869,8 @@ function damageCalculation(body1,body2) {
         body1.static = false;
         body1.data.inertia = 0;
         body1.data.velocity = [-1*body1.sprite.combat.speed,0];
+        body2.sprite.children[0].pendingDestroy = true;
+        body2.sprite.children[0].removeNextStep = true;
         
         ////console.dir(body1.sprite.combat.speed);
         return;
@@ -948,8 +954,18 @@ function damageCalculation(body1,body2) {
         body2.sprite.combat.health -= body1.sprite.combat.att;
     }
     }
-    
-    
+    if(body2.sprite != null){
+      if(body2.collidesWith[0].mask == 8){
+        player1base.children[0].scale.x = (player1base.combat.health / player1base.combat.maxHealth) * 1.4;
+      }else if(body2.collidesWith[0].mask == 4){
+        player2base.children[0].scale.x = (player2base.combat.health / player2base.combat.maxHealth) * 1.4;
+      } else {
+         
+         body2.sprite.children[0].scale.x = (body2.sprite.combat.health / body2.sprite.combat.maxHealth) * 5;
+      }
+        
+    }
+  body1.sprite.children[0].scale.x = (body1.sprite.combat.health / body1.sprite.combat.maxHealth) * 5;
     ////console.log("curr enemy health: " + body2.sprite.combat.health);
     /*
     if(body2.sprite.key === "player2base" || body2.sprite.key === "player1base"){
@@ -977,8 +993,7 @@ function damageCalculation(body1,body2) {
     if(body1.sprite.combat.health > 0){
         game.time.events.add(1000*body1.sprite.combat.wait, damageCalculation,this,body1,body2);
       
-      body1.sprite.children[0].scale.x = (body1.sprite.combat.health / body1.sprite.combat.maxHealth) * 5;
-      body2.sprite.children[0].scale.x = (body2.sprite.combat.health / body2.sprite.combat.maxHealth) * 5;
+      
     }
   
     
