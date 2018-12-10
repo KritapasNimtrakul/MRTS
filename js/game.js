@@ -938,13 +938,14 @@ function damageCalculation(body1,body2) {
             }
             if(player2base.combat.health <= 0){
 
-                    Client.gameOver("p2");
+                    //Client.gameOver("p2");
                 winlose = game.add.sprite(window.innerWidth/4, window.innerHeight/4, 'win');
                 winlose.scale.setTo(window.innerWidth/2000, window.innerHeight/2000);
                     gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You win', { font: '24px Arial', fill: '#000' });
                 game.paused = true;
-            }else if(player1base.combat.health <= 0){
-                    Client.gameOver("p1");
+            }
+            if(player1base.combat.health <= 0){
+                    //Client.gameOver("p1");
                 winlose = game.add.sprite(window.innerWidth/4, window.innerHeight/4, 'lose');
                 winlose.scale.setTo(window.innerWidth/2000, window.innerHeight/2000);
                     gameText = game.add.text(window.innerWidth/2, window.innerHeight, 'You lose', { font: '24px Arial', fill: '#000' });
